@@ -1,11 +1,11 @@
-import * as React from 'react';
 import { Button } from './button';
 import { Spinner } from '@/components/ui/spinner';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages';
+import type { ComponentProps } from 'react';
 
 
-interface IProps extends React.ComponentProps<typeof Button> {
+interface IProps extends ComponentProps<typeof Button> {
   loading?: boolean;
   hideText?: boolean;
   hideTextOnMobile?: boolean;

@@ -1,5 +1,5 @@
 import { type ComponentProps, type FC } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button.tsx';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,7 +8,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu';
+} from '@/components/ui/dropdown-menu.tsx';
 import { LaptopIcon, type LucideIcon, MoonIcon, SunIcon, SunMoonIcon } from 'lucide-react';
 import { useTheme } from 'better-themes';
 import { m } from '@/paraglide/messages';

@@ -3,10 +3,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { cn } from '@/lib/utils';
 import { SignInForm, signInSchema, type TSignInSchema } from '@/routes/auth/sign-in/-components/sign-in-form.tsx';
 import { useForm } from 'react-hook-form';
-import { LoadingButton } from '@/components/ui/loading-button.tsx';
 import { m } from '@/paraglide/messages';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SendIcon } from 'lucide-react';
+import { LoadingButton } from '@/components/ui/loading-button.tsx';
 
 
 interface ISignInCard extends ComponentProps<typeof Card> {

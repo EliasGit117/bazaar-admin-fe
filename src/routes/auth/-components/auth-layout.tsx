@@ -38,8 +38,8 @@ export const AuthLayout: FC<PropsWithChildren<ComponentProps<'div'>>> = ({ class
       </div>
 
 
-      <div className="bg-muted relative hidden lg:block border-l">
-        {background.current}
+      <div className="bg-muted relative hidden lg:block border-l overflow-hidden">
+        {<background.current className='text-primary scale-y-105'/>}
       </div>
     </div>
   )
@@ -47,8 +47,8 @@ export const AuthLayout: FC<PropsWithChildren<ComponentProps<'div'>>> = ({ class
 
 const getRandom0to3 = (): number => Math.floor(Math.random() * 4);
 const backgrounds = [
-  <BgFirst className='text-primary'/>,
-  <BgSecond className='text-primary'/>,
-  <BgThird className='text-primary'/>,
-  <BgFourth className='text-primary'/>,
+  BgFirst,
+  BgSecond,
+  BgThird,
+  BgFourth,
 ]

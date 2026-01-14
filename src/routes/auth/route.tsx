@@ -11,6 +11,8 @@ export const Route = createFileRoute('/auth')({
   }
 });
 
+
+
 function RouteComponent() {
   return (
     <AuthLayout className="min-h-svh">

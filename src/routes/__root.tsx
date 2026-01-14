@@ -1,4 +1,4 @@
-import { Outlet, createRootRouteWithContext, HeadContent } from '@tanstack/react-router';
+import { Outlet, createRootRouteWithContext, HeadContent, Scripts } from '@tanstack/react-router';
 import type { QueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { getZodErrorMap } from '@/lib/zod';
@@ -12,7 +12,7 @@ interface IContext {
 
 export const Route = createRootRouteWithContext<IContext>()({
   beforeLoad: () => ({ locale: getLocale() }),
-  component: RootComponent
+  component: RootComponent,
 });
 
 
@@ -26,8 +26,9 @@ function RootComponent() {
 
   return (
     <>
-      <HeadContent />
+      <HeadContent/>
       <Outlet />
+      <Scripts/>
     </>
   );
 }

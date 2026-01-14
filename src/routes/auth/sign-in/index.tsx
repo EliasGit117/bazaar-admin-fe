@@ -9,9 +9,6 @@ export const Route = createFileRoute('/auth/sign-in/')({
   head: () => {
     return ({ meta: [{ title: m['pages.auth.sign_in.title']() }] })
   },
-  loader: ({ context: { locale } }) => {
-    console.log(locale);
-  }
 });
 
 function RouteComponent() {

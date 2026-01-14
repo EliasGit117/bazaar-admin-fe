@@ -1,4 +1,3 @@
-import './styles.css';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
@@ -21,13 +20,11 @@ const queryClient = new QueryClient({
 
 const router = createRouter({
   routeTree,
-  context: {
-    queryClient: queryClient,
-  },
+  context: { queryClient: queryClient },
   defaultPreload: 'intent',
   scrollRestoration: true,
   defaultStructuralSharing: true,
-  defaultPreloadStaleTime: 0
+  defaultPreloadStaleTime: 0,
 });
 
 declare module '@tanstack/react-router' {
@@ -35,6 +32,7 @@ declare module '@tanstack/react-router' {
     router: typeof router;
   }
 }
+
 
 const rootElement = document.getElementById('app');
 if (rootElement && !rootElement.innerHTML) {

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "example_message": "Salut lume {username}",
+  "common": {
+    "submit": "Trimite",
+    "create": "Creează",
+    "delete": "Șterge",
+    "pending": "În așteptare",
+    "loading": "Se încarcă",
+    "error": "Eroare",
+    "success": "Succes",
+    "email": "Email",
+    "password": "Parolă",
+    "full_name": "Nume complet",
+    "invalid": "Invalid",
+    "sign_out": "Deconectare",
+    "go_back": "Autentificare",
+    "refresh": "Reîmprospătează"
+  },
+  "components": {
+    "locale_dropdown": {
+      "title": "Selectare limbă"
+    },
+    "theme_dropdown": {
+      "title": "Selectare temă",
+      "system": "De sistema",
+      "light": "Luminoasǎ",
+      "dark": "Întunericǎ"
+    },
+    "footer": {
+      "text": "© {year} {name} | Creat cu grijă"
+    }
+  },
+  "pages": {
+    "auth": {
+      "sign_in": {
+        "title": "Autentificare",
+        "form": {
+          "title": "Autentificare",
+          "description": "Completați câmpurile de mai jos pentru a obține acces la serviciu"
+        }
+      }
+    }
+  }
+}

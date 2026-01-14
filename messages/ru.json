@@ -1,0 +1,45 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "example_message": "Привет мир {username}",
+  "common": {
+    "submit": "Отправить",
+    "create": "Создать",
+    "delete": "Удалить",
+    "pending": "В ожидании",
+    "loading": "Загрузка",
+    "error": "Ошибка",
+    "success": "Успешно",
+    "email": "Email",
+    "password": "Пароль",
+    "full_name": "Полное имя",
+    "invalid": "Недействительно",
+    "sign_out": "Выйти",
+    "go_back": "Войти",
+    "refresh": "Обновить"
+  },
+  "components": {
+    "locale_dropdown": {
+      "title": "Выбор языка"
+    },
+    "theme_dropdown": {
+      "title": "Выбор темы",
+      "system": "Системная",
+      "light": "Светлая",
+      "dark": "Тёмная"
+    },
+    "footer": {
+      "text": "© {year} {name} | Создано с заботой"
+    }
+  },
+  "pages": {
+    "auth": {
+      "sign_in": {
+        "title": "Авторизация",
+        "form": {
+          "title": "Вход",
+          "description": "Заполните поля ниже, чтобы получить доступ к сервису"
+        }
+      }
+    }
+  }
+}

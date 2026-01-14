@@ -8,12 +8,13 @@ import { Providers } from '@/providers.tsx';
 import { QueryClient } from '@tanstack/react-query';
 
 
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
       staleTime: 60 * 1000,
-      gcTime: 120 * 1000,
+      gcTime: 120 * 1000
     }
   }
 });
@@ -21,7 +22,9 @@ const queryClient = new QueryClient({
 
 const router = createRouter({
   routeTree,
-  context: { queryClient: queryClient, },
+  context: {
+    queryClient: queryClient,
+  },
   defaultPreload: 'intent',
   scrollRestoration: true,
   defaultStructuralSharing: true,

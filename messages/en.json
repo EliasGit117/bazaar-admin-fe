@@ -1,0 +1,45 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "example_message": "Hello world {username}",
+  "common": {
+    "submit": "Submit",
+    "create": "Create",
+    "delete": "Delete",
+    "pending": "Pending",
+    "loading": "Loading",
+    "error": "Error",
+    "success": "Success",
+    "email": "Email",
+    "password": "Password",
+    "full_name": "Fullname",
+    "invalid": "Invalid",
+    "sign_out": "Sign Out",
+    "go_back": "Sign In",
+    "refresh": "Refresh"
+  },
+  "components": {
+    "locale_dropdown": {
+      "title": "Language selection"
+    },
+    "theme_dropdown": {
+      "title": "Language selection",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "footer": {
+      "text": "© {year} {name} | Built with care"
+    }
+  },
+  "pages": {
+    "auth": {
+      "title": "Sign In",
+      "sign_in": {
+        "form": {
+          "title": "Sign In",
+          "description": "Fill the fields below to get access to the service"
+        }
+      }
+    }
+  }
+}

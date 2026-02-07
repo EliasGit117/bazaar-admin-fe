@@ -15,9 +15,34 @@
     "invalid": "Недействительно",
     "sign_out": "Выйти",
     "go_back": "Войти",
-    "refresh": "Обновить"
+    "refresh": "Обновить",
+    "list": "Список",
+    "asc": "По возрастанию",
+    "desc": "По убыванию",
+    "reset": "Сбросить",
+    "clear": "Очистить",
+    "selected": "Выбрано",
+    "revoke": "Отозвать",
+    "page": "Страница",
+    "of": "Из",
+    "select": "Выбрать",
+    "created": "Создан",
+    "updated": "Обновлён",
+    "expires": "Истекает",
+    "actions": "Действия"
   },
   "components": {
+    "data_table": {
+      "columns": "Колонки",
+      "sort": "Сортировка",
+      "no_columns_found": "Колонки не найдены",
+      "search_columns": "Поиск колонок",
+      "sort_by": "Сортировать по",
+      "direction": "Направление",
+      "clear": "Очистить",
+      "hide": "Скрыть",
+      "rows_per_page": "Строк на странице"
+    },
     "locale_dropdown": {
       "title": "Выбор языка"
     },
@@ -26,6 +51,17 @@
       "system": "Системная",
       "light": "Светлая",
       "dark": "Тёмная"
+    },
+    "sidebar": {
+      "main": "Главное",
+      "dash": "Панель управления",
+      "settings": "Настройки",
+      "sessions": "Сессии",
+      "users": "Пользователи",
+      "user_list": "Список пользователей",
+      "businesses": "Бизнес",
+      "vendors": "Вендоры",
+      "stores": "Магазины"
     },
     "footer": {
       "text": "© {year} {name} | Создано с заботой"
@@ -38,6 +74,24 @@
         "form": {
           "title": "Вход",
           "description": "Заполните поля ниже, чтобы получить доступ к сервису"
+        }
+      }
+    },
+    "users": {
+      "list": {
+        "table": {
+          "findById": "Id",
+          "user": "Пользователь",
+          "userId": "Id пользователя",
+          "filterByUserId": "Id пользователя",
+          "agent": "Агент",
+          "ipAddress": "Ip адрес",
+          "type": "Тип",
+          "current": "Текущая",
+          "other": "Другая",
+          "external": "Внешний",
+          "owner": "Владелец",
+          "revoke": "Отозвать"
         }
       }
     }

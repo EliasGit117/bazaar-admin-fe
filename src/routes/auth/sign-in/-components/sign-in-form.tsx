@@ -71,9 +71,9 @@ export const SignInForm: FC<IProps> = ({ form, id, onSubmit, disabled, ...props 
                   <InputGroupInput
                     {...field}
                     id="password-input"
-                    autoComplete="current-password"
                     type={isPasswordVisible ? 'text' : 'password'}
                     aria-invalid={fieldState.invalid}
+                    autoComplete="current-password"
                     placeholder="*********"
                   />
                   <InputGroupAddon align="inline-end">

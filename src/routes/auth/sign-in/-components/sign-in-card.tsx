@@ -7,22 +7,20 @@ import { m } from '@/paraglide/messages';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SendIcon } from 'lucide-react';
 import { LoadingButton } from '@/components/ui/loading-button.tsx';
+import { useAuth } from '@/providers/auth.tsx';
 
 
 interface ISignInCard extends ComponentProps<typeof Card> {
 }
 
 export const SignInCard: FC<ISignInCard> = ({ className, ...props }) => {
+  const { signIn, isSigningIn } = useAuth();
   const form = useForm<TSignInSchema>({
     resolver: zodResolver(signInSchema),
     defaultValues: { email: '', password: '' }
   });
 
-  const onSubmit = () => {
-
-  }
-
-  const isPending = false;
+  const onSubmit = (values: TSignInSchema) => signIn({ body: { email: values.email, password: values.password } });
 
   return (
     <Card className={cn('w-full max-w-sm', className)} {...props}>
@@ -30,17 +28,17 @@ export const SignInCard: FC<ISignInCard> = ({ className, ...props }) => {
         <CardTitle className="text-xl text-left">
           {m['pages.auth.sign_in.form.title']()}
         </CardTitle>
-        <CardDescription className='text-left'>
+        <CardDescription className="text-left">
           {m['pages.auth.sign_in.form.description']()}
         </CardDescription>
       </CardHeader>
 
       <CardContent>
-        <SignInForm form={form} onSubmit={onSubmit} disabled={isPending} id="sign-in-form"/>
+        <SignInForm form={form} onSubmit={onSubmit} disabled={isSigningIn} id="sign-in-form"/>
       </CardContent>
 
       <CardFooter className="flex-col gap-4">
-        <LoadingButton className="w-full" loading={isPending} form="sign-in-form">
+        <LoadingButton className="w-full" loading={isSigningIn} form="sign-in-form">
           <SendIcon/>
           <span>{m['common.submit']()}</span>
         </LoadingButton>

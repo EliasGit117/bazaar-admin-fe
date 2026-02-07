@@ -3,7 +3,10 @@ import { AuthLayout } from './-components/auth-layout.tsx';
 
 export const Route = createFileRoute('/auth')({
   component: RouteComponent,
-  beforeLoad: ({ location }) => {
+  beforeLoad: ({ location, context: { isAuthenticated } }) => {
+    if (isAuthenticated)
+      throw redirect({ to: '/' });
+
     if (location.pathname !== '/auth')
       return;
 

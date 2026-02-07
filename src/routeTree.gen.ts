@@ -13,7 +13,29 @@ import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as ProtectedRouteRouteImport } from './routes/_protected/route'
 import { Route as ProtectedIndexRouteImport } from './routes/_protected/index'
 import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
+import { Route as ProtectedVendorsRouteImport } from './routes/_protected/vendors'
+import { Route as ProtectedUsersRouteImport } from './routes/_protected/users'
+import { Route as ProtectedSupportRouteImport } from './routes/_protected/support'
+import { Route as ProtectedFeedbackRouteImport } from './routes/_protected/feedback'
+import { Route as ProtectedCategoriesRouteImport } from './routes/_protected/categories'
+import { Route as ProtectedSettingsRouteRouteImport } from './routes/_protected/settings/route'
+import { Route as ProtectedPlaygroundRouteRouteImport } from './routes/_protected/playground/route'
+import { Route as ProtectedDocsRouteRouteImport } from './routes/_protected/docs/route'
 import { Route as AuthSignInIndexRouteImport } from './routes/auth/sign-in/index'
+import { Route as ProtectedSettingsIndexRouteImport } from './routes/_protected/settings/index'
+import { Route as ProtectedSessionsIndexRouteImport } from './routes/_protected/sessions/index'
+import { Route as ProtectedPlaygroundIndexRouteImport } from './routes/_protected/playground/index'
+import { Route as ProtectedDocsIndexRouteImport } from './routes/_protected/docs/index'
+import { Route as ProtectedSettingsTeamRouteImport } from './routes/_protected/settings/team'
+import { Route as ProtectedSettingsLimitsRouteImport } from './routes/_protected/settings/limits'
+import { Route as ProtectedSettingsGeneralRouteImport } from './routes/_protected/settings/general'
+import { Route as ProtectedSettingsBillingRouteImport } from './routes/_protected/settings/billing'
+import { Route as ProtectedPlaygroundHistoryRouteImport } from './routes/_protected/playground/history'
+import { Route as ProtectedPlaygroundFavoritesRouteImport } from './routes/_protected/playground/favorites'
+import { Route as ProtectedDocsTutorialsRouteImport } from './routes/_protected/docs/tutorials'
+import { Route as ProtectedDocsIntroductionRouteImport } from './routes/_protected/docs/introduction'
+import { Route as ProtectedDocsGetStartedRouteImport } from './routes/_protected/docs/get-started'
+import { Route as ProtectedDocsChangelogRouteImport } from './routes/_protected/docs/changelog'
 
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/auth',
@@ -34,43 +56,294 @@ const AuthSignUpRoute = AuthSignUpRouteImport.update({
   path: '/sign-up',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const ProtectedVendorsRoute = ProtectedVendorsRouteImport.update({
+  id: '/vendors',
+  path: '/vendors',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const ProtectedUsersRoute = ProtectedUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const ProtectedSupportRoute = ProtectedSupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const ProtectedFeedbackRoute = ProtectedFeedbackRouteImport.update({
+  id: '/feedback',
+  path: '/feedback',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const ProtectedCategoriesRoute = ProtectedCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const ProtectedSettingsRouteRoute = ProtectedSettingsRouteRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const ProtectedPlaygroundRouteRoute =
+  ProtectedPlaygroundRouteRouteImport.update({
+    id: '/playground',
+    path: '/playground',
+    getParentRoute: () => ProtectedRouteRoute,
+  } as any)
+const ProtectedDocsRouteRoute = ProtectedDocsRouteRouteImport.update({
+  id: '/docs',
+  path: '/docs',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
 const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
   id: '/sign-in/',
   path: '/sign-in/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const ProtectedSettingsIndexRoute = ProtectedSettingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProtectedSettingsRouteRoute,
+} as any)
+const ProtectedSessionsIndexRoute = ProtectedSessionsIndexRouteImport.update({
+  id: '/sessions/',
+  path: '/sessions/',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const ProtectedPlaygroundIndexRoute =
+  ProtectedPlaygroundIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => ProtectedPlaygroundRouteRoute,
+  } as any)
+const ProtectedDocsIndexRoute = ProtectedDocsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProtectedDocsRouteRoute,
+} as any)
+const ProtectedSettingsTeamRoute = ProtectedSettingsTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => ProtectedSettingsRouteRoute,
+} as any)
+const ProtectedSettingsLimitsRoute = ProtectedSettingsLimitsRouteImport.update({
+  id: '/limits',
+  path: '/limits',
+  getParentRoute: () => ProtectedSettingsRouteRoute,
+} as any)
+const ProtectedSettingsGeneralRoute =
+  ProtectedSettingsGeneralRouteImport.update({
+    id: '/general',
+    path: '/general',
+    getParentRoute: () => ProtectedSettingsRouteRoute,
+  } as any)
+const ProtectedSettingsBillingRoute =
+  ProtectedSettingsBillingRouteImport.update({
+    id: '/billing',
+    path: '/billing',
+    getParentRoute: () => ProtectedSettingsRouteRoute,
+  } as any)
+const ProtectedPlaygroundHistoryRoute =
+  ProtectedPlaygroundHistoryRouteImport.update({
+    id: '/history',
+    path: '/history',
+    getParentRoute: () => ProtectedPlaygroundRouteRoute,
+  } as any)
+const ProtectedPlaygroundFavoritesRoute =
+  ProtectedPlaygroundFavoritesRouteImport.update({
+    id: '/favorites',
+    path: '/favorites',
+    getParentRoute: () => ProtectedPlaygroundRouteRoute,
+  } as any)
+const ProtectedDocsTutorialsRoute = ProtectedDocsTutorialsRouteImport.update({
+  id: '/tutorials',
+  path: '/tutorials',
+  getParentRoute: () => ProtectedDocsRouteRoute,
+} as any)
+const ProtectedDocsIntroductionRoute =
+  ProtectedDocsIntroductionRouteImport.update({
+    id: '/introduction',
+    path: '/introduction',
+    getParentRoute: () => ProtectedDocsRouteRoute,
+  } as any)
+const ProtectedDocsGetStartedRoute = ProtectedDocsGetStartedRouteImport.update({
+  id: '/get-started',
+  path: '/get-started',
+  getParentRoute: () => ProtectedDocsRouteRoute,
+} as any)
+const ProtectedDocsChangelogRoute = ProtectedDocsChangelogRouteImport.update({
+  id: '/changelog',
+  path: '/changelog',
+  getParentRoute: () => ProtectedDocsRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/auth': typeof AuthRouteRouteWithChildren
+  '/docs': typeof ProtectedDocsRouteRouteWithChildren
+  '/playground': typeof ProtectedPlaygroundRouteRouteWithChildren
+  '/settings': typeof ProtectedSettingsRouteRouteWithChildren
+  '/categories': typeof ProtectedCategoriesRoute
+  '/feedback': typeof ProtectedFeedbackRoute
+  '/support': typeof ProtectedSupportRoute
+  '/users': typeof ProtectedUsersRoute
+  '/vendors': typeof ProtectedVendorsRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/': typeof ProtectedIndexRoute
+  '/docs/changelog': typeof ProtectedDocsChangelogRoute
+  '/docs/get-started': typeof ProtectedDocsGetStartedRoute
+  '/docs/introduction': typeof ProtectedDocsIntroductionRoute
+  '/docs/tutorials': typeof ProtectedDocsTutorialsRoute
+  '/playground/favorites': typeof ProtectedPlaygroundFavoritesRoute
+  '/playground/history': typeof ProtectedPlaygroundHistoryRoute
+  '/settings/billing': typeof ProtectedSettingsBillingRoute
+  '/settings/general': typeof ProtectedSettingsGeneralRoute
+  '/settings/limits': typeof ProtectedSettingsLimitsRoute
+  '/settings/team': typeof ProtectedSettingsTeamRoute
+  '/docs/': typeof ProtectedDocsIndexRoute
+  '/playground/': typeof ProtectedPlaygroundIndexRoute
+  '/sessions': typeof ProtectedSessionsIndexRoute
+  '/settings/': typeof ProtectedSettingsIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRouteRouteWithChildren
+  '/categories': typeof ProtectedCategoriesRoute
+  '/feedback': typeof ProtectedFeedbackRoute
+  '/support': typeof ProtectedSupportRoute
+  '/users': typeof ProtectedUsersRoute
+  '/vendors': typeof ProtectedVendorsRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/': typeof ProtectedIndexRoute
+  '/docs/changelog': typeof ProtectedDocsChangelogRoute
+  '/docs/get-started': typeof ProtectedDocsGetStartedRoute
+  '/docs/introduction': typeof ProtectedDocsIntroductionRoute
+  '/docs/tutorials': typeof ProtectedDocsTutorialsRoute
+  '/playground/favorites': typeof ProtectedPlaygroundFavoritesRoute
+  '/playground/history': typeof ProtectedPlaygroundHistoryRoute
+  '/settings/billing': typeof ProtectedSettingsBillingRoute
+  '/settings/general': typeof ProtectedSettingsGeneralRoute
+  '/settings/limits': typeof ProtectedSettingsLimitsRoute
+  '/settings/team': typeof ProtectedSettingsTeamRoute
+  '/docs': typeof ProtectedDocsIndexRoute
+  '/playground': typeof ProtectedPlaygroundIndexRoute
+  '/sessions': typeof ProtectedSessionsIndexRoute
+  '/settings': typeof ProtectedSettingsIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_protected': typeof ProtectedRouteRouteWithChildren
   '/auth': typeof AuthRouteRouteWithChildren
+  '/_protected/docs': typeof ProtectedDocsRouteRouteWithChildren
+  '/_protected/playground': typeof ProtectedPlaygroundRouteRouteWithChildren
+  '/_protected/settings': typeof ProtectedSettingsRouteRouteWithChildren
+  '/_protected/categories': typeof ProtectedCategoriesRoute
+  '/_protected/feedback': typeof ProtectedFeedbackRoute
+  '/_protected/support': typeof ProtectedSupportRoute
+  '/_protected/users': typeof ProtectedUsersRoute
+  '/_protected/vendors': typeof ProtectedVendorsRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/_protected/': typeof ProtectedIndexRoute
+  '/_protected/docs/changelog': typeof ProtectedDocsChangelogRoute
+  '/_protected/docs/get-started': typeof ProtectedDocsGetStartedRoute
+  '/_protected/docs/introduction': typeof ProtectedDocsIntroductionRoute
+  '/_protected/docs/tutorials': typeof ProtectedDocsTutorialsRoute
+  '/_protected/playground/favorites': typeof ProtectedPlaygroundFavoritesRoute
+  '/_protected/playground/history': typeof ProtectedPlaygroundHistoryRoute
+  '/_protected/settings/billing': typeof ProtectedSettingsBillingRoute
+  '/_protected/settings/general': typeof ProtectedSettingsGeneralRoute
+  '/_protected/settings/limits': typeof ProtectedSettingsLimitsRoute
+  '/_protected/settings/team': typeof ProtectedSettingsTeamRoute
+  '/_protected/docs/': typeof ProtectedDocsIndexRoute
+  '/_protected/playground/': typeof ProtectedPlaygroundIndexRoute
+  '/_protected/sessions/': typeof ProtectedSessionsIndexRoute
+  '/_protected/settings/': typeof ProtectedSettingsIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/auth' | '/auth/sign-up' | '/' | '/auth/sign-in'
+  fullPaths:
+    | '/auth'
+    | '/docs'
+    | '/playground'
+    | '/settings'
+    | '/categories'
+    | '/feedback'
+    | '/support'
+    | '/users'
+    | '/vendors'
+    | '/auth/sign-up'
+    | '/'
+    | '/docs/changelog'
+    | '/docs/get-started'
+    | '/docs/introduction'
+    | '/docs/tutorials'
+    | '/playground/favorites'
+    | '/playground/history'
+    | '/settings/billing'
+    | '/settings/general'
+    | '/settings/limits'
+    | '/settings/team'
+    | '/docs/'
+    | '/playground/'
+    | '/sessions'
+    | '/settings/'
+    | '/auth/sign-in'
   fileRoutesByTo: FileRoutesByTo
-  to: '/auth' | '/auth/sign-up' | '/' | '/auth/sign-in'
+  to:
+    | '/auth'
+    | '/categories'
+    | '/feedback'
+    | '/support'
+    | '/users'
+    | '/vendors'
+    | '/auth/sign-up'
+    | '/'
+    | '/docs/changelog'
+    | '/docs/get-started'
+    | '/docs/introduction'
+    | '/docs/tutorials'
+    | '/playground/favorites'
+    | '/playground/history'
+    | '/settings/billing'
+    | '/settings/general'
+    | '/settings/limits'
+    | '/settings/team'
+    | '/docs'
+    | '/playground'
+    | '/sessions'
+    | '/settings'
+    | '/auth/sign-in'
   id:
     | '__root__'
     | '/_protected'
     | '/auth'
+    | '/_protected/docs'
+    | '/_protected/playground'
+    | '/_protected/settings'
+    | '/_protected/categories'
+    | '/_protected/feedback'
+    | '/_protected/support'
+    | '/_protected/users'
+    | '/_protected/vendors'
     | '/auth/sign-up'
     | '/_protected/'
+    | '/_protected/docs/changelog'
+    | '/_protected/docs/get-started'
+    | '/_protected/docs/introduction'
+    | '/_protected/docs/tutorials'
+    | '/_protected/playground/favorites'
+    | '/_protected/playground/history'
+    | '/_protected/settings/billing'
+    | '/_protected/settings/general'
+    | '/_protected/settings/limits'
+    | '/_protected/settings/team'
+    | '/_protected/docs/'
+    | '/_protected/playground/'
+    | '/_protected/sessions/'
+    | '/_protected/settings/'
     | '/auth/sign-in/'
   fileRoutesById: FileRoutesById
 }
@@ -109,6 +382,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignUpRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_protected/vendors': {
+      id: '/_protected/vendors'
+      path: '/vendors'
+      fullPath: '/vendors'
+      preLoaderRoute: typeof ProtectedVendorsRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/users': {
+      id: '/_protected/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof ProtectedUsersRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/support': {
+      id: '/_protected/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof ProtectedSupportRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/feedback': {
+      id: '/_protected/feedback'
+      path: '/feedback'
+      fullPath: '/feedback'
+      preLoaderRoute: typeof ProtectedFeedbackRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/categories': {
+      id: '/_protected/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof ProtectedCategoriesRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/settings': {
+      id: '/_protected/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof ProtectedSettingsRouteRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/playground': {
+      id: '/_protected/playground'
+      path: '/playground'
+      fullPath: '/playground'
+      preLoaderRoute: typeof ProtectedPlaygroundRouteRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/docs': {
+      id: '/_protected/docs'
+      path: '/docs'
+      fullPath: '/docs'
+      preLoaderRoute: typeof ProtectedDocsRouteRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
     '/auth/sign-in/': {
       id: '/auth/sign-in/'
       path: '/sign-in'
@@ -116,15 +445,190 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_protected/settings/': {
+      id: '/_protected/settings/'
+      path: '/'
+      fullPath: '/settings/'
+      preLoaderRoute: typeof ProtectedSettingsIndexRouteImport
+      parentRoute: typeof ProtectedSettingsRouteRoute
+    }
+    '/_protected/sessions/': {
+      id: '/_protected/sessions/'
+      path: '/sessions'
+      fullPath: '/sessions'
+      preLoaderRoute: typeof ProtectedSessionsIndexRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/playground/': {
+      id: '/_protected/playground/'
+      path: '/'
+      fullPath: '/playground/'
+      preLoaderRoute: typeof ProtectedPlaygroundIndexRouteImport
+      parentRoute: typeof ProtectedPlaygroundRouteRoute
+    }
+    '/_protected/docs/': {
+      id: '/_protected/docs/'
+      path: '/'
+      fullPath: '/docs/'
+      preLoaderRoute: typeof ProtectedDocsIndexRouteImport
+      parentRoute: typeof ProtectedDocsRouteRoute
+    }
+    '/_protected/settings/team': {
+      id: '/_protected/settings/team'
+      path: '/team'
+      fullPath: '/settings/team'
+      preLoaderRoute: typeof ProtectedSettingsTeamRouteImport
+      parentRoute: typeof ProtectedSettingsRouteRoute
+    }
+    '/_protected/settings/limits': {
+      id: '/_protected/settings/limits'
+      path: '/limits'
+      fullPath: '/settings/limits'
+      preLoaderRoute: typeof ProtectedSettingsLimitsRouteImport
+      parentRoute: typeof ProtectedSettingsRouteRoute
+    }
+    '/_protected/settings/general': {
+      id: '/_protected/settings/general'
+      path: '/general'
+      fullPath: '/settings/general'
+      preLoaderRoute: typeof ProtectedSettingsGeneralRouteImport
+      parentRoute: typeof ProtectedSettingsRouteRoute
+    }
+    '/_protected/settings/billing': {
+      id: '/_protected/settings/billing'
+      path: '/billing'
+      fullPath: '/settings/billing'
+      preLoaderRoute: typeof ProtectedSettingsBillingRouteImport
+      parentRoute: typeof ProtectedSettingsRouteRoute
+    }
+    '/_protected/playground/history': {
+      id: '/_protected/playground/history'
+      path: '/history'
+      fullPath: '/playground/history'
+      preLoaderRoute: typeof ProtectedPlaygroundHistoryRouteImport
+      parentRoute: typeof ProtectedPlaygroundRouteRoute
+    }
+    '/_protected/playground/favorites': {
+      id: '/_protected/playground/favorites'
+      path: '/favorites'
+      fullPath: '/playground/favorites'
+      preLoaderRoute: typeof ProtectedPlaygroundFavoritesRouteImport
+      parentRoute: typeof ProtectedPlaygroundRouteRoute
+    }
+    '/_protected/docs/tutorials': {
+      id: '/_protected/docs/tutorials'
+      path: '/tutorials'
+      fullPath: '/docs/tutorials'
+      preLoaderRoute: typeof ProtectedDocsTutorialsRouteImport
+      parentRoute: typeof ProtectedDocsRouteRoute
+    }
+    '/_protected/docs/introduction': {
+      id: '/_protected/docs/introduction'
+      path: '/introduction'
+      fullPath: '/docs/introduction'
+      preLoaderRoute: typeof ProtectedDocsIntroductionRouteImport
+      parentRoute: typeof ProtectedDocsRouteRoute
+    }
+    '/_protected/docs/get-started': {
+      id: '/_protected/docs/get-started'
+      path: '/get-started'
+      fullPath: '/docs/get-started'
+      preLoaderRoute: typeof ProtectedDocsGetStartedRouteImport
+      parentRoute: typeof ProtectedDocsRouteRoute
+    }
+    '/_protected/docs/changelog': {
+      id: '/_protected/docs/changelog'
+      path: '/changelog'
+      fullPath: '/docs/changelog'
+      preLoaderRoute: typeof ProtectedDocsChangelogRouteImport
+      parentRoute: typeof ProtectedDocsRouteRoute
+    }
   }
 }
 
+interface ProtectedDocsRouteRouteChildren {
+  ProtectedDocsChangelogRoute: typeof ProtectedDocsChangelogRoute
+  ProtectedDocsGetStartedRoute: typeof ProtectedDocsGetStartedRoute
+  ProtectedDocsIntroductionRoute: typeof ProtectedDocsIntroductionRoute
+  ProtectedDocsTutorialsRoute: typeof ProtectedDocsTutorialsRoute
+  ProtectedDocsIndexRoute: typeof ProtectedDocsIndexRoute
+}
+
+const ProtectedDocsRouteRouteChildren: ProtectedDocsRouteRouteChildren = {
+  ProtectedDocsChangelogRoute: ProtectedDocsChangelogRoute,
+  ProtectedDocsGetStartedRoute: ProtectedDocsGetStartedRoute,
+  ProtectedDocsIntroductionRoute: ProtectedDocsIntroductionRoute,
+  ProtectedDocsTutorialsRoute: ProtectedDocsTutorialsRoute,
+  ProtectedDocsIndexRoute: ProtectedDocsIndexRoute,
+}
+
+const ProtectedDocsRouteRouteWithChildren =
+  ProtectedDocsRouteRoute._addFileChildren(ProtectedDocsRouteRouteChildren)
+
+interface ProtectedPlaygroundRouteRouteChildren {
+  ProtectedPlaygroundFavoritesRoute: typeof ProtectedPlaygroundFavoritesRoute
+  ProtectedPlaygroundHistoryRoute: typeof ProtectedPlaygroundHistoryRoute
+  ProtectedPlaygroundIndexRoute: typeof ProtectedPlaygroundIndexRoute
+}
+
+const ProtectedPlaygroundRouteRouteChildren: ProtectedPlaygroundRouteRouteChildren =
+  {
+    ProtectedPlaygroundFavoritesRoute: ProtectedPlaygroundFavoritesRoute,
+    ProtectedPlaygroundHistoryRoute: ProtectedPlaygroundHistoryRoute,
+    ProtectedPlaygroundIndexRoute: ProtectedPlaygroundIndexRoute,
+  }
+
+const ProtectedPlaygroundRouteRouteWithChildren =
+  ProtectedPlaygroundRouteRoute._addFileChildren(
+    ProtectedPlaygroundRouteRouteChildren,
+  )
+
+interface ProtectedSettingsRouteRouteChildren {
+  ProtectedSettingsBillingRoute: typeof ProtectedSettingsBillingRoute
+  ProtectedSettingsGeneralRoute: typeof ProtectedSettingsGeneralRoute
+  ProtectedSettingsLimitsRoute: typeof ProtectedSettingsLimitsRoute
+  ProtectedSettingsTeamRoute: typeof ProtectedSettingsTeamRoute
+  ProtectedSettingsIndexRoute: typeof ProtectedSettingsIndexRoute
+}
+
+const ProtectedSettingsRouteRouteChildren: ProtectedSettingsRouteRouteChildren =
+  {
+    ProtectedSettingsBillingRoute: ProtectedSettingsBillingRoute,
+    ProtectedSettingsGeneralRoute: ProtectedSettingsGeneralRoute,
+    ProtectedSettingsLimitsRoute: ProtectedSettingsLimitsRoute,
+    ProtectedSettingsTeamRoute: ProtectedSettingsTeamRoute,
+    ProtectedSettingsIndexRoute: ProtectedSettingsIndexRoute,
+  }
+
+const ProtectedSettingsRouteRouteWithChildren =
+  ProtectedSettingsRouteRoute._addFileChildren(
+    ProtectedSettingsRouteRouteChildren,
+  )
+
 interface ProtectedRouteRouteChildren {
+  ProtectedDocsRouteRoute: typeof ProtectedDocsRouteRouteWithChildren
+  ProtectedPlaygroundRouteRoute: typeof ProtectedPlaygroundRouteRouteWithChildren
+  ProtectedSettingsRouteRoute: typeof ProtectedSettingsRouteRouteWithChildren
+  ProtectedCategoriesRoute: typeof ProtectedCategoriesRoute
+  ProtectedFeedbackRoute: typeof ProtectedFeedbackRoute
+  ProtectedSupportRoute: typeof ProtectedSupportRoute
+  ProtectedUsersRoute: typeof ProtectedUsersRoute
+  ProtectedVendorsRoute: typeof ProtectedVendorsRoute
   ProtectedIndexRoute: typeof ProtectedIndexRoute
+  ProtectedSessionsIndexRoute: typeof ProtectedSessionsIndexRoute
 }
 
 const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
+  ProtectedDocsRouteRoute: ProtectedDocsRouteRouteWithChildren,
+  ProtectedPlaygroundRouteRoute: ProtectedPlaygroundRouteRouteWithChildren,
+  ProtectedSettingsRouteRoute: ProtectedSettingsRouteRouteWithChildren,
+  ProtectedCategoriesRoute: ProtectedCategoriesRoute,
+  ProtectedFeedbackRoute: ProtectedFeedbackRoute,
+  ProtectedSupportRoute: ProtectedSupportRoute,
+  ProtectedUsersRoute: ProtectedUsersRoute,
+  ProtectedVendorsRoute: ProtectedVendorsRoute,
   ProtectedIndexRoute: ProtectedIndexRoute,
+  ProtectedSessionsIndexRoute: ProtectedSessionsIndexRoute,
 }
 
 const ProtectedRouteRouteWithChildren = ProtectedRouteRoute._addFileChildren(

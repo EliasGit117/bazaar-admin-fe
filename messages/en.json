@@ -15,9 +15,34 @@
     "invalid": "Invalid",
     "sign_out": "Sign Out",
     "go_back": "Sign In",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "list": "List",
+    "asc": "Ascending",
+    "desc": "Descending",
+    "reset": "Reset",
+    "clear": "Clear",
+    "selected": "Selected",
+    "revoke": "Revoke",
+    "page": "Page",
+    "of": "Of",
+    "select": "Select",
+    "created": "Created",
+    "updated": "Updated",
+    "expires": "Expires",
+    "actions": "Actions"
   },
   "components": {
+    "data_table": {
+      "columns": "Columns",
+      "sort": "Sort",
+      "no_columns_found": "No columns found",
+      "search_columns": "Search columns",
+      "sort_by": "Sort by",
+      "direction": "Direction",
+      "clear": "Clear",
+      "hide": "Hide",
+      "rows_per_page": "Rows per page"
+    },
     "locale_dropdown": {
       "title": "Language selection"
     },
@@ -26,6 +51,17 @@
       "system": "System",
       "light": "Light",
       "dark": "Dark"
+    },
+    "sidebar": {
+      "main": "Main",
+      "dash": "Dashboard",
+      "settings": "Settings",
+      "sessions": "Sessions",
+      "users": "Users",
+      "user_list": "User List",
+      "businesses": "Businesses",
+      "vendors": "Vendors",
+      "stores": "Stores"
     },
     "footer": {
       "text": "© {year} {name} | Built with care"
@@ -38,6 +74,24 @@
         "form": {
           "title": "Sign In",
           "description": "Fill the fields below to get access to the service"
+        }
+      }
+    },
+    "users": {
+      "list": {
+        "table": {
+          "findById": "Id",
+          "user": "User",
+          "userId": "User id",
+          "filterByUserId": "By user id",
+          "agent": "Agent",
+          "ipAddress": "Ip address",
+          "type": "Type",
+          "current": "Current",
+          "other": "Other",
+          "external": "External",
+          "owner": "Owner",
+          "revoke": "Revoke"
         }
       }
     }

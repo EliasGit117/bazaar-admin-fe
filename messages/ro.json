@@ -15,9 +15,37 @@
     "invalid": "Invalid",
     "sign_out": "Deconectare",
     "go_back": "Autentificare",
-    "refresh": "Reîmprospătează"
+    "refresh": "Reîmprospătează",
+    "list": "Lista",
+    "businesses": "Afacerilor",
+    "vendors": "Vânzători",
+    "stores": "Magazine",
+    "asc": "Ascendent",
+    "desc": "Descendent",
+    "reset": "Resetează",
+    "clear": "Șterge",
+    "selected": "Selectat",
+    "revoke": "Revocă",
+    "page": "Pagină",
+    "of": "Din",
+    "select": "Selectare",
+    "created": "Creat",
+    "updated": "Actualizat",
+    "expires": "Expiră",
+    "actions": "Acțiuni"
   },
   "components": {
+    "data_table": {
+      "columns": "Coloane",
+      "sort": "Sortare",
+      "no_columns_found": "Nu au fost găsite coloane",
+      "search_columns": "Caută coloane",
+      "sort_by": "Sortează după",
+      "direction": "Direcție",
+      "clear": "Șterge",
+      "hide": "Ascunde",
+      "rows_per_page": "Rânduri pe pagină"
+    },
     "locale_dropdown": {
       "title": "Selectare limbă"
     },
@@ -26,6 +54,14 @@
       "system": "De sistema",
       "light": "Luminoasǎ",
       "dark": "Întunericǎ"
+    },
+    "sidebar": {
+      "main": "Principal",
+      "dash": "Panou de control",
+      "settings": "Setări",
+      "sessions": "Sesiuni",
+      "users": "Utilizatori",
+      "user_list": "Lista utilizatorilor"
     },
     "footer": {
       "text": "© {year} {name} | Creat cu grijă"
@@ -38,6 +74,24 @@
         "form": {
           "title": "Autentificare",
           "description": "Completați câmpurile de mai jos pentru a obține acces la serviciu"
+        }
+      }
+    },
+    "users": {
+      "list": {
+        "table": {
+          "findById": "Id",
+          "user": "Utilizator",
+          "userId": "Id utilizatorul",
+          "filterByUserId": "Id utilizator",
+          "agent": "Agent",
+          "ipAddress": "Adresa ip",
+          "type": "Type",
+          "current": "Curenta",
+          "other": "Alt",
+          "external": "Extern",
+          "owner": "Proprietar",
+          "revoke": "Revocă"
         }
       }
     }

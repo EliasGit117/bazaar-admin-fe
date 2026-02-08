@@ -74,6 +74,7 @@ function AuthProvider({ children }: IAuthProviderProps) {
       writeAuth({ user: data!.user, session: data!.session });
       return data;
     },
+    enabled: !!initialState,
     initialData: initialState ?? undefined,
     refetchOnMount: 'always',
     staleTime: Infinity,

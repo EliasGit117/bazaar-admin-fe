@@ -33,7 +33,7 @@ export const SessionsTable: FC<IProps> = (props) => {
 
 
   const { data, isPending: isPendingData, isFetching: isFetchingData, refetch } = useQuery({
-    ...sessions_search_QueryOptionsts({ body: search }),
+    ...sessions_search_QueryOptions({ body: search }),
     gcTime: 0,
     staleTime: 0,
     placeholderData: keepPreviousData

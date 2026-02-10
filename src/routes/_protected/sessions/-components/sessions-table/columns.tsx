@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { Link } from '@tanstack/react-router';
 import type { AdminSessionDto } from '@/api/generated';
 import {
+  ActivityIcon,
   CalendarIcon,
   CheckIcon,
   CircleQuestionMarkIcon,
@@ -23,6 +24,7 @@ import {
   EarthIcon,
   EllipsisVerticalIcon,
   HashIcon,
+  HeartPulseIcon,
   InfoIcon,
   LaptopIcon,
   SmartphoneIcon,
@@ -30,7 +32,9 @@ import {
   SquareIcon,
   SquareMinusIcon,
   TrashIcon,
-  UserCircleIcon, UserIcon
+  UserCircleIcon,
+  UserIcon,
+  XIcon
 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar.tsx';
@@ -39,7 +43,6 @@ import { cn } from '@/lib/utils';
 import { ChromeIcon, EdgeIcon, FirefoxIcon, OperaIcon, SafariIcon } from '@/components/icons';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard.ts';
 import { m } from '@/paraglide/messages';
-
 
 
 interface IOptions {
@@ -118,10 +121,10 @@ export const sessionColumns = (options?: IOptions) => {
         </span>
       ),
       meta: {
-        label: m['pages.users.list.table.userId'](),
+        label: m['pages.sessions.list.table.userId'](),
         icon: UserIcon,
         skeletonClassName: 'h-4 w-10',
-        filter: { type: ColumnFilterType.Number, min: 1, placeholder: m['pages.users.list.table.userId']() }
+        filter: { type: ColumnFilterType.Number, min: 1, placeholder: m['pages.sessions.list.table.userId']() }
       }
     }),
 
@@ -152,7 +155,7 @@ export const sessionColumns = (options?: IOptions) => {
         );
       },
       meta: {
-        label: m['pages.users.list.table.user'](),
+        label: m['pages.sessions.list.table.user'](),
         icon: UserCircleIcon,
         skeletonItem:
           <div className="flex gap-2">
@@ -196,7 +199,7 @@ export const sessionColumns = (options?: IOptions) => {
         );
       },
       meta: {
-        label: m['pages.users.list.table.agent'](),
+        label: m['pages.sessions.list.table.agent'](),
         icon: LaptopIcon,
         skeletonItem:
           <div className="space-y-1">
@@ -222,7 +225,7 @@ export const sessionColumns = (options?: IOptions) => {
         </span>
       ),
       meta: {
-        label: m['pages.users.list.table.ipAddress'](),
+        label: m['pages.sessions.list.table.ipAddress'](),
         icon: EarthIcon,
         skeletonClassName: 'h-4 w-28'
       }
@@ -279,14 +282,13 @@ export const sessionColumns = (options?: IOptions) => {
       }
     }),
 
-
     columnHelper.display({
       id: 'type',
       size: 87,
       enableSorting: false,
       meta: {
         icon: InfoIcon,
-        label: m['pages.users.list.table.type'](),
+        label: m['pages.sessions.list.table.type'](),
         skeletonClassName: 'h-5.5 w-20 rounded-sm'
       },
       header: ({ column }) => (<DataTableColumnHeader column={column}/>),
@@ -301,13 +303,44 @@ export const sessionColumns = (options?: IOptions) => {
             {isOwned ? (isCurrent ? (<SquareCheckIcon/>) : (<SquareMinusIcon/>)) : (<SquareIcon/>)}
             <span>
               {isOwned ? (
-                isCurrent ? m['pages.users.list.table.current']() : m['pages.users.list.table.other']()
+                isCurrent ? m['pages.sessions.list.table.current']() : m['pages.sessions.list.table.other']()
               ) : (
-                m['pages.users.list.table.external']()
+                m['pages.sessions.list.table.external']()
               )}
             </span>
           </Badge>
         );
+      }
+    }),
+
+    columnHelper.accessor('status', {
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column}/>
+      ),
+      cell: ({ getValue }) => {
+        const value = getValue();
+
+        return (
+          <Badge
+            variant={value === 'active' ? 'default' : 'destructive'}
+            className={cn('rounded-sm min-h-6', value === 'revoked' && 'border border-destructive/20')}
+          >
+            {value === 'active' ? (<ActivityIcon/>) : (<TrashIcon/>)}
+            <span>{m[`pages.sessions.list.table.${value}`] ? m[`pages.sessions.list.table.${value}`]() : value}</span>
+          </Badge>
+        )
+      },
+      meta: {
+        icon: HeartPulseIcon,
+        label: m['common.status'](),
+        skeletonClassName: 'h-4 w-32',
+        filter: {
+          type: ColumnFilterType.MultiSelect,
+          options: [
+            { title: m['pages.sessions.list.table.active'](), value: 'active', icon: ActivityIcon },
+            { title: m['pages.sessions.list.table.revoked'](), value: 'revoked', icon: XIcon }
+          ]
+        }
       }
     }),
 
@@ -339,7 +372,7 @@ export const sessionColumns = (options?: IOptions) => {
                 <DropdownMenuItem asChild>
                   <Link to="/">
                     <UserCircleIcon className="mr-2 size-4"/>
-                    <span>{m['pages.users.list.table.owner']()}</span>
+                    <span>{m['pages.sessions.list.table.owner']()}</span>
                   </Link>
                 </DropdownMenuItem>
 

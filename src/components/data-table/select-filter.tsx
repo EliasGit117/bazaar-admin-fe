@@ -23,6 +23,7 @@ import {
 } from '@/components/data-table/types/tanstack-table-meta';
 import { ButtonGroup } from '@/components/ui/button-group.tsx';
 import { CirclePlusIcon, DotIcon, XCircleIcon } from 'lucide-react';
+import { m } from '@/paraglide/messages';
 
 
 interface IDataTableSelectFilter<TData, TValue> {
@@ -129,7 +130,7 @@ export function DataTableSelectFilter<TData, TValue>({ column }: IDataTableSelec
                       className="flex justify-center"
                     >
                       <XCircleIcon/>
-                      <span>Clear filters</span>
+                      <span>{m['components.data_table.clear_filters']()}</span>
                     </CommandItem>
                   </CommandGroup>
                 </>

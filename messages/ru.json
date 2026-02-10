@@ -29,7 +29,8 @@
     "created": "Создан",
     "updated": "Обновлён",
     "expires": "Истекает",
-    "actions": "Действия"
+    "actions": "Действия",
+    "status": "Статус"
   },
   "components": {
     "data_table": {
@@ -41,7 +42,8 @@
       "direction": "Направление",
       "clear": "Очистить",
       "hide": "Скрыть",
-      "rows_per_page": "Строк на странице"
+      "rows_per_page": "Строк на странице",
+      "clear_filters": "Очистить фильтры"
     },
     "locale_dropdown": {
       "title": "Выбор языка"
@@ -77,7 +79,7 @@
         }
       }
     },
-    "users": {
+    "sessions": {
       "list": {
         "table": {
           "findById": "Id",
@@ -91,7 +93,10 @@
           "other": "Другая",
           "external": "Внешний",
           "owner": "Владелец",
-          "revoke": "Отозвать"
+          "revoke": "Отозвать",
+          "status": "Статус",
+          "active": "Активная",
+          "revoked": "Отозваная"
         }
       }
     }

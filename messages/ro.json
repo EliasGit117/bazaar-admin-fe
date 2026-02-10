@@ -32,7 +32,8 @@
     "created": "Creat",
     "updated": "Actualizat",
     "expires": "Expiră",
-    "actions": "Acțiuni"
+    "actions": "Acțiuni",
+    "status": "Status"
   },
   "components": {
     "data_table": {
@@ -44,7 +45,8 @@
       "direction": "Direcție",
       "clear": "Șterge",
       "hide": "Ascunde",
-      "rows_per_page": "Rânduri pe pagină"
+      "rows_per_page": "Rânduri pe pagină",
+      "clear_filters": "Șterge filtrele"
     },
     "locale_dropdown": {
       "title": "Selectare limbă"
@@ -77,7 +79,7 @@
         }
       }
     },
-    "users": {
+    "sessions": {
       "list": {
         "table": {
           "findById": "Id",
@@ -91,7 +93,10 @@
           "other": "Alt",
           "external": "Extern",
           "owner": "Proprietar",
-          "revoke": "Revocă"
+          "revoke": "Revocă",
+          "status": "Status",
+          "active": "Activa",
+          "revoked": "Revocat"
         }
       }
     }

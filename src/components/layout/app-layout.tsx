@@ -21,9 +21,9 @@ export const AppLayout: FC<IProps> = ({ children, className, ...divProps }) => {
       <SidebarInset className="min-w-0">
         <header className="flex h-16 shrink-0 items-center gap-2">
           <div className="container mx-auto p-4 flex items-center gap-2">
-            <SidebarTrigger className="-ml-1 sm:-ml-2.5"/>
+            <SidebarTrigger className="-ml-1 sm:-ml-2"/>
             <Separator orientation="vertical" className="data-[orientation=vertical]:h-4 my-auto"/>
-            <NavBreadcrumbs className='-ml-0.5 sm:ml-1.5'/>
+            <NavBreadcrumbs className='ml-1.5'/>
           </div>
         </header>
 

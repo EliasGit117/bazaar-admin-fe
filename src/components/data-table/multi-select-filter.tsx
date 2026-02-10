@@ -23,6 +23,8 @@ import {
 } from '@/components/data-table/types/tanstack-table-meta';
 import { ButtonGroup } from '@/components/ui/button-group.tsx';
 import { CheckIcon, CirclePlusIcon, XCircleIcon } from 'lucide-react';
+import { m } from '@/paraglide/messages';
+
 
 interface IDataTableMultiSelectFilter<TData, TValue> {
   column: Column<TData, TValue>;
@@ -121,10 +123,11 @@ export function DataTableMultiSelectFilter<TData, TValue>({ column }: IDataTable
                     selectedOptions.map((option) => (
                       <Badge
                         variant="secondary"
-                        className="border border-border rounded-sm px-1 font-normal"
+                        className="border border-border rounded-sm px-1 font-normal [&>svg]:size-2.5!"
                         key={`${option.value}`}
                       >
-                        {option.title}
+                        {option.icon && <option.icon/>}
+                        <span>{option.title}</span>
                       </Badge>
                     ))
                   )}
@@ -182,7 +185,7 @@ export function DataTableMultiSelectFilter<TData, TValue>({ column }: IDataTable
                       className="flex justify-center"
                     >
                       <XCircleIcon/>
-                      <span>Clear filters</span>
+                      <span>{m['components.data_table.clear_filters']()}</span>
                     </CommandItem>
                   </CommandGroup>
                 </>

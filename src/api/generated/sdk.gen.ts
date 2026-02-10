@@ -2,7 +2,7 @@
 
 import type { Client as Client2, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteSessionsByIdRevokeData, DeleteSessionsByIdRevokeErrors, DeleteSessionsByIdRevokeResponses, GetAuthMeData, GetAuthMeErrors, GetAuthMeResponses, GetData, GetResponses, PostAuthSignInData, PostAuthSignInErrors, PostAuthSignInResponses, PostAuthSignOutData, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthSignUpData, PostAuthSignUpErrors, PostAuthSignUpResponses, PostSessionsSearchData, PostSessionsSearchResponses, PostUsersSearchData, PostUsersSearchErrors, PostUsersSearchResponses } from './types.gen';
+import type { DeleteSessionsRevokeData, DeleteSessionsRevokeErrors, DeleteSessionsRevokeResponses, GetAuthMeData, GetAuthMeErrors, GetAuthMeResponses, GetData, GetResponses, PostAuthSignInData, PostAuthSignInErrors, PostAuthSignInResponses, PostAuthSignOutData, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthSignUpData, PostAuthSignUpErrors, PostAuthSignUpResponses, PostSessionsSearchData, PostSessionsSearchResponses, PostUsersSearchData, PostUsersSearchErrors, PostUsersSearchResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -150,14 +150,14 @@ export class Sessions extends HeyApiClient {
     }
     
     /**
-     * Revoke session
+     * Revoke sessions
      *
-     * Revokes a specific admin user session by its UUID.
+     * Revokes multiple admin sessions using query parameters
      */
-    public revokeSession<ThrowOnError extends boolean = false>(options: Options<DeleteSessionsByIdRevokeData, ThrowOnError>) {
-        return (options.client ?? this.client).delete<DeleteSessionsByIdRevokeResponses, DeleteSessionsByIdRevokeErrors, ThrowOnError>({
+    public revokeSessions<ThrowOnError extends boolean = false>(options: Options<DeleteSessionsRevokeData, ThrowOnError>) {
+        return (options.client ?? this.client).delete<DeleteSessionsRevokeResponses, DeleteSessionsRevokeErrors, ThrowOnError>({
             security: [{ name: 'x-session-id', type: 'apiKey' }],
-            url: '/sessions/{id}/revoke',
+            url: '/sessions/revoke',
             ...options
         });
     }

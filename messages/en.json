@@ -29,7 +29,8 @@
     "created": "Created",
     "updated": "Updated",
     "expires": "Expires",
-    "actions": "Actions"
+    "actions": "Actions",
+    "status": "Status"
   },
   "components": {
     "data_table": {
@@ -41,7 +42,8 @@
       "direction": "Direction",
       "clear": "Clear",
       "hide": "Hide",
-      "rows_per_page": "Rows per page"
+      "rows_per_page": "Rows per page",
+      "clear_filters": "Clear filters"
     },
     "locale_dropdown": {
       "title": "Language selection"
@@ -77,7 +79,7 @@
         }
       }
     },
-    "users": {
+    "sessions": {
       "list": {
         "table": {
           "findById": "Id",
@@ -91,7 +93,10 @@
           "other": "Other",
           "external": "External",
           "owner": "Owner",
-          "revoke": "Revoke"
+          "revoke": "Revoke",
+          "status": "Status",
+          "active": "Active",
+          "revoked": "Revoked"
         }
       }
     }

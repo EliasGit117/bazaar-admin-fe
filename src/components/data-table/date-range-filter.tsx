@@ -10,6 +10,8 @@ import { format } from 'date-fns';
 import { type DateRange } from 'react-day-picker';
 import { type TDateRange } from '@/components/data-table/types/schemas';
 import { CalendarDaysIcon, XCircleIcon } from 'lucide-react';
+import { m } from '@/paraglide/messages';
+
 
 
 interface IDataTableDateRangeFilterProps<TData, TValue>
@@ -138,7 +140,7 @@ export function DataTableDateRangeFilter<TData, TValue>(props: IDataTableDateRan
             <Separator/>
             <Button size="sm" variant="ghost" className="w-full" onClick={onReset}>
               <XCircleIcon/>
-              <span>Clear filters</span>
+              <span>{m['components.data_table.clear_filters']()}</span>
             </Button>
           </div>
         )}

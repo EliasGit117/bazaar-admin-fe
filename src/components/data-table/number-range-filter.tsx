@@ -9,6 +9,8 @@ import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { ButtonGroup } from '@/components/ui/button-group.tsx';
 import { CirclePlusIcon, CircleXIcon } from 'lucide-react';
+import { m } from '@/paraglide/messages';
+
 
 
 interface IDataTableNumberRangeFilterProps<TData, TValue>
@@ -139,7 +141,7 @@ export function DataTableNumberRangeFilter<TData, TValue>(props: IDataTableNumbe
           {!!filterValue && (
             <Button size="sm" variant="outline" className="w-full" onClick={clear}>
               <CircleXIcon/>
-              <span>Clear filters</span>
+              <span>{m['components.data_table.clear_filters']()}</span>
             </Button>
           )}
         </PopoverContent>

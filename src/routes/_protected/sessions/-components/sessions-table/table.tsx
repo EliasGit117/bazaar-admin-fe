@@ -12,9 +12,13 @@ import { AdaptiveButton } from '@/components/ui/adaptive-button.tsx';
 import { exportToCsv } from '@/lib/utils';
 import type { AdminSessionDto, PostSessionsSearchData } from '@/api/generated';
 import { FileDownIcon, RefreshCwIcon, TrashIcon } from 'lucide-react';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { sessions_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  sessions_revoke_MutationOptions, sessions_search_QueryKeys,
+  sessions_search_QueryOptions
+} from '@/api/generated/@tanstack/react-query.gen.ts';
 import { m } from '@/paraglide/messages';
+import { useHasPermissions } from '@/hooks/use-has-permissions.ts';
 
 
 interface IProps extends ComponentProps<'div'> {
@@ -26,25 +30,29 @@ export const SessionsTable: FC<IProps> = (props) => {
   'use no memo';
 
   const { className, search = {}, ...divProps } = props;
-  // const { canDelete } = useHasPermissions({ canDelete: { user: [Permission.Delete] } });
-  const { canDelete } = { canDelete: true };
-  // const { mutate: revokeSessions, isPending: isRevokingSession } = useRevokeSessionsMutation();
-  const isRevokingSession = false;
-
+  const queryClient = useQueryClient();
+  const permissions = useHasPermissions({ canDeleteSessions: { sessions: 'delete' } });
 
   const { data, isPending: isPendingData, isFetching: isFetchingData, refetch } = useQuery({
     ...sessions_search_QueryOptions({ body: search }),
     gcTime: 0,
-    staleTime: 0,
-    placeholderData: keepPreviousData
+    staleTime: 60 * 1000,
+    placeholderData: keepPreviousData,
+    structuralSharing: false,
+  });
+
+  const { mutate: revokeSessions, isPending: isRevokingSession } = useMutation({
+    ...sessions_revoke_MutationOptions(),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: sessions_search_QueryKeys({ body: search }) });
+    }
   });
 
   const columns = useMemo(() => sessionColumns({
     disabled: isFetchingData,
-    canDelete: canDelete,
-    onRevokeClick: () => {
-    }
-  }), [isFetchingData, canDelete]);
+    canDelete: permissions.canDeleteSessions,
+    onRevokeClick: (id) => revokeSessions({ query: { ids: [id] } })
+  }), [isFetchingData, permissions.canDeleteSessions]);
 
 
   const { table, selectedItems, setRowSelection } = useDataTable({
@@ -86,7 +94,7 @@ export const SessionsTable: FC<IProps> = (props) => {
     if (selectedItems?.length <= 0)
       return;
 
-    // revokeSessions({ ids: selectedItems.map(item => item.id) });
+    revokeSessions({ query: { ids: selectedItems.map(item => item.id) } });
   };
 
   return (
@@ -108,8 +116,13 @@ export const SessionsTable: FC<IProps> = (props) => {
 
         <DataTableActionBar disabled={isFetchingData || isRevokingSession}>
           <ActionBarButton text="CSV" icon={FileDownIcon} onClick={onExportToCsvClick}/>
-          {canDelete && (
-            <ActionBarButton text="Revoke" icon={TrashIcon} variant="destructive" onClick={revokeSelectedSession}/>
+          {permissions.canDeleteSessions && (
+            <ActionBarButton
+              text={m['pages.sessions.list.table.revoke']()}
+              icon={TrashIcon}
+              variant="destructive"
+              onClick={revokeSelectedSession}
+            />
           )}
         </DataTableActionBar>
       </DataTableProvider>

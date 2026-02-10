@@ -6,7 +6,13 @@ import {
   auth_signOut_MutationOptions
 } from '@/api/generated/@tanstack/react-query.gen.ts';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import type { AdminUserDto, AdminSessionDto, PostAuthSignInData, SessionDataDto } from '@/api/generated';
+import type {
+  AdminUserDto,
+  AdminSessionDto,
+  PostAuthSignInData,
+  SessionDataDto,
+  RolePermissionsDto
+} from '@/api/generated';
 import { toast } from 'sonner';
 import { normalizeError } from '@/lib/utils';
 import { useConfirm } from '@/components/ui/confirm-dialog.tsx';
@@ -16,6 +22,7 @@ import { apiClient } from '@/api/api-client.ts';
 interface IAuthContextValue {
   user: AdminUserDto | undefined | null;
   session: AdminSessionDto | undefined | null;
+  permissions: RolePermissionsDto | undefined | null;
   signIn: (data: Omit<PostAuthSignInData, 'url' | 'path' | 'query'>) => void;
   signOut: () => void;
   isAuthenticated: boolean;
@@ -71,7 +78,7 @@ function AuthProvider({ children }: IAuthProviderProps) {
         throw new Error('Session or user is missing');
 
       setSessionData(data);
-      writeAuth({ user: data!.user, session: data!.session });
+      writeAuth({ user: data!.user, session: data!.session, permissions: data!.permissions });
       return data;
     },
     enabled: !!initialState,
@@ -84,9 +91,9 @@ function AuthProvider({ children }: IAuthProviderProps) {
 
   const { mutate: signIn, isPending: isSigningIn } = useMutation({
     ...auth_signIn_MutationOptions(),
-    onSuccess: ({ user, session }) => {
-      writeAuth({ user: user, session: session });
-      setSessionData({ user: user, session: session });
+    onSuccess: ({ user, session, permissions }) => {
+      writeAuth({ user: user, session: session, permissions: permissions });
+      setSessionData({ user: user, session: session, permissions: permissions });
     },
     onError: (error) => {
       const { name, message } = normalizeError(error);
@@ -118,9 +125,11 @@ function AuthProvider({ children }: IAuthProviderProps) {
 
   _isAuthenticated = !!sessionData?.user && !!sessionData?.session;
 
+
   const value: IAuthContextValue = {
     user: sessionData?.user,
     session: sessionData?.session,
+    permissions: sessionData?.permissions,
     isAuthenticated: _isAuthenticated,
     isSigningIn: isSigningIn,
     isSigningOut: isSigningOut,

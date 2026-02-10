@@ -12,7 +12,7 @@ import {
   UserSearchIcon,
   NetworkIcon, SquareUserIcon, StoreIcon, HandshakeIcon, LogOutIcon
 } from 'lucide-react';
-
+import { useHasPermissions } from '@/hooks/use-has-permissions.ts';
 import {
   Sidebar,
   SidebarContent,
@@ -68,44 +68,9 @@ interface ISidebarMenuItem {
 }
 
 
-const navMain = [
-  {
-    icon: HandshakeIcon,
-    title: m['components.sidebar.businesses'](),
-    items: [
-      {
-        icon: SquareUserIcon,
-        title: m['components.sidebar.vendors'](),
-        linkOptions: { to: '/' }
-      },
-      {
-        icon: StoreIcon,
-        title: m['components.sidebar.stores'](),
-        linkOptions: { to: '/' }
-      }
-    ]
-  },
-  {
-    icon: UsersIcon,
-    title: m['components.sidebar.users'](),
-    items: [
-      {
-        icon: UserSearchIcon,
-        title: m['common.list'](),
-        linkOptions: { to: '/users' }
-      },
-      {
-        icon: NetworkIcon,
-        title: m['components.sidebar.sessions'](),
-        linkOptions: { to: '/sessions' }
-      }
-    ]
-  }
-] as const satisfies ISidebarMenuItem[];
-
-
 export const AppSidebar: FC<ComponentPropsWithoutRef<typeof Sidebar>> = ({ ...props }) => {
   const { setOpenMobile } = useSidebar();
+  const navMain = useNavMain();
 
 
   return (
@@ -429,4 +394,56 @@ const NavPreferences: FC<INavPreferencesProps> = ({ itemsSize, ...props }) => {
       </SidebarGroupContent>
     </SidebarGroup>
   );
+};
+
+
+const useNavMain = () => {
+  const permissions = useHasPermissions({
+    canListVendors: { vendors: 'list' },
+    canListStores: { stores: 'list' },
+
+    canListSessions: { sessions: 'list' },
+    canListUsers: { users: 'list' }
+  });
+
+  const businessesGroup: ISidebarMenuItem = {
+    icon: HandshakeIcon,
+    title: m['components.sidebar.businesses'](),
+    items: []
+  };
+
+  if (permissions.canListVendors)
+    businessesGroup.items?.push({
+      icon: SquareUserIcon,
+      title: m['components.sidebar.vendors'](),
+      linkOptions: { to: '/' }
+    });
+
+  if (permissions.canListStores)
+    businessesGroup.items?.push({
+      icon: StoreIcon,
+      title: m['components.sidebar.stores'](),
+      linkOptions: { to: '/' }
+    });
+
+  const usersGroup: ISidebarMenuItem = {
+    icon: UsersIcon,
+    title: m['components.sidebar.users'](),
+    items: []
+  };
+
+  if (permissions.canListUsers)
+    usersGroup.items?.push({ icon: UserSearchIcon, title: m['common.list'](), linkOptions: { to: '/users' } });
+
+  if (permissions.canListSessions)
+    usersGroup.items?.push({
+      icon: NetworkIcon,
+      title: m['components.sidebar.sessions'](),
+      linkOptions: { to: '/sessions', search: { status: ['active'] } }
+    });
+
+  return [
+    businessesGroup,
+    usersGroup
+  ];
 };

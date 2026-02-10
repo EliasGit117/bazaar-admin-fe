@@ -127,9 +127,17 @@ export type AdminSessionDto = {
     user: AdminUserBriefDto;
 };
 
+export type RolePermissionsDto = {
+    users: Array<'get' | 'list' | 'create' | 'update' | 'delete'>;
+    sessions: Array<'get' | 'list' | 'create' | 'update' | 'delete' | 'revoke'>;
+    vendors: Array<'get' | 'list' | 'create' | 'update' | 'delete'>;
+    stores: Array<'get' | 'list' | 'create' | 'update' | 'delete'>;
+};
+
 export type SessionDataDto = {
     session: AdminSessionDto;
     user: AdminUserDto;
+    permissions: RolePermissionsDto;
 };
 
 export type SignInDto = {
@@ -335,32 +343,28 @@ export type PostSessionsSearchResponses = {
 
 export type PostSessionsSearchResponse = PostSessionsSearchResponses[keyof PostSessionsSearchResponses];
 
-export type DeleteSessionsByIdRevokeData = {
+export type DeleteSessionsRevokeData = {
     body?: never;
-    path: {
+    path?: never;
+    query: {
         /**
-         * UUID of the session to close
+         * Session UUIDs (comma-separated or repeated)
          */
-        id: string;
+        ids: Array<string>;
     };
-    query?: never;
-    url: '/sessions/{id}/revoke';
+    url: '/sessions/revoke';
 };
 
-export type DeleteSessionsByIdRevokeErrors = {
+export type DeleteSessionsRevokeErrors = {
     /**
-     * Invalid UUID format
+     * Invalid session IDs
      */
     400: unknown;
-    /**
-     * Session not found
-     */
-    404: unknown;
 };
 
-export type DeleteSessionsByIdRevokeResponses = {
+export type DeleteSessionsRevokeResponses = {
     /**
-     * Session successfully revoked
+     * Sessions successfully revoked
      */
     200: unknown;
 };

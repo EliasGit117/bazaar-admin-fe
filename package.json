@@ -10,7 +10,8 @@
     "build": "bun --bun vite build",
     "preview": "bun vite preview",
     "start": "bun --bun vite --port 3000",
-    "test": "vitest run"
+    "test": "vitest run",
+    "generate-api": "bunx @hey-api/openapi-ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",

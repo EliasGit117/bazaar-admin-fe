@@ -4,7 +4,7 @@ import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOption
 
 import { client } from '../client.gen';
 import { Client, type Options } from '../sdk.gen';
-import type { DeleteSessionsByIdRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostUsersSearchData, PostUsersSearchResponse } from '../types.gen';
+import type { DeleteSessionsRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostUsersSearchData, PostUsersSearchResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -297,14 +297,14 @@ export const sessions_search_MutationOptions = (options?: Partial<Options<PostSe
 };
 
 /**
- * Revoke session
+ * Revoke sessions
  *
- * Revokes a specific admin user session by its UUID.
+ * Revokes multiple admin sessions using query parameters
  */
-export const sessions_byIdRevoke_MutationOptions = (options?: Partial<Options<DeleteSessionsByIdRevokeData>>): UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsByIdRevokeData>> => {
-    const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsByIdRevokeData>> = {
+export const sessions_revoke_MutationOptions = (options?: Partial<Options<DeleteSessionsRevokeData>>): UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsRevokeData>> => {
+    const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsRevokeData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await Client.__registry.get().sessions.revokeSession({
+            const { data } = await Client.__registry.get().sessions.revokeSessions({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

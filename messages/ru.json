@@ -9,7 +9,7 @@
     "loading": "Загрузка",
     "error": "Ошибка",
     "success": "Успешно",
-    "email": "Email",
+    "email": "Эл. почта",
     "password": "Пароль",
     "full_name": "Полное имя",
     "invalid": "Недействительно",
@@ -30,9 +30,32 @@
     "updated": "Обновлён",
     "expires": "Истекает",
     "actions": "Действия",
-    "status": "Статус"
+    "status": "Статус",
+    "settings": "Настройки",
+    "cancel": "Отмена",
+    "home": "Главная",
+    "confirm": "Подтвердить",
+    "first_name": "Имя",
+    "last_name": "Фамилия",
+    "role": "Роль",
+    "active": "Активный",
+    "inactive": "Не активный",
+    "filter_by": "Фильтр по {name}"
+  },
+  "roles": {
+    "admin": "Админ",
+    "user": "Пользователь"
   },
   "components": {
+    "auth": {
+      "sessions_card": {
+        "title": "Активные сеансы",
+        "description": "Управляйте устройствами, вошедшими в ваш аккаунт",
+        "revoke_others": "Отозвать остальные",
+        "current": "Текущая",
+        "revoke_others_confirm": "Вы уверены, что хотите отозвать все другие сессии?"
+      }
+    },
     "data_table": {
       "columns": "Колонки",
       "sort": "Сортировка",
@@ -76,6 +99,13 @@
         "form": {
           "title": "Вход",
           "description": "Заполните поля ниже, чтобы получить доступ к сервису"
+        }
+      }
+    },
+    "users": {
+      "list": {
+        "table": {
+          "sessions": "Сессии"
         }
       }
     },

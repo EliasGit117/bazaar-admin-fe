@@ -4,7 +4,7 @@ import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOption
 
 import { client } from '../client.gen';
 import { Client, type Options } from '../sdk.gen';
-import type { DeleteSessionsRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostUsersSearchData, PostUsersSearchResponse } from '../types.gen';
+import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostUsersSearchData, PostUsersSearchResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -305,6 +305,23 @@ export const sessions_revoke_MutationOptions = (options?: Partial<Options<Delete
     const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsRevokeData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().sessions.revokeSessions({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Revoke all sessions
+ */
+export const sessions_revokeAll_MutationOptions = (options?: Partial<Options<DeleteSessionsRevokeAllData>>): UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsRevokeAllData>> => {
+    const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsRevokeAllData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await Client.__registry.get().sessions.revokeAllSessions({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

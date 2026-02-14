@@ -10,7 +10,12 @@ import {
   LanguagesIcon,
   UsersIcon,
   UserSearchIcon,
-  NetworkIcon, SquareUserIcon, StoreIcon, HandshakeIcon, LogOutIcon
+  SquareUserIcon,
+  StoreIcon,
+  HandshakeIcon,
+  LogOutIcon,
+  CogIcon,
+  MonitorCogIcon
 } from 'lucide-react';
 import { useHasPermissions } from '@/hooks/use-has-permissions.ts';
 import {
@@ -264,7 +269,16 @@ const NavUser: FC<ComponentPropsWithoutRef<typeof SidebarMenu>> = ({ ...props })
 
             <DropdownMenuSeparator/>
 
-            <DropdownMenuItem onClick={signOut}>
+            <DropdownMenuItem asChild>
+              <Link to="/settings">
+                <CogIcon/>
+                <span>{m['common.settings']()}</span>
+              </Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator/>
+
+            <DropdownMenuItem variant="destructive" onClick={signOut}>
               {isSigningOut ? <Spinner/> : <LogOutIcon/>}
               <span>{isSigningOut ? m['common.loading']() : m['common.sign_out']()}</span>
             </DropdownMenuItem>
@@ -423,7 +437,7 @@ const useNavMain = () => {
     businessesGroup.items?.push({
       icon: StoreIcon,
       title: m['components.sidebar.stores'](),
-      linkOptions: { to: '/' }
+      linkOptions: { to: '/', activeOptions: { includeSearch: false } }
     });
 
   const usersGroup: ISidebarMenuItem = {
@@ -433,13 +447,17 @@ const useNavMain = () => {
   };
 
   if (permissions.canListUsers)
-    usersGroup.items?.push({ icon: UserSearchIcon, title: m['common.list'](), linkOptions: { to: '/users' } });
+    usersGroup.items?.push({
+      icon: UserSearchIcon,
+      title: m['common.list'](),
+      linkOptions: { to: '/users', activeOptions: { includeSearch: false } }
+    });
 
   if (permissions.canListSessions)
     usersGroup.items?.push({
-      icon: NetworkIcon,
+      icon: MonitorCogIcon,
       title: m['components.sidebar.sessions'](),
-      linkOptions: { to: '/sessions', search: { status: ['active'] } }
+      linkOptions: { to: '/sessions', search: { status: ['active'] }, activeOptions: { includeSearch: false } }
     });
 
   return [

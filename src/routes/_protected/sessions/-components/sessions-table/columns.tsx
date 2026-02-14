@@ -231,7 +231,7 @@ export const sessionColumns = (options?: IOptions) => {
       }
     }),
 
-    columnHelper.accessor('created', {
+    columnHelper.accessor('createdAt', {
       header: ({ column }) => (
         <DataTableColumnHeader column={column}/>
       ),
@@ -248,7 +248,7 @@ export const sessionColumns = (options?: IOptions) => {
       }
     }),
 
-    columnHelper.accessor('updated', {
+    columnHelper.accessor('updatedAt', {
       header: ({ column }) => (
         <DataTableColumnHeader column={column}/>
       ),
@@ -265,7 +265,7 @@ export const sessionColumns = (options?: IOptions) => {
       }
     }),
 
-    columnHelper.accessor('expires', {
+    columnHelper.accessor('expiresAt', {
       header: ({ column }) => (
         <DataTableColumnHeader column={column}/>
       ),
@@ -297,7 +297,7 @@ export const sessionColumns = (options?: IOptions) => {
 
         return (
           <Badge
-            variant={isOwned ? (isCurrent ? 'default' : 'secondary') : 'outline'}
+            variant={isOwned ? (isCurrent ? 'outline' : 'secondary') : 'outline'}
             className={cn('rounded-sm min-h-6', (!isCurrent && isOwned) && 'border border-border')}
           >
             {isOwned ? (isCurrent ? (<SquareCheckIcon/>) : (<SquareMinusIcon/>)) : (<SquareIcon/>)}
@@ -322,7 +322,7 @@ export const sessionColumns = (options?: IOptions) => {
 
         return (
           <Badge
-            variant={value === 'active' ? 'default' : 'destructive'}
+            variant={value === 'active' ? 'outline' : 'destructive'}
             className={cn('rounded-sm min-h-6', value === 'revoked' && 'border border-destructive/20')}
           >
             {value === 'active' ? (<ActivityIcon/>) : (<TrashIcon/>)}
@@ -333,7 +333,7 @@ export const sessionColumns = (options?: IOptions) => {
       meta: {
         icon: HeartPulseIcon,
         label: m['common.status'](),
-        skeletonClassName: 'h-4 w-32',
+        skeletonClassName: 'h-5.5 w-20 rounded-sm',
         filter: {
           type: ColumnFilterType.MultiSelect,
           options: [

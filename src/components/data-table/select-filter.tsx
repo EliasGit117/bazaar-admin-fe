@@ -85,7 +85,7 @@ export function DataTableSelectFilter<TData, TValue>({ column }: IDataTableSelec
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent className="w-50 p-0" align="start">
+        <PopoverContent className="w-fit min-w-52 p-0" align="start">
           <Command>
             {options.length > 5 && (<CommandInput placeholder={title}/>)}
 
@@ -105,7 +105,8 @@ export function DataTableSelectFilter<TData, TValue>({ column }: IDataTableSelec
                     >
                       {option.icon && <option.icon/>}
                       <span className="truncate">
-                        {option.title}
+                        {option.icon && <option.icon/>}
+                        <span>{option.title}</span>
                       </span>
 
                       {isSelected && (<DotIcon className='ml-auto'/>)}

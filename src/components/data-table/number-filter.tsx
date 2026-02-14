@@ -5,6 +5,7 @@ import { NumberInput } from '@/components/ui/number-input';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { XIcon } from 'lucide-react';
+import { m } from '@/paraglide/messages';
 
 
 interface IDataTableNumberFilterProps<TData, TValue>
@@ -46,7 +47,7 @@ export function DataTableNumberFilter<TData, TValue>(props: IDataTableNumberFilt
         inputSize="sm"
         min={min}
         max={max}
-        placeholder={placeholder ?? getPlaceholderText(min, max)}
+        placeholder={placeholder ?? getPlaceholderText(min, max, meta?.label?.toLowerCase())}
         className="w-40 lg:w-56"
         inputClassName={cn('text-xs sm:text-sm', filterValue && 'pr-7')}
         {...restOfProps}
@@ -72,7 +73,7 @@ export function DataTableNumberFilter<TData, TValue>(props: IDataTableNumberFilt
 }
 
 
-function getPlaceholderText(min: number | undefined, max: number | undefined): string {
+function getPlaceholderText(min: number | undefined, max: number | undefined, name: string = ''): string {
   if (min !== undefined && max !== undefined)
     return `${min} - ${max}`;
 
@@ -82,5 +83,5 @@ function getPlaceholderText(min: number | undefined, max: number | undefined): s
   if (max !== undefined)
     return `≤ ${max}`;
 
-  return 'Filter by number';
+  return m['common.filter_by']({ name: name });
 }

@@ -30,9 +30,32 @@
     "updated": "Updated",
     "expires": "Expires",
     "actions": "Actions",
-    "status": "Status"
+    "status": "Status",
+    "settings": "Settings",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "home": "Home",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "role": "Role",
+    "active": "Active",
+    "inactive": "Inactive",
+    "filter_by": "Filter by {name}"
+  },
+  "roles": {
+    "admin": "Admin",
+    "user": "User"
   },
   "components": {
+    "auth": {
+      "sessions_card": {
+        "title": "Active sessions",
+        "description": "Manage devices that are signed in to your account",
+        "revoke_others": "Revoke others",
+        "current": "Current",
+        "revoke_others_confirm": "Are you sure revoking all other sessions?"
+      }
+    },
     "data_table": {
       "columns": "Columns",
       "sort": "Sort",
@@ -76,6 +99,13 @@
         "form": {
           "title": "Sign In",
           "description": "Fill the fields below to get access to the service"
+        }
+      }
+    },
+    "users": {
+      "list": {
+        "table": {
+          "sessions": "Sessions"
         }
       }
     },

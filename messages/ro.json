@@ -33,9 +33,32 @@
     "updated": "Actualizat",
     "expires": "Expiră",
     "actions": "Acțiuni",
-    "status": "Status"
+    "status": "Status",
+    "settings": "Setări",
+    "cancel": "Anulează",
+    "confirm": "Confirmă",
+    "home": "Acasă",
+    "first_name": "Prenume",
+    "last_name": "Nume",
+    "role": "Rol",
+    "active": "Activ",
+    "inactive": "Inactiva",
+    "filter_by": "Filtrare dupa {name}"
+  },
+  "roles": {
+    "admin": "Admin",
+    "user": "Utilizator"
   },
   "components": {
+    "auth": {
+      "sessions_card": {
+        "title": "Sesiuni active",
+        "description": "Gestionează dispozitivele conectate la contul tău",
+        "revoke_others": "Revocă celelalte",
+        "current": "Curentǎ",
+        "revoke_others_confirm": "Sigur doriți să revocați toate alte sesiuni?"
+      }
+    },
     "data_table": {
       "columns": "Coloane",
       "sort": "Sortare",
@@ -76,6 +99,13 @@
         "form": {
           "title": "Autentificare",
           "description": "Completați câmpurile de mai jos pentru a obține acces la serviciu"
+        }
+      }
+    },
+    "users": {
+      "list": {
+        "table": {
+          "sessions": "Sesiuni"
         }
       }
     },

@@ -6,10 +6,6 @@ export type ClientOptions = {
 
 export type PaginatedResultDto = {
     /**
-     * List of items for the current page
-     */
-    items: Array<Array<unknown>>;
-    /**
      * Total number of items available
      */
     totalItems: number;
@@ -42,11 +38,22 @@ export type AdminUserDto = {
     lastName: string;
     role: 'admin' | 'user';
     status: 'active' | 'inactive';
-    created: string;
-    updated: string;
+    createdAt: string;
+    updatedAt: string;
 };
 
-export type PaginatedRequestDto = {
+export type DateRangeDto = {
+    /**
+     * Start of date range (inclusive)
+     */
+    from?: string;
+    /**
+     * End of date range (inclusive)
+     */
+    to?: string;
+};
+
+export type ListPaginatedUsersDto = {
     /**
      * Page number
      */
@@ -59,6 +66,36 @@ export type PaginatedRequestDto = {
      * Sorting direction
      */
     dir?: 'asc' | 'desc';
+    /**
+     * Sort items by
+     */
+    sort?: 'id' | 'email' | 'role' | 'firstName' | 'lastName' | 'status' | 'createdAt' | 'updatedAt';
+    /**
+     * Find items by id
+     */
+    id?: number;
+    /**
+     * Filter items by email
+     */
+    email?: string;
+    /**
+     * Filter items by first name
+     */
+    firstName?: string;
+    /**
+     * Filter items by last name
+     */
+    lastName?: string;
+    /**
+     * List of user roles
+     */
+    role?: Array<'admin' | 'user'>;
+    /**
+     * List of user status
+     */
+    status?: Array<'active' | 'inactive'>;
+    createdAt?: DateRangeDto;
+    updatedAt?: DateRangeDto;
 };
 
 export type AdminUserBriefDto = {
@@ -88,15 +125,15 @@ export type AdminSessionDto = {
     /**
      * Date and time when the session expires
      */
-    expires: string;
+    expiresAt: string;
     /**
      * Date and time when the session was created
      */
-    created: string;
+    createdAt: string;
     /**
      * Date and time when the session was last updated
      */
-    updated: string;
+    updatedAt: string;
     /**
      * ID of the related user
      */
@@ -108,15 +145,11 @@ export type AdminSessionDto = {
     /**
      * Browser type
      */
-    browserType: {
-        [key: string]: unknown;
-    };
+    browserType: 'chrome' | 'firefox' | 'safari' | 'edge' | 'opera' | 'chrome_mobile' | 'safari_mobile' | 'firefox_mobile' | 'samsung_internet' | 'facebook' | 'instagram' | 'ie' | 'unknown';
     /**
      * Device type
      */
-    deviceType: {
-        [key: string]: unknown;
-    };
+    deviceType: 'desktop' | 'mobile' | 'tablet' | 'bot' | 'unknown';
     /**
      * Is owned by the current user
      */
@@ -129,7 +162,7 @@ export type AdminSessionDto = {
 
 export type RolePermissionsDto = {
     users: Array<'get' | 'list' | 'create' | 'update' | 'delete'>;
-    sessions: Array<'get' | 'list' | 'create' | 'update' | 'delete' | 'revoke'>;
+    sessions: Array<'get' | 'list' | 'create' | 'update' | 'delete'>;
     vendors: Array<'get' | 'list' | 'create' | 'update' | 'delete'>;
     stores: Array<'get' | 'list' | 'create' | 'update' | 'delete'>;
 };
@@ -152,17 +185,6 @@ export type SignUpDto = {
     password: string;
 };
 
-export type DateRangeDto = {
-    /**
-     * Start of date range (inclusive)
-     */
-    from?: string;
-    /**
-     * End of date range (inclusive)
-     */
-    to?: string;
-};
-
 export type ListPaginatedSessionsDto = {
     /**
      * Page number
@@ -179,7 +201,7 @@ export type ListPaginatedSessionsDto = {
     /**
      * Sort items by
      */
-    sort?: 'id' | 'userId' | 'created' | 'updated' | 'ipAddress' | 'userAgent';
+    sort?: 'id' | 'userId' | 'createdAt' | 'updatedAt' | 'ipAddress' | 'userAgent';
     /**
      * Find items by id
      */
@@ -192,9 +214,13 @@ export type ListPaginatedSessionsDto = {
      * Filter by IP address
      */
     ipAddress?: string;
-    created?: DateRangeDto;
-    updated?: DateRangeDto;
-    expires?: DateRangeDto;
+    /**
+     * List of session status
+     */
+    status?: Array<'active' | 'revoked'>;
+    createdAt?: DateRangeDto;
+    updatedAt?: DateRangeDto;
+    expiresAt?: DateRangeDto;
 };
 
 export type GetData = {
@@ -209,7 +235,7 @@ export type GetResponses = {
 };
 
 export type PostUsersSearchData = {
-    body: PaginatedRequestDto;
+    body: ListPaginatedUsersDto;
     path?: never;
     query?: never;
     url: '/users/search';
@@ -222,7 +248,7 @@ export type PostUsersSearchErrors = {
 
 export type PostUsersSearchResponses = {
     200: PaginatedResultDto & {
-        items?: Array<AdminUserDto>;
+        items: Array<AdminUserDto>;
     };
 };
 
@@ -337,7 +363,7 @@ export type PostSessionsSearchData = {
 
 export type PostSessionsSearchResponses = {
     200: PaginatedResultDto & {
-        items?: Array<AdminSessionDto>;
+        items: Array<AdminSessionDto>;
     };
 };
 
@@ -363,6 +389,24 @@ export type DeleteSessionsRevokeErrors = {
 };
 
 export type DeleteSessionsRevokeResponses = {
+    /**
+     * Sessions successfully revoked
+     */
+    200: unknown;
+};
+
+export type DeleteSessionsRevokeAllData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/sessions/revoke-all';
+};
+
+export type DeleteSessionsRevokeAllErrors = {
+    400: unknown;
+};
+
+export type DeleteSessionsRevokeAllResponses = {
     /**
      * Sessions successfully revoked
      */

@@ -14,7 +14,6 @@ import { Route as ProtectedRouteRouteImport } from './routes/_protected/route'
 import { Route as ProtectedIndexRouteImport } from './routes/_protected/index'
 import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
 import { Route as ProtectedVendorsRouteImport } from './routes/_protected/vendors'
-import { Route as ProtectedUsersRouteImport } from './routes/_protected/users'
 import { Route as ProtectedSupportRouteImport } from './routes/_protected/support'
 import { Route as ProtectedFeedbackRouteImport } from './routes/_protected/feedback'
 import { Route as ProtectedCategoriesRouteImport } from './routes/_protected/categories'
@@ -22,11 +21,15 @@ import { Route as ProtectedSettingsRouteRouteImport } from './routes/_protected/
 import { Route as ProtectedPlaygroundRouteRouteImport } from './routes/_protected/playground/route'
 import { Route as ProtectedDocsRouteRouteImport } from './routes/_protected/docs/route'
 import { Route as AuthSignInIndexRouteImport } from './routes/auth/sign-in/index'
+import { Route as ProtectedUsersIndexRouteImport } from './routes/_protected/users/index'
 import { Route as ProtectedSettingsIndexRouteImport } from './routes/_protected/settings/index'
 import { Route as ProtectedSessionsIndexRouteImport } from './routes/_protected/sessions/index'
 import { Route as ProtectedPlaygroundIndexRouteImport } from './routes/_protected/playground/index'
 import { Route as ProtectedDocsIndexRouteImport } from './routes/_protected/docs/index'
 import { Route as ProtectedSettingsTeamRouteImport } from './routes/_protected/settings/team'
+import { Route as ProtectedSettingsSessionsRouteImport } from './routes/_protected/settings/sessions'
+import { Route as ProtectedSettingsSecurityRouteImport } from './routes/_protected/settings/security'
+import { Route as ProtectedSettingsProfileRouteImport } from './routes/_protected/settings/profile'
 import { Route as ProtectedSettingsLimitsRouteImport } from './routes/_protected/settings/limits'
 import { Route as ProtectedSettingsGeneralRouteImport } from './routes/_protected/settings/general'
 import { Route as ProtectedSettingsBillingRouteImport } from './routes/_protected/settings/billing'
@@ -59,11 +62,6 @@ const AuthSignUpRoute = AuthSignUpRouteImport.update({
 const ProtectedVendorsRoute = ProtectedVendorsRouteImport.update({
   id: '/vendors',
   path: '/vendors',
-  getParentRoute: () => ProtectedRouteRoute,
-} as any)
-const ProtectedUsersRoute = ProtectedUsersRouteImport.update({
-  id: '/users',
-  path: '/users',
   getParentRoute: () => ProtectedRouteRoute,
 } as any)
 const ProtectedSupportRoute = ProtectedSupportRouteImport.update({
@@ -102,6 +100,11 @@ const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
   path: '/sign-in/',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const ProtectedUsersIndexRoute = ProtectedUsersIndexRouteImport.update({
+  id: '/users/',
+  path: '/users/',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
 const ProtectedSettingsIndexRoute = ProtectedSettingsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -128,6 +131,24 @@ const ProtectedSettingsTeamRoute = ProtectedSettingsTeamRouteImport.update({
   path: '/team',
   getParentRoute: () => ProtectedSettingsRouteRoute,
 } as any)
+const ProtectedSettingsSessionsRoute =
+  ProtectedSettingsSessionsRouteImport.update({
+    id: '/sessions',
+    path: '/sessions',
+    getParentRoute: () => ProtectedSettingsRouteRoute,
+  } as any)
+const ProtectedSettingsSecurityRoute =
+  ProtectedSettingsSecurityRouteImport.update({
+    id: '/security',
+    path: '/security',
+    getParentRoute: () => ProtectedSettingsRouteRoute,
+  } as any)
+const ProtectedSettingsProfileRoute =
+  ProtectedSettingsProfileRouteImport.update({
+    id: '/profile',
+    path: '/profile',
+    getParentRoute: () => ProtectedSettingsRouteRoute,
+  } as any)
 const ProtectedSettingsLimitsRoute = ProtectedSettingsLimitsRouteImport.update({
   id: '/limits',
   path: '/limits',
@@ -187,7 +208,6 @@ export interface FileRoutesByFullPath {
   '/categories': typeof ProtectedCategoriesRoute
   '/feedback': typeof ProtectedFeedbackRoute
   '/support': typeof ProtectedSupportRoute
-  '/users': typeof ProtectedUsersRoute
   '/vendors': typeof ProtectedVendorsRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/': typeof ProtectedIndexRoute
@@ -200,11 +220,15 @@ export interface FileRoutesByFullPath {
   '/settings/billing': typeof ProtectedSettingsBillingRoute
   '/settings/general': typeof ProtectedSettingsGeneralRoute
   '/settings/limits': typeof ProtectedSettingsLimitsRoute
+  '/settings/profile': typeof ProtectedSettingsProfileRoute
+  '/settings/security': typeof ProtectedSettingsSecurityRoute
+  '/settings/sessions': typeof ProtectedSettingsSessionsRoute
   '/settings/team': typeof ProtectedSettingsTeamRoute
   '/docs/': typeof ProtectedDocsIndexRoute
   '/playground/': typeof ProtectedPlaygroundIndexRoute
   '/sessions': typeof ProtectedSessionsIndexRoute
   '/settings/': typeof ProtectedSettingsIndexRoute
+  '/users': typeof ProtectedUsersIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
 }
 export interface FileRoutesByTo {
@@ -212,7 +236,6 @@ export interface FileRoutesByTo {
   '/categories': typeof ProtectedCategoriesRoute
   '/feedback': typeof ProtectedFeedbackRoute
   '/support': typeof ProtectedSupportRoute
-  '/users': typeof ProtectedUsersRoute
   '/vendors': typeof ProtectedVendorsRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/': typeof ProtectedIndexRoute
@@ -225,11 +248,15 @@ export interface FileRoutesByTo {
   '/settings/billing': typeof ProtectedSettingsBillingRoute
   '/settings/general': typeof ProtectedSettingsGeneralRoute
   '/settings/limits': typeof ProtectedSettingsLimitsRoute
+  '/settings/profile': typeof ProtectedSettingsProfileRoute
+  '/settings/security': typeof ProtectedSettingsSecurityRoute
+  '/settings/sessions': typeof ProtectedSettingsSessionsRoute
   '/settings/team': typeof ProtectedSettingsTeamRoute
   '/docs': typeof ProtectedDocsIndexRoute
   '/playground': typeof ProtectedPlaygroundIndexRoute
   '/sessions': typeof ProtectedSessionsIndexRoute
   '/settings': typeof ProtectedSettingsIndexRoute
+  '/users': typeof ProtectedUsersIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
 }
 export interface FileRoutesById {
@@ -242,7 +269,6 @@ export interface FileRoutesById {
   '/_protected/categories': typeof ProtectedCategoriesRoute
   '/_protected/feedback': typeof ProtectedFeedbackRoute
   '/_protected/support': typeof ProtectedSupportRoute
-  '/_protected/users': typeof ProtectedUsersRoute
   '/_protected/vendors': typeof ProtectedVendorsRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/_protected/': typeof ProtectedIndexRoute
@@ -255,11 +281,15 @@ export interface FileRoutesById {
   '/_protected/settings/billing': typeof ProtectedSettingsBillingRoute
   '/_protected/settings/general': typeof ProtectedSettingsGeneralRoute
   '/_protected/settings/limits': typeof ProtectedSettingsLimitsRoute
+  '/_protected/settings/profile': typeof ProtectedSettingsProfileRoute
+  '/_protected/settings/security': typeof ProtectedSettingsSecurityRoute
+  '/_protected/settings/sessions': typeof ProtectedSettingsSessionsRoute
   '/_protected/settings/team': typeof ProtectedSettingsTeamRoute
   '/_protected/docs/': typeof ProtectedDocsIndexRoute
   '/_protected/playground/': typeof ProtectedPlaygroundIndexRoute
   '/_protected/sessions/': typeof ProtectedSessionsIndexRoute
   '/_protected/settings/': typeof ProtectedSettingsIndexRoute
+  '/_protected/users/': typeof ProtectedUsersIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
 }
 export interface FileRouteTypes {
@@ -272,7 +302,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/feedback'
     | '/support'
-    | '/users'
     | '/vendors'
     | '/auth/sign-up'
     | '/'
@@ -285,11 +314,15 @@ export interface FileRouteTypes {
     | '/settings/billing'
     | '/settings/general'
     | '/settings/limits'
+    | '/settings/profile'
+    | '/settings/security'
+    | '/settings/sessions'
     | '/settings/team'
     | '/docs/'
     | '/playground/'
     | '/sessions'
     | '/settings/'
+    | '/users'
     | '/auth/sign-in'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -297,7 +330,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/feedback'
     | '/support'
-    | '/users'
     | '/vendors'
     | '/auth/sign-up'
     | '/'
@@ -310,11 +342,15 @@ export interface FileRouteTypes {
     | '/settings/billing'
     | '/settings/general'
     | '/settings/limits'
+    | '/settings/profile'
+    | '/settings/security'
+    | '/settings/sessions'
     | '/settings/team'
     | '/docs'
     | '/playground'
     | '/sessions'
     | '/settings'
+    | '/users'
     | '/auth/sign-in'
   id:
     | '__root__'
@@ -326,7 +362,6 @@ export interface FileRouteTypes {
     | '/_protected/categories'
     | '/_protected/feedback'
     | '/_protected/support'
-    | '/_protected/users'
     | '/_protected/vendors'
     | '/auth/sign-up'
     | '/_protected/'
@@ -339,11 +374,15 @@ export interface FileRouteTypes {
     | '/_protected/settings/billing'
     | '/_protected/settings/general'
     | '/_protected/settings/limits'
+    | '/_protected/settings/profile'
+    | '/_protected/settings/security'
+    | '/_protected/settings/sessions'
     | '/_protected/settings/team'
     | '/_protected/docs/'
     | '/_protected/playground/'
     | '/_protected/sessions/'
     | '/_protected/settings/'
+    | '/_protected/users/'
     | '/auth/sign-in/'
   fileRoutesById: FileRoutesById
 }
@@ -387,13 +426,6 @@ declare module '@tanstack/react-router' {
       path: '/vendors'
       fullPath: '/vendors'
       preLoaderRoute: typeof ProtectedVendorsRouteImport
-      parentRoute: typeof ProtectedRouteRoute
-    }
-    '/_protected/users': {
-      id: '/_protected/users'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof ProtectedUsersRouteImport
       parentRoute: typeof ProtectedRouteRoute
     }
     '/_protected/support': {
@@ -445,6 +477,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInIndexRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/_protected/users/': {
+      id: '/_protected/users/'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof ProtectedUsersIndexRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
     '/_protected/settings/': {
       id: '/_protected/settings/'
       path: '/'
@@ -478,6 +517,27 @@ declare module '@tanstack/react-router' {
       path: '/team'
       fullPath: '/settings/team'
       preLoaderRoute: typeof ProtectedSettingsTeamRouteImport
+      parentRoute: typeof ProtectedSettingsRouteRoute
+    }
+    '/_protected/settings/sessions': {
+      id: '/_protected/settings/sessions'
+      path: '/sessions'
+      fullPath: '/settings/sessions'
+      preLoaderRoute: typeof ProtectedSettingsSessionsRouteImport
+      parentRoute: typeof ProtectedSettingsRouteRoute
+    }
+    '/_protected/settings/security': {
+      id: '/_protected/settings/security'
+      path: '/security'
+      fullPath: '/settings/security'
+      preLoaderRoute: typeof ProtectedSettingsSecurityRouteImport
+      parentRoute: typeof ProtectedSettingsRouteRoute
+    }
+    '/_protected/settings/profile': {
+      id: '/_protected/settings/profile'
+      path: '/profile'
+      fullPath: '/settings/profile'
+      preLoaderRoute: typeof ProtectedSettingsProfileRouteImport
       parentRoute: typeof ProtectedSettingsRouteRoute
     }
     '/_protected/settings/limits': {
@@ -587,6 +647,9 @@ interface ProtectedSettingsRouteRouteChildren {
   ProtectedSettingsBillingRoute: typeof ProtectedSettingsBillingRoute
   ProtectedSettingsGeneralRoute: typeof ProtectedSettingsGeneralRoute
   ProtectedSettingsLimitsRoute: typeof ProtectedSettingsLimitsRoute
+  ProtectedSettingsProfileRoute: typeof ProtectedSettingsProfileRoute
+  ProtectedSettingsSecurityRoute: typeof ProtectedSettingsSecurityRoute
+  ProtectedSettingsSessionsRoute: typeof ProtectedSettingsSessionsRoute
   ProtectedSettingsTeamRoute: typeof ProtectedSettingsTeamRoute
   ProtectedSettingsIndexRoute: typeof ProtectedSettingsIndexRoute
 }
@@ -596,6 +659,9 @@ const ProtectedSettingsRouteRouteChildren: ProtectedSettingsRouteRouteChildren =
     ProtectedSettingsBillingRoute: ProtectedSettingsBillingRoute,
     ProtectedSettingsGeneralRoute: ProtectedSettingsGeneralRoute,
     ProtectedSettingsLimitsRoute: ProtectedSettingsLimitsRoute,
+    ProtectedSettingsProfileRoute: ProtectedSettingsProfileRoute,
+    ProtectedSettingsSecurityRoute: ProtectedSettingsSecurityRoute,
+    ProtectedSettingsSessionsRoute: ProtectedSettingsSessionsRoute,
     ProtectedSettingsTeamRoute: ProtectedSettingsTeamRoute,
     ProtectedSettingsIndexRoute: ProtectedSettingsIndexRoute,
   }
@@ -612,10 +678,10 @@ interface ProtectedRouteRouteChildren {
   ProtectedCategoriesRoute: typeof ProtectedCategoriesRoute
   ProtectedFeedbackRoute: typeof ProtectedFeedbackRoute
   ProtectedSupportRoute: typeof ProtectedSupportRoute
-  ProtectedUsersRoute: typeof ProtectedUsersRoute
   ProtectedVendorsRoute: typeof ProtectedVendorsRoute
   ProtectedIndexRoute: typeof ProtectedIndexRoute
   ProtectedSessionsIndexRoute: typeof ProtectedSessionsIndexRoute
+  ProtectedUsersIndexRoute: typeof ProtectedUsersIndexRoute
 }
 
 const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
@@ -625,10 +691,10 @@ const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
   ProtectedCategoriesRoute: ProtectedCategoriesRoute,
   ProtectedFeedbackRoute: ProtectedFeedbackRoute,
   ProtectedSupportRoute: ProtectedSupportRoute,
-  ProtectedUsersRoute: ProtectedUsersRoute,
   ProtectedVendorsRoute: ProtectedVendorsRoute,
   ProtectedIndexRoute: ProtectedIndexRoute,
   ProtectedSessionsIndexRoute: ProtectedSessionsIndexRoute,
+  ProtectedUsersIndexRoute: ProtectedUsersIndexRoute,
 }
 
 const ProtectedRouteRouteWithChildren = ProtectedRouteRoute._addFileChildren(

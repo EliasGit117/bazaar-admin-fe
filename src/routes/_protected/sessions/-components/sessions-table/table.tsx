@@ -5,8 +5,8 @@ import {
   useDataTable
 } from '@/components/data-table';
 import { sessionColumns } from './columns.tsx';
-import { type ComponentProps, type FC, useMemo } from 'react';
-import { cn } from '@/lib/utils';
+import { type ComponentProps, type FC, useEffect, useMemo } from 'react';
+import { cn, normalizeError } from '@/lib/utils';
 import { ActionBarButton } from '@/components/data-table/action-bar.tsx';
 import { AdaptiveButton } from '@/components/ui/adaptive-button.tsx';
 import { exportToCsv } from '@/lib/utils';
@@ -19,6 +19,7 @@ import {
 } from '@/api/generated/@tanstack/react-query.gen.ts';
 import { m } from '@/paraglide/messages';
 import { useHasPermissions } from '@/hooks/use-has-permissions.ts';
+import { toast } from 'sonner';
 
 
 interface IProps extends ComponentProps<'div'> {
@@ -33,12 +34,12 @@ export const SessionsTable: FC<IProps> = (props) => {
   const queryClient = useQueryClient();
   const permissions = useHasPermissions({ canDeleteSessions: { sessions: 'delete' } });
 
-  const { data, isPending: isPendingData, isFetching: isFetchingData, refetch } = useQuery({
+  const { data, isPending: isPendingData, isFetching: isFetchingData, refetch, error } = useQuery({
     ...sessions_search_QueryOptions({ body: search }),
     gcTime: 0,
     staleTime: 60 * 1000,
     placeholderData: keepPreviousData,
-    structuralSharing: false,
+    structuralSharing: false
   });
 
   const { mutate: revokeSessions, isPending: isRevokingSession } = useMutation({
@@ -65,7 +66,7 @@ export const SessionsTable: FC<IProps> = (props) => {
     initialState: {
       columnVisibility: {
         id: false,
-        updated: false,
+        updatedAt: false,
         userId: false
       } satisfies Partial<Record<keyof AdminSessionDto, boolean>>,
       columnPinning: {
@@ -81,12 +82,7 @@ export const SessionsTable: FC<IProps> = (props) => {
       return;
 
     setRowSelection({});
-    exportToCsv('sessions.csv', selectedItems.map((session) => ({
-      id: session.id,
-      userId: session.userId,
-      expires: session.expires,
-      created: session.created
-    })));
+    exportToCsv('sessions.csv', selectedItems);
   };
 
 
@@ -96,6 +92,15 @@ export const SessionsTable: FC<IProps> = (props) => {
 
     revokeSessions({ query: { ids: selectedItems.map(item => item.id) } });
   };
+
+  useEffect(() => {
+    if (error == null)
+      return;
+
+    const { name, message } = normalizeError(error);
+    toast.error(name, { description: message });
+  }, [error]);
+
 
   return (
     <div className={cn('space-y-2', className)} {...divProps}>

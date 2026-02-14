@@ -137,7 +137,7 @@ export function DataTableMultiSelectFilter<TData, TValue>({ column }: IDataTable
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent className="w-50 p-0" align="start">
+        <PopoverContent className="w-fit min-w-52 p-0" align="start">
           <Command>
             {options.length > 5 && (<CommandInput placeholder={title}/>)}
 

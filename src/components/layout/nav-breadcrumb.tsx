@@ -9,7 +9,7 @@ import {
 import { Link, type LinkOptions, useMatches } from '@tanstack/react-router';
 import { type ComponentProps, type FC, Fragment } from 'react';
 import { cn } from '@/lib/utils';
-import { getLocale, type Locale } from '@/paraglide/runtime';
+import { m } from '@/paraglide/messages';
 
 
 export interface IBreadcrumb {
@@ -21,9 +21,6 @@ export interface IBreadcrumb {
 interface IProps extends ComponentProps<'nav'> {}
 
 const responsiveClassName = 'hidden sm:flex';
-const locale = getLocale();
-const adminTitleTranslations: Record<Locale, string> = { en: 'Admin', ro: 'Admin', ru: 'Админ' };
-const adminTitle = adminTitleTranslations[locale];
 
 export const NavBreadcrumbs: FC<IProps> = ({ className, ...props }) => {
   const matches = useMatches();
@@ -46,7 +43,7 @@ export const NavBreadcrumbs: FC<IProps> = ({ className, ...props }) => {
         .map((crumb) => ({ label: crumb.title, link: crumb.link ? crumb.link : { href: pathname } }));
     });
 
-  items.unshift({ label: adminTitle, link: { to: '/' } })
+  items.unshift({ label: m['common.home'](), link: { to: '/' } })
 
   return (
     <nav className={cn(className)} {...props}>

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { DateRangeDto } from '@/api/generated';
+
 
 export const dateRangeSchema = z.object({
   from: z.union([z.date(), z.iso.datetime().transform(val => new Date(val))]).optional(),
@@ -7,11 +7,6 @@ export const dateRangeSchema = z.object({
 });
 
 export type TDateRange = z.infer<typeof dateRangeSchema>;
-
-
-export function getDateRangeDto(data?: TDateRange): DateRangeDto | undefined {
-  return data == null ? undefined : { from: data?.from?.toString(), to: data?.to?.toString() }
-}
 
 
 export const numberRangeSchema = z

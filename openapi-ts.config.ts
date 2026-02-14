@@ -31,7 +31,10 @@ export default defineConfig({
   },
   plugins: [
     { name: '@hey-api/client-ky' },
-    { enums: 'typescript', name: '@hey-api/typescript', },
+    {
+      dates: true,
+      name: '@hey-api/transformers',
+    },
     {
       name: '@hey-api/sdk',
       operations: {

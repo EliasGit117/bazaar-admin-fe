@@ -46,11 +46,11 @@ export type DateRangeDto = {
     /**
      * Start of date range (inclusive)
      */
-    from?: string;
+    from?: Date;
     /**
      * End of date range (inclusive)
      */
-    to?: string;
+    to?: Date;
 };
 
 export type ListPaginatedUsersDto = {
@@ -125,15 +125,15 @@ export type AdminSessionDto = {
     /**
      * Date and time when the session expires
      */
-    expiresAt: string;
+    expiresAt: Date;
     /**
      * Date and time when the session was created
      */
-    createdAt: string;
+    createdAt: Date;
     /**
      * Date and time when the session was last updated
      */
-    updatedAt: string;
+    updatedAt: Date;
     /**
      * ID of the related user
      */

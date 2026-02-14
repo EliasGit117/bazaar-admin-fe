@@ -5,7 +5,7 @@ import type { ZodType } from 'zod';
 import type { PostUsersSearchData } from '@/api/generated';
 import { users_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
 import { UsersTable } from '@/routes/_protected/users/-components/users-table/table.tsx';
-import { dateRangeSchema, getDateRangeDto } from '@/components/data-table/types/schemas.ts';
+import { dateRangeSchema } from '@/components/data-table/types/schemas.ts';
 
 
 export const paginatedSchema = z.object({
@@ -23,9 +23,9 @@ const listUsersSchema = paginatedSchema.extend({
   role: z.array(z.enum(['admin', 'user'])).optional().catch(undefined),
   createdAt: dateRangeSchema.optional().catch(undefined),
   updatedAt: dateRangeSchema.optional().catch(undefined)
-}) satisfies ZodType<Omit<PostUsersSearchData['body'], 'createdAt' | 'updatedAt'>>;
 
-type TListUsersSchema = z.infer<typeof listUsersSchema>;
+}) satisfies ZodType<PostUsersSearchData['body']>;
+
 
 
 const locale = getLocale();
@@ -46,9 +46,7 @@ export const Route = createFileRoute('/_protected/users/')({
   loaderDeps: (deps) => deps,
   loader: async ({ context: { queryClient }, deps: { search } }) => {
     void queryClient.prefetchQuery({
-      ...users_search_QueryOptions({
-        body: getSearchBody(search)
-      }),
+      ...users_search_QueryOptions({ body: search }),
       staleTime: Infinity
     });
   }
@@ -59,15 +57,7 @@ function RouteComponent() {
 
   return (
     <main className="space-y-4">
-      <UsersTable search={getSearchBody(search)}/>
+      <UsersTable search={search}/>
     </main>
   );
-}
-
-function getSearchBody(search: TListUsersSchema): PostUsersSearchData['body'] {
-  return {
-  ...search,
-    createdAt: getDateRangeDto(search.createdAt),
-    updatedAt: getDateRangeDto(search.updatedAt),
-  };
 }

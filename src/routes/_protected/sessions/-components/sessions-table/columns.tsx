@@ -13,7 +13,7 @@ import {
 import { DropdownMenuTrigger } from '@/components/ui/dropdown-menu.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { Link } from '@tanstack/react-router';
-import type { AdminSessionDto } from '@/api/generated';
+import { type AdminSessionDto, AdminSessionStatus } from '@/api/generated';
 import {
   ActivityIcon,
   CalendarIcon,
@@ -337,8 +337,8 @@ export const sessionColumns = (options?: IOptions) => {
         filter: {
           type: ColumnFilterType.MultiSelect,
           options: [
-            { title: m['pages.sessions.list.table.active'](), value: 'active', icon: ActivityIcon },
-            { title: m['pages.sessions.list.table.revoked'](), value: 'revoked', icon: XIcon }
+            { title: m['pages.sessions.list.table.active'](), value: AdminSessionStatus.ACTIVE, icon: ActivityIcon },
+            { title: m['pages.sessions.list.table.revoked'](), value: AdminSessionStatus.REVOKED, icon: XIcon }
           ]
         }
       }
@@ -370,7 +370,7 @@ export const sessionColumns = (options?: IOptions) => {
                 <DropdownMenuSeparator/>
 
                 <DropdownMenuItem asChild>
-                  <Link to="/">
+                  <Link to="/users" search={{ id: row.original.userId }}>
                     <UserCircleIcon className="mr-2 size-4"/>
                     <span>{m['pages.sessions.list.table.owner']()}</span>
                   </Link>

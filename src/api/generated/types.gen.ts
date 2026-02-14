@@ -31,16 +31,40 @@ export type PaginatedResultDto = {
     hasPrevPage: boolean;
 };
 
+export enum AdminUserRole {
+    ADMIN = 'admin',
+    USER = 'user'
+}
+
+export enum AdminUserStatus {
+    ACTIVE = 'active',
+    INACTIVE = 'inactive'
+}
+
 export type AdminUserDto = {
     id: number;
     email: string;
     firstName: string;
     lastName: string;
-    role: 'admin' | 'user';
-    status: 'active' | 'inactive';
+    role: AdminUserRole;
+    status: AdminUserStatus;
     createdAt: string;
     updatedAt: string;
 };
+
+/**
+ * Sort items by
+ */
+export enum UserSortBy {
+    ID = 'id',
+    EMAIL = 'email',
+    ROLE = 'role',
+    FIRST_NAME = 'firstName',
+    LAST_NAME = 'lastName',
+    STATUS = 'status',
+    CREATED_AT = 'createdAt',
+    UPDATED_AT = 'updatedAt'
+}
 
 export type DateRangeDto = {
     /**
@@ -69,7 +93,7 @@ export type ListPaginatedUsersDto = {
     /**
      * Sort items by
      */
-    sort?: 'id' | 'email' | 'role' | 'firstName' | 'lastName' | 'status' | 'createdAt' | 'updatedAt';
+    sort?: UserSortBy;
     /**
      * Find items by id
      */
@@ -89,14 +113,52 @@ export type ListPaginatedUsersDto = {
     /**
      * List of user roles
      */
-    role?: Array<'admin' | 'user'>;
+    role?: Array<AdminUserRole>;
     /**
      * List of user status
      */
-    status?: Array<'active' | 'inactive'>;
+    status?: Array<AdminUserStatus>;
     createdAt?: DateRangeDto;
     updatedAt?: DateRangeDto;
 };
+
+/**
+ * Status of the session
+ */
+export enum AdminSessionStatus {
+    ACTIVE = 'active',
+    REVOKED = 'revoked'
+}
+
+/**
+ * Browser type
+ */
+export enum BrowserType {
+    CHROME = 'chrome',
+    FIREFOX = 'firefox',
+    SAFARI = 'safari',
+    EDGE = 'edge',
+    OPERA = 'opera',
+    CHROME_MOBILE = 'chrome_mobile',
+    SAFARI_MOBILE = 'safari_mobile',
+    FIREFOX_MOBILE = 'firefox_mobile',
+    SAMSUNG_INTERNET = 'samsung_internet',
+    FACEBOOK = 'facebook',
+    INSTAGRAM = 'instagram',
+    IE = 'ie',
+    UNKNOWN = 'unknown'
+}
+
+/**
+ * Device type
+ */
+export enum DeviceType {
+    DESKTOP = 'desktop',
+    MOBILE = 'mobile',
+    TABLET = 'tablet',
+    BOT = 'bot',
+    UNKNOWN = 'unknown'
+}
 
 export type AdminUserBriefDto = {
     id: number;
@@ -121,7 +183,7 @@ export type AdminSessionDto = {
     /**
      * Status of the session
      */
-    status: 'active' | 'revoked';
+    status: AdminSessionStatus;
     /**
      * Date and time when the session expires
      */
@@ -145,11 +207,11 @@ export type AdminSessionDto = {
     /**
      * Browser type
      */
-    browserType: 'chrome' | 'firefox' | 'safari' | 'edge' | 'opera' | 'chrome_mobile' | 'safari_mobile' | 'firefox_mobile' | 'samsung_internet' | 'facebook' | 'instagram' | 'ie' | 'unknown';
+    browserType: BrowserType;
     /**
      * Device type
      */
-    deviceType: 'desktop' | 'mobile' | 'tablet' | 'bot' | 'unknown';
+    deviceType: DeviceType;
     /**
      * Is owned by the current user
      */
@@ -185,6 +247,18 @@ export type SignUpDto = {
     password: string;
 };
 
+/**
+ * Sort items by
+ */
+export enum SessionSortBy {
+    ID = 'id',
+    USER_ID = 'userId',
+    CREATED_AT = 'createdAt',
+    UPDATED_AT = 'updatedAt',
+    IP_ADDRESS = 'ipAddress',
+    USER_AGENT = 'userAgent'
+}
+
 export type ListPaginatedSessionsDto = {
     /**
      * Page number
@@ -201,7 +275,7 @@ export type ListPaginatedSessionsDto = {
     /**
      * Sort items by
      */
-    sort?: 'id' | 'userId' | 'createdAt' | 'updatedAt' | 'ipAddress' | 'userAgent';
+    sort?: SessionSortBy;
     /**
      * Find items by id
      */
@@ -217,7 +291,7 @@ export type ListPaginatedSessionsDto = {
     /**
      * List of session status
      */
-    status?: Array<'active' | 'revoked'>;
+    status?: Array<AdminSessionStatus>;
     createdAt?: DateRangeDto;
     updatedAt?: DateRangeDto;
     expiresAt?: DateRangeDto;

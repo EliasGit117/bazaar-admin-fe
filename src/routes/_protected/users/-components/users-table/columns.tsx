@@ -1,19 +1,18 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { format } from 'date-fns';
-import {
-  ColumnFilterType,
-  DataTableColumnHeader
-} from '@/components/data-table';
+import { ColumnFilterType, DataTableColumnHeader } from '@/components/data-table';
 import { Badge } from '@/components/ui/badge.tsx';
-import type { AdminUserDto } from '@/api/generated';
+import { type AdminUserDto, AdminUserRole, AdminUserStatus } from '@/api/generated';
 import {
   ActivityIcon,
   CalendarIcon,
-  CheckCircleIcon, CircleCheckIcon,
+  CheckCircleIcon,
+  CircleCheckIcon,
   EllipsisVerticalIcon,
   HashIcon,
   IdCardIcon,
-  MailIcon, MonitorCogIcon,
+  MailIcon,
+  MonitorCogIcon,
   ShieldIcon,
   UserIcon,
   UserStarIcon,
@@ -23,7 +22,8 @@ import { m } from '@/paraglide/messages';
 import { useAuth } from '@/providers/auth.tsx';
 import {
   DropdownMenu,
-  DropdownMenuContent, DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
@@ -138,8 +138,8 @@ export const userColumns = (options?: IOptions) => {
         filter: {
           type: ColumnFilterType.MultiSelect,
           options: [
-            { title: m['roles.admin'](), value: 'admin', icon: UserStarIcon },
-            { title: m['roles.user'](), value: 'user', icon: UserIcon }
+            { title: m['roles.admin'](), value: AdminUserRole.ADMIN, icon: UserStarIcon },
+            { title: m['roles.user'](), value: AdminUserRole.USER, icon: UserIcon }
           ]
         }
       },
@@ -165,8 +165,8 @@ export const userColumns = (options?: IOptions) => {
         filter: {
           type: ColumnFilterType.MultiSelect,
           options: [
-            { title: m['common.active'](), value: 'active', icon: CircleCheckIcon },
-            { title: m['common.inactive'](), value: 'inactive', icon: XCircleIcon }
+            { title: m['common.active'](), value: AdminUserStatus.ACTIVE, icon: CircleCheckIcon },
+            { title: m['common.inactive'](), value: AdminUserStatus.INACTIVE, icon: XCircleIcon }
           ]
         }
       },

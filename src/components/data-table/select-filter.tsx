@@ -103,13 +103,12 @@ export function DataTableSelectFilter<TData, TValue>({ column }: IDataTableSelec
                       data-is-selected={isSelected}
                       onSelect={() => onItemSelect(option.value, isSelected)}
                     >
-                      {option.icon && <option.icon/>}
+                      {option.icon && <option.icon className="text-muted-foreground"/>}
                       <span className="truncate">
-                        {option.icon && <option.icon/>}
                         <span>{option.title}</span>
                       </span>
 
-                      {isSelected && (<DotIcon className='ml-auto'/>)}
+                      {isSelected && (<DotIcon className="ml-auto stroke-5"/>)}
 
                       {option.count && (
                         <Badge variant="secondary" className="border border-border ml-auto px-1.5 font-mono text-xs">

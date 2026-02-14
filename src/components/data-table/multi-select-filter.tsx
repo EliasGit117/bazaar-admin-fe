@@ -126,7 +126,7 @@ export function DataTableMultiSelectFilter<TData, TValue>({ column }: IDataTable
                         className="border border-border rounded-sm px-1 font-normal [&>svg]:size-2.5!"
                         key={`${option.value}`}
                       >
-                        {option.icon && <option.icon/>}
+                        {option.icon && <option.icon className='text-muted-foreground'/>}
                         <span>{option.title}</span>
                       </Badge>
                     ))
@@ -156,7 +156,7 @@ export function DataTableMultiSelectFilter<TData, TValue>({ column }: IDataTable
                       onSelect={() => onItemSelect(option.value, isSelected)}
                       className="group"
                     >
-                      {option.icon && <option.icon/>}
+                      {option.icon && <option.icon className='text-muted-foreground'/>}
                       <span className="truncate">
                         {option.title}
                       </span>

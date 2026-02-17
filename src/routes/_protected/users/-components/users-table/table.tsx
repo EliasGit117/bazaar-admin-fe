@@ -21,6 +21,7 @@ import { FileDownIcon, RefreshCwIcon } from 'lucide-react';
 import { m } from '@/paraglide/messages';
 import { ActionBarButton } from '@/components/data-table/action-bar.tsx';
 import { toast } from 'sonner';
+import { useAuth } from '@/providers/auth.tsx';
 
 
 interface IProps extends ComponentProps<'div'> {
@@ -28,17 +29,18 @@ interface IProps extends ComponentProps<'div'> {
 }
 
 export const UsersTable: FC<IProps> = ({ className, search = {}, ...divProps }) => {
-  "use no memo";
+  'use no memo';
 
+  const { user } = useAuth();
   const { data, isPending, isFetching, refetch, error } = useQuery({
     ...users_search_QueryOptions({ body: search }),
     gcTime: 0,
     staleTime: 60 * 1000,
     placeholderData: keepPreviousData,
-    structuralSharing: false,
+    structuralSharing: false
   });
 
-  const columns = useMemo(() => userColumns({ disabled: isFetching }), [isFetching]);
+  const columns = useMemo(() => userColumns({ disabled: isFetching, userId: user?.id }), [isFetching]);
 
   const { table, selectedItems, setRowSelection } = useDataTable({
     data: data?.items,
@@ -49,13 +51,13 @@ export const UsersTable: FC<IProps> = ({ className, search = {}, ...divProps }) 
     columns,
     initialState: {
       columnVisibility: {
-        updatedAt: false,
+        updatedAt: false
       } satisfies Partial<Record<keyof AdminUserDto, boolean>>,
 
       columnPinning: {
         left: ['select'],
         right: ['actions']
-      },
+      }
     }
   });
 
@@ -80,10 +82,7 @@ export const UsersTable: FC<IProps> = ({ className, search = {}, ...divProps }) 
       className={cn('space-y-2', className)}
       {...divProps}
     >
-      <DataTableProvider
-        table={table}
-        loading={isPending}
-      >
+      <DataTableProvider table={table} loading={isPending}>
         <DataTableToolbar>
           <AdaptiveButton
             text={m['common.refresh']()}

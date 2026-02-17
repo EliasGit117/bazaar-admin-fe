@@ -1,7 +1,7 @@
 import type { RolePermissionsDto } from '@/api/generated';
 
 export const hasPermission = <K extends keyof RolePermissionsDto>(
-  permissions: RolePermissionsDto | undefined,
+  permissions: RolePermissionsDto | undefined | null,
   resource: K,
   action: RolePermissionsDto[K][number],
 ): boolean => {

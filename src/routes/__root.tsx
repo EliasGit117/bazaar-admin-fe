@@ -5,18 +5,19 @@ import { getLocale } from '@/paraglide/runtime';
 import type { IRouterContext } from '@/main.tsx';
 import * as z from 'zod';
 import { useAuth } from '@/providers/auth.tsx';
+import { envConfig } from '@/lib/utils';
 
 
 
 export const Route = createRootRouteWithContext<IRouterContext>()({
   beforeLoad: () => ({ locale: getLocale() }),
+  head: () => ({ meta: [{ title: envConfig.appName ?? 'Application' }] }),
   component: RootComponent,
 });
 
 
 function RootComponent() {
   const { locale} = Route.useRouteContext();
-
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -35,11 +36,11 @@ function RootComponent() {
 
 const AuthRouteInvalidation = () => {
   const router = useRouter();
-  const { user, session } = useAuth();
+  const { user, session, permissions } = useAuth();
 
   useEffect(() => {
     router.invalidate();
-  }, [user, session]);
+  }, [user, session, permissions]);
 
   return null;
 }

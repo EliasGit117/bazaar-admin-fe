@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { type ComponentProps, useMemo } from 'react';
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
@@ -88,16 +88,19 @@ function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-function FieldLabel({
-  className,
-  ...props
-}: React.ComponentProps<typeof Label>) {
+
+interface IFieldLabelProps extends ComponentProps<typeof Label> {
+  reactOnError?: boolean
+}
+
+function FieldLabel({ className, reactOnError, ...props }: IFieldLabelProps) {
   return (
     <Label
       data-slot="field-label"
       className={cn(
         "has-data-checked:bg-primary/5 has-data-checked:border-primary dark:has-data-checked:bg-primary/10 gap-2 group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border [&>*]:data-[slot=field]:p-3 group/field-label peer/field-label flex w-fit leading-snug",
         "has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col",
+        !reactOnError && 'text-foreground',
         className
       )}
       {...props}

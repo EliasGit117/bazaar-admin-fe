@@ -2,7 +2,7 @@
 
 import type { Client as Client2, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllErrors, DeleteSessionsRevokeAllResponses, DeleteSessionsRevokeData, DeleteSessionsRevokeErrors, DeleteSessionsRevokeResponses, GetAuthMeData, GetAuthMeErrors, GetAuthMeResponses, GetData, GetResponses, PostAuthSignInData, PostAuthSignInErrors, PostAuthSignInResponses, PostAuthSignOutData, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthSignUpData, PostAuthSignUpErrors, PostAuthSignUpResponses, PostSessionsSearchData, PostSessionsSearchResponses, PostUsersSearchData, PostUsersSearchErrors, PostUsersSearchResponses } from './types.gen';
+import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllErrors, DeleteSessionsRevokeAllResponses, DeleteSessionsRevokeData, DeleteSessionsRevokeErrors, DeleteSessionsRevokeResponses, GetAuthMeData, GetAuthMeErrors, GetAuthMeResponses, GetData, GetResponses, GetVendorsByIdData, GetVendorsByIdErrors, GetVendorsByIdResponses, PatchVendorsByIdData, PatchVendorsByIdErrors, PatchVendorsByIdResponses, PostAuthSignInData, PostAuthSignInErrors, PostAuthSignInResponses, PostAuthSignOutData, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthSignUpData, PostAuthSignUpErrors, PostAuthSignUpResponses, PostSessionsSearchData, PostSessionsSearchResponses, PostUsersSearchData, PostUsersSearchErrors, PostUsersSearchResponses, PostVendorsData, PostVendorsErrors, PostVendorsResponses, PostVendorsSearchData, PostVendorsSearchResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -174,6 +174,66 @@ export class Sessions extends HeyApiClient {
     }
 }
 
+export class Vendors extends HeyApiClient {
+    /**
+     * Get vendor by id
+     */
+    public findById<ThrowOnError extends boolean = false>(options: Options<GetVendorsByIdData, ThrowOnError>) {
+        return (options.client ?? this.client).get<GetVendorsByIdResponses, GetVendorsByIdErrors, ThrowOnError>({
+            security: [{ name: 'x-session-id', type: 'apiKey' }],
+            url: '/vendors/{id}',
+            ...options
+        });
+    }
+    
+    /**
+     * Update vendor
+     */
+    public update<ThrowOnError extends boolean = false>(options: Options<PatchVendorsByIdData, ThrowOnError>) {
+        return (options.client ?? this.client).patch<PatchVendorsByIdResponses, PatchVendorsByIdErrors, ThrowOnError>({
+            security: [{ name: 'x-session-id', type: 'apiKey' }],
+            url: '/vendors/{id}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Search sessions
+     *
+     * Returns a paginated list of all admin user sessions. Admin role required.
+     */
+    public search<ThrowOnError extends boolean = false>(options: Options<PostVendorsSearchData, ThrowOnError>) {
+        return (options.client ?? this.client).post<PostVendorsSearchResponses, unknown, ThrowOnError>({
+            security: [{ name: 'x-session-id', type: 'apiKey' }],
+            url: '/vendors/search',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Create vendor
+     */
+    public create<ThrowOnError extends boolean = false>(options: Options<PostVendorsData, ThrowOnError>) {
+        return (options.client ?? this.client).post<PostVendorsResponses, PostVendorsErrors, ThrowOnError>({
+            security: [{ name: 'x-session-id', type: 'apiKey' }],
+            url: '/vendors',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+}
+
 export class Client extends HeyApiClient {
     public static readonly __registry = new HeyApiRegistry<Client>();
     
@@ -203,5 +263,10 @@ export class Client extends HeyApiClient {
     private _sessions?: Sessions;
     get sessions(): Sessions {
         return this._sessions ??= new Sessions({ client: this.client });
+    }
+    
+    private _vendors?: Vendors;
+    get vendors(): Vendors {
+        return this._vendors ??= new Vendors({ client: this.client });
     }
 }

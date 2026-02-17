@@ -19,7 +19,6 @@ import {
   XCircleIcon
 } from 'lucide-react';
 import { m } from '@/paraglide/messages';
-import { useAuth } from '@/providers/auth.tsx';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,8 +32,10 @@ import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { Link } from '@tanstack/react-router';
 
 
+
 interface IOptions {
   disabled?: boolean;
+  userId?: number;
 }
 
 const columnHelper = createColumnHelper<AdminUserDto>();
@@ -42,8 +43,7 @@ const columnHelper = createColumnHelper<AdminUserDto>();
 export const userColumns = (options?: IOptions) => {
   'use no memo';
 
-  const { disabled } = options ?? {};
-  const { user } = useAuth();
+  const { disabled, userId } = options ?? {};
 
   return [
     columnHelper.display({
@@ -56,7 +56,7 @@ export const userColumns = (options?: IOptions) => {
       },
       header: ({ table }) => {
         const rows = table.getPaginationRowModel().rows;
-        const selectableRows = rows.filter((row) => user?.id !== row.getValue('id'));
+        const selectableRows = rows.filter((row) => userId !== row.getValue('id'));
         const allSelected = selectableRows.length > 0 && selectableRows.every((row) => row.getIsSelected());
         const someSelected = selectableRows.some((row) => row.getIsSelected()) && !allSelected;
 
@@ -73,7 +73,7 @@ export const userColumns = (options?: IOptions) => {
       cell: ({ row }) => (
         <div className="size-6 pr-2 flex items-center justify-center">
           <Checkbox
-            disabled={user?.id === row.getValue('id') || disabled}
+            disabled={userId === row.getValue('id') || disabled}
             checked={row.getIsSelected()}
             onCheckedChange={(v) => row.toggleSelected(!!v)}
           />
@@ -82,9 +82,7 @@ export const userColumns = (options?: IOptions) => {
     }),
 
     columnHelper.accessor('id', {
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column}/>
-      ),
+      header: ({ column }) => <DataTableColumnHeader column={column}/>,
       meta: {
         label: 'Id',
         icon: HashIcon,

@@ -57,6 +57,7 @@ import { useAuth } from '@/providers/auth.tsx';
 import { Spinner } from '@/components/ui/spinner.tsx';
 import { LogoSmall } from '@/components/icons';
 import { m } from '@/paraglide/messages';
+import { AdminUserStatus } from '@/api/generated';
 
 
 interface INavItem {
@@ -430,7 +431,7 @@ const useNavMain = () => {
     businessesGroup.items?.push({
       icon: SquareUserIcon,
       title: m['components.sidebar.vendors'](),
-      linkOptions: { to: '/' }
+      linkOptions: { to: '/vendors', activeOptions: { includeSearch: false } }
     });
 
   if (permissions.canListStores)
@@ -457,7 +458,7 @@ const useNavMain = () => {
     usersGroup.items?.push({
       icon: MonitorCogIcon,
       title: m['components.sidebar.sessions'](),
-      linkOptions: { to: '/sessions', search: { status: ['active'] }, activeOptions: { includeSearch: false } }
+      linkOptions: { to: '/sessions', search: { status: [AdminUserStatus.ACTIVE] }, activeOptions: { includeSearch: false } }
     });
 
   return [

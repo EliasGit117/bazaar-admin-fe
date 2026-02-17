@@ -49,7 +49,7 @@ export function DataTableColumnHeader<TData, TValue>(props: DataTableColumnHeade
           <Button
             size="sm"
             variant="ghost"
-            className="data-[state=open]:bg-accent -ml-3 h-fit py-1 flex items-center gap-2"
+            className="data-[state=open]:bg-accent h-fit px-1.5 -ml-1.5 py-1 flex items-center gap-2"
           >
             {Icon && <Icon className="text-muted-foreground"/>}
             <span>{title}</span>

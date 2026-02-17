@@ -9,7 +9,6 @@ export default defineConfig({
     hooks: {
       operations: {
         isQuery: (op) => {
-          console.log(op);
           if (op.method === 'get')
             return true;
 
@@ -37,7 +36,7 @@ export default defineConfig({
     },
     {
       dates: true,
-      name: '@hey-api/transformers',
+      name: '@hey-api/transformers'
     },
     {
       name: '@hey-api/sdk',

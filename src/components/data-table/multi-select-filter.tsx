@@ -142,7 +142,9 @@ export function DataTableMultiSelectFilter<TData, TValue>({ column }: IDataTable
             {options.length > 5 && (<CommandInput placeholder={title}/>)}
 
             <CommandList className="max-h-full">
-              <CommandEmpty>No results found.</CommandEmpty>
+              <CommandEmpty>
+                {m['components.data_table.no_results_found']()}
+              </CommandEmpty>
 
               <CommandGroup className="max-h-75 overflow-y-auto overflow-x-hidden" heading={title}>
                 {options.map((option) => {

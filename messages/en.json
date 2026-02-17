@@ -35,12 +35,22 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "home": "Home",
+    "name": "Name",
     "first_name": "First name",
     "last_name": "Last name",
+    "phone": "Phone",
     "role": "Role",
     "active": "Active",
     "inactive": "Inactive",
-    "filter_by": "Filter by {name}"
+    "filter_by": "Filter by {name}",
+    "type": "Type",
+    "close": "Close",
+    "no_results_found": "No results found",
+    "search": "Search",
+    "owner": "Owner"
+  },
+  "errors": {
+    "invalid_format": "Invalid format"
   },
   "roles": {
     "admin": "Admin",
@@ -60,6 +70,7 @@
       "columns": "Columns",
       "sort": "Sort",
       "no_columns_found": "No columns found",
+      "no_results_found": "No results found",
       "search_columns": "Search columns",
       "sort_by": "Sort by",
       "direction": "Direction",
@@ -127,6 +138,27 @@
           "status": "Status",
           "active": "Active",
           "revoked": "Revoked"
+        }
+      }
+    },
+    "vendors": {
+      "list": {
+        "table": {
+          "owner": "Owner",
+          "currency": "Currency"
+        },
+        "sheet":  {
+          "create_vendor_title": "Create new vendor",
+          "edit_vendor_title": "Edit vendor",
+          "create_vendor_description": "Fill all fields to create new vendor in the system",
+          "edit_vendor_description": "Fill all fields to edit existing vendor",
+          "select_currency": "Select currency",
+          "select_type": "Select type",
+          "currency": "Currency",
+          "vendor_name": "Vendor name",
+          "bank_name": "Bank name",
+          "legal_address": "Legal address",
+          "actual_address": "Actual address"
         }
       }
     }

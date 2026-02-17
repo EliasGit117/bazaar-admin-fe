@@ -4,7 +4,7 @@ import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOption
 
 import { client } from '../client.gen';
 import { Client, type Options } from '../sdk.gen';
-import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostUsersSearchData, PostUsersSearchResponse } from '../types.gen';
+import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllResponse, DeleteSessionsRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, GetVendorsByIdData, GetVendorsByIdResponse, PatchVendorsByIdData, PatchVendorsByIdResponse, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostUsersSearchData, PostUsersSearchResponse, PostVendorsData, PostVendorsResponse, PostVendorsSearchData, PostVendorsSearchResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -318,10 +318,130 @@ export const sessions_revoke_MutationOptions = (options?: Partial<Options<Delete
 /**
  * Revoke all sessions
  */
-export const sessions_revokeAll_MutationOptions = (options?: Partial<Options<DeleteSessionsRevokeAllData>>): UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsRevokeAllData>> => {
-    const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsRevokeAllData>> = {
+export const sessions_revokeAll_MutationOptions = (options?: Partial<Options<DeleteSessionsRevokeAllData>>): UseMutationOptions<DeleteSessionsRevokeAllResponse, DefaultError, Options<DeleteSessionsRevokeAllData>> => {
+    const mutationOptions: UseMutationOptions<DeleteSessionsRevokeAllResponse, DefaultError, Options<DeleteSessionsRevokeAllData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().sessions.revokeAllSessions({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const vendors_byId_QueryKeys = (options: Options<GetVendorsByIdData>) => createQueryKey('getVendorsById', options);
+
+/**
+ * Get vendor by id
+ */
+export const vendors_byId_QueryOptions = (options: Options<GetVendorsByIdData>) => queryOptions<GetVendorsByIdResponse, DefaultError, GetVendorsByIdResponse, ReturnType<typeof vendors_byId_QueryKeys>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await Client.__registry.get().vendors.findById({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: vendors_byId_QueryKeys(options)
+});
+
+/**
+ * Update vendor
+ */
+export const vendors_byId_MutationOptions = (options?: Partial<Options<PatchVendorsByIdData>>): UseMutationOptions<PatchVendorsByIdResponse, DefaultError, Options<PatchVendorsByIdData>> => {
+    const mutationOptions: UseMutationOptions<PatchVendorsByIdResponse, DefaultError, Options<PatchVendorsByIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await Client.__registry.get().vendors.update({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const vendors_search_QueryKeys = (options: Options<PostVendorsSearchData>) => createQueryKey('postVendorsSearch', options);
+
+/**
+ * Search sessions
+ *
+ * Returns a paginated list of all admin user sessions. Admin role required.
+ */
+export const vendors_search_QueryOptions = (options: Options<PostVendorsSearchData>) => queryOptions<PostVendorsSearchResponse, DefaultError, PostVendorsSearchResponse, ReturnType<typeof vendors_search_QueryKeys>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await Client.__registry.get().vendors.search({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: vendors_search_QueryKeys(options)
+});
+
+export const vendors_search_InfiniteQueryKeys = (options: Options<PostVendorsSearchData>): QueryKey<Options<PostVendorsSearchData>> => createQueryKey('postVendorsSearch', options, true);
+
+/**
+ * Search sessions
+ *
+ * Returns a paginated list of all admin user sessions. Admin role required.
+ */
+export const vendors_search_InfiniteQueryOptions = (options: Options<PostVendorsSearchData>) => infiniteQueryOptions<PostVendorsSearchResponse, DefaultError, InfiniteData<PostVendorsSearchResponse>, QueryKey<Options<PostVendorsSearchData>>, number | Pick<QueryKey<Options<PostVendorsSearchData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+// @ts-ignore
+{
+    queryFn: async ({ pageParam, queryKey, signal }) => {
+        // @ts-ignore
+        const page: Pick<QueryKey<Options<PostVendorsSearchData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+            body: {
+                page: pageParam
+            }
+        };
+        const params = createInfiniteParams(queryKey, page);
+        const { data } = await Client.__registry.get().vendors.search({
+            ...options,
+            ...params,
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: vendors_search_InfiniteQueryKeys(options)
+});
+
+/**
+ * Search sessions
+ *
+ * Returns a paginated list of all admin user sessions. Admin role required.
+ */
+export const vendors_search_MutationOptions = (options?: Partial<Options<PostVendorsSearchData>>): UseMutationOptions<PostVendorsSearchResponse, DefaultError, Options<PostVendorsSearchData>> => {
+    const mutationOptions: UseMutationOptions<PostVendorsSearchResponse, DefaultError, Options<PostVendorsSearchData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await Client.__registry.get().vendors.search({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Create vendor
+ */
+export const vendors_index_MutationOptions = (options?: Partial<Options<PostVendorsData>>): UseMutationOptions<PostVendorsResponse, DefaultError, Options<PostVendorsData>> => {
+    const mutationOptions: UseMutationOptions<PostVendorsResponse, DefaultError, Options<PostVendorsData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await Client.__registry.get().vendors.create({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

@@ -38,12 +38,22 @@
     "cancel": "Anulează",
     "confirm": "Confirmă",
     "home": "Acasă",
+    "name": "Nume",
     "first_name": "Prenume",
     "last_name": "Nume",
+    "phone": "Telefon",
     "role": "Rol",
     "active": "Activ",
     "inactive": "Inactiva",
-    "filter_by": "Filtrare dupa {name}"
+    "filter_by": "Filtrare dupa {name}",
+    "type": "Tip",
+    "close": "Închide",
+    "no_results_found": "Nu au fost găsite rezultate",
+    "search": "Caută",
+    "owner": "Proprietar"
+  },
+  "errors": {
+    "invalid_format": "Format invalid"
   },
   "roles": {
     "admin": "Admin",
@@ -63,6 +73,7 @@
       "columns": "Coloane",
       "sort": "Sortare",
       "no_columns_found": "Nu au fost găsite coloane",
+      "no_results_found": "Nu au fost găsite rezultate",
       "search_columns": "Caută coloane",
       "sort_by": "Sortează după",
       "direction": "Direcție",
@@ -128,6 +139,27 @@
           "active": "Activa",
           "revoked": "Revocat"
         }
+      }
+    },
+    "vendors": {
+      "list": {
+        "table": {
+          "owner": "Proprietar",
+          "currency": "Valută"
+        }
+      },
+      "sheet": {
+        "create_vendor_title": "Creează furnizor nou",
+        "edit_vendor_title": "Editează furnizorul",
+        "create_vendor_description": "Completează toate câmpurile pentru a crea un furnizor nou în sistem",
+        "edit_vendor_description": "Completează toate câmpurile pentru a edita furnizorul existent",
+        "select_currency": "Selectează valuta",
+        "select_type": "Selectează tipul",
+        "currency": "Valută",
+        "vendor_name": "Numele furnizorului",
+        "bank_name": "Numele bancii",
+        "legal_address": "Adresa legală",
+        "actual_address": "Adresa actuală"
       }
     }
   }

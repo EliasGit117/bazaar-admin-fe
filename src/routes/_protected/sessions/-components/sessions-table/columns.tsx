@@ -97,8 +97,13 @@ export const sessionColumns = (options?: IOptions) => {
             <span className="text-xs font-mono">
               {value}
             </span>
-            <Button variant="ghost" size="icon-xs" className="text-muted-foreground"
-                    onClick={() => copyToClipboard(value)}>
+
+            <Button
+              variant="ghost"
+              size="icon-xs"
+              className="text-muted-foreground"
+              onClick={() => copyToClipboard(value)}
+            >
               {isCopied ? <CheckIcon/> : <CopyIcon/>}
             </Button>
           </div>
@@ -328,7 +333,7 @@ export const sessionColumns = (options?: IOptions) => {
             {value === 'active' ? (<ActivityIcon/>) : (<TrashIcon/>)}
             <span>{m[`pages.sessions.list.table.${value}`] ? m[`pages.sessions.list.table.${value}`]() : value}</span>
           </Badge>
-        )
+        );
       },
       meta: {
         icon: HeartPulseIcon,

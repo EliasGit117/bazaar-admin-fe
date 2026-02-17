@@ -13,7 +13,6 @@ import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as ProtectedRouteRouteImport } from './routes/_protected/route'
 import { Route as ProtectedIndexRouteImport } from './routes/_protected/index'
 import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
-import { Route as ProtectedVendorsRouteImport } from './routes/_protected/vendors'
 import { Route as ProtectedSupportRouteImport } from './routes/_protected/support'
 import { Route as ProtectedFeedbackRouteImport } from './routes/_protected/feedback'
 import { Route as ProtectedCategoriesRouteImport } from './routes/_protected/categories'
@@ -21,6 +20,7 @@ import { Route as ProtectedSettingsRouteRouteImport } from './routes/_protected/
 import { Route as ProtectedPlaygroundRouteRouteImport } from './routes/_protected/playground/route'
 import { Route as ProtectedDocsRouteRouteImport } from './routes/_protected/docs/route'
 import { Route as AuthSignInIndexRouteImport } from './routes/auth/sign-in/index'
+import { Route as ProtectedVendorsIndexRouteImport } from './routes/_protected/vendors/index'
 import { Route as ProtectedUsersIndexRouteImport } from './routes/_protected/users/index'
 import { Route as ProtectedSettingsIndexRouteImport } from './routes/_protected/settings/index'
 import { Route as ProtectedSessionsIndexRouteImport } from './routes/_protected/sessions/index'
@@ -59,11 +59,6 @@ const AuthSignUpRoute = AuthSignUpRouteImport.update({
   path: '/sign-up',
   getParentRoute: () => AuthRouteRoute,
 } as any)
-const ProtectedVendorsRoute = ProtectedVendorsRouteImport.update({
-  id: '/vendors',
-  path: '/vendors',
-  getParentRoute: () => ProtectedRouteRoute,
-} as any)
 const ProtectedSupportRoute = ProtectedSupportRouteImport.update({
   id: '/support',
   path: '/support',
@@ -99,6 +94,11 @@ const AuthSignInIndexRoute = AuthSignInIndexRouteImport.update({
   id: '/sign-in/',
   path: '/sign-in/',
   getParentRoute: () => AuthRouteRoute,
+} as any)
+const ProtectedVendorsIndexRoute = ProtectedVendorsIndexRouteImport.update({
+  id: '/vendors/',
+  path: '/vendors/',
+  getParentRoute: () => ProtectedRouteRoute,
 } as any)
 const ProtectedUsersIndexRoute = ProtectedUsersIndexRouteImport.update({
   id: '/users/',
@@ -208,7 +208,6 @@ export interface FileRoutesByFullPath {
   '/categories': typeof ProtectedCategoriesRoute
   '/feedback': typeof ProtectedFeedbackRoute
   '/support': typeof ProtectedSupportRoute
-  '/vendors': typeof ProtectedVendorsRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/': typeof ProtectedIndexRoute
   '/docs/changelog': typeof ProtectedDocsChangelogRoute
@@ -229,6 +228,7 @@ export interface FileRoutesByFullPath {
   '/sessions': typeof ProtectedSessionsIndexRoute
   '/settings/': typeof ProtectedSettingsIndexRoute
   '/users': typeof ProtectedUsersIndexRoute
+  '/vendors': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
 }
 export interface FileRoutesByTo {
@@ -236,7 +236,6 @@ export interface FileRoutesByTo {
   '/categories': typeof ProtectedCategoriesRoute
   '/feedback': typeof ProtectedFeedbackRoute
   '/support': typeof ProtectedSupportRoute
-  '/vendors': typeof ProtectedVendorsRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/': typeof ProtectedIndexRoute
   '/docs/changelog': typeof ProtectedDocsChangelogRoute
@@ -257,6 +256,7 @@ export interface FileRoutesByTo {
   '/sessions': typeof ProtectedSessionsIndexRoute
   '/settings': typeof ProtectedSettingsIndexRoute
   '/users': typeof ProtectedUsersIndexRoute
+  '/vendors': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
 }
 export interface FileRoutesById {
@@ -269,7 +269,6 @@ export interface FileRoutesById {
   '/_protected/categories': typeof ProtectedCategoriesRoute
   '/_protected/feedback': typeof ProtectedFeedbackRoute
   '/_protected/support': typeof ProtectedSupportRoute
-  '/_protected/vendors': typeof ProtectedVendorsRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/_protected/': typeof ProtectedIndexRoute
   '/_protected/docs/changelog': typeof ProtectedDocsChangelogRoute
@@ -290,6 +289,7 @@ export interface FileRoutesById {
   '/_protected/sessions/': typeof ProtectedSessionsIndexRoute
   '/_protected/settings/': typeof ProtectedSettingsIndexRoute
   '/_protected/users/': typeof ProtectedUsersIndexRoute
+  '/_protected/vendors/': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
 }
 export interface FileRouteTypes {
@@ -302,7 +302,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/feedback'
     | '/support'
-    | '/vendors'
     | '/auth/sign-up'
     | '/'
     | '/docs/changelog'
@@ -323,6 +322,7 @@ export interface FileRouteTypes {
     | '/sessions'
     | '/settings/'
     | '/users'
+    | '/vendors'
     | '/auth/sign-in'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -330,7 +330,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/feedback'
     | '/support'
-    | '/vendors'
     | '/auth/sign-up'
     | '/'
     | '/docs/changelog'
@@ -351,6 +350,7 @@ export interface FileRouteTypes {
     | '/sessions'
     | '/settings'
     | '/users'
+    | '/vendors'
     | '/auth/sign-in'
   id:
     | '__root__'
@@ -362,7 +362,6 @@ export interface FileRouteTypes {
     | '/_protected/categories'
     | '/_protected/feedback'
     | '/_protected/support'
-    | '/_protected/vendors'
     | '/auth/sign-up'
     | '/_protected/'
     | '/_protected/docs/changelog'
@@ -383,6 +382,7 @@ export interface FileRouteTypes {
     | '/_protected/sessions/'
     | '/_protected/settings/'
     | '/_protected/users/'
+    | '/_protected/vendors/'
     | '/auth/sign-in/'
   fileRoutesById: FileRoutesById
 }
@@ -420,13 +420,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/sign-up'
       preLoaderRoute: typeof AuthSignUpRouteImport
       parentRoute: typeof AuthRouteRoute
-    }
-    '/_protected/vendors': {
-      id: '/_protected/vendors'
-      path: '/vendors'
-      fullPath: '/vendors'
-      preLoaderRoute: typeof ProtectedVendorsRouteImport
-      parentRoute: typeof ProtectedRouteRoute
     }
     '/_protected/support': {
       id: '/_protected/support'
@@ -476,6 +469,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/sign-in'
       preLoaderRoute: typeof AuthSignInIndexRouteImport
       parentRoute: typeof AuthRouteRoute
+    }
+    '/_protected/vendors/': {
+      id: '/_protected/vendors/'
+      path: '/vendors'
+      fullPath: '/vendors'
+      preLoaderRoute: typeof ProtectedVendorsIndexRouteImport
+      parentRoute: typeof ProtectedRouteRoute
     }
     '/_protected/users/': {
       id: '/_protected/users/'
@@ -678,10 +678,10 @@ interface ProtectedRouteRouteChildren {
   ProtectedCategoriesRoute: typeof ProtectedCategoriesRoute
   ProtectedFeedbackRoute: typeof ProtectedFeedbackRoute
   ProtectedSupportRoute: typeof ProtectedSupportRoute
-  ProtectedVendorsRoute: typeof ProtectedVendorsRoute
   ProtectedIndexRoute: typeof ProtectedIndexRoute
   ProtectedSessionsIndexRoute: typeof ProtectedSessionsIndexRoute
   ProtectedUsersIndexRoute: typeof ProtectedUsersIndexRoute
+  ProtectedVendorsIndexRoute: typeof ProtectedVendorsIndexRoute
 }
 
 const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
@@ -691,10 +691,10 @@ const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
   ProtectedCategoriesRoute: ProtectedCategoriesRoute,
   ProtectedFeedbackRoute: ProtectedFeedbackRoute,
   ProtectedSupportRoute: ProtectedSupportRoute,
-  ProtectedVendorsRoute: ProtectedVendorsRoute,
   ProtectedIndexRoute: ProtectedIndexRoute,
   ProtectedSessionsIndexRoute: ProtectedSessionsIndexRoute,
   ProtectedUsersIndexRoute: ProtectedUsersIndexRoute,
+  ProtectedVendorsIndexRoute: ProtectedVendorsIndexRoute,
 }
 
 const ProtectedRouteRouteWithChildren = ProtectedRouteRoute._addFileChildren(

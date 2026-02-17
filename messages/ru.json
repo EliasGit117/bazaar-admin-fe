@@ -35,12 +35,22 @@
     "cancel": "Отмена",
     "home": "Главная",
     "confirm": "Подтвердить",
+    "name": "Имя",
     "first_name": "Имя",
     "last_name": "Фамилия",
+    "phone": "Телефон",
     "role": "Роль",
     "active": "Активный",
     "inactive": "Не активный",
-    "filter_by": "Фильтр по {name}"
+    "filter_by": "Фильтр по {name}",
+    "type": "Тип",
+    "close": "Закрыть",
+    "no_results_found": "Результаты не найдены",
+    "search": "Поиск",
+    "owner": "Владелец"
+  },
+  "errors": {
+    "invalid_format": "Неверный формат"
   },
   "roles": {
     "admin": "Админ",
@@ -60,6 +70,7 @@
       "columns": "Колонки",
       "sort": "Сортировка",
       "no_columns_found": "Колонки не найдены",
+      "no_results_found": "Результаты не найдены",
       "search_columns": "Поиск колонок",
       "sort_by": "Сортировать по",
       "direction": "Направление",
@@ -127,6 +138,27 @@
           "status": "Статус",
           "active": "Активная",
           "revoked": "Отозваная"
+        }
+      }
+    },
+    "vendors": {
+      "list": {
+        "table": {
+          "owner": "Владелец",
+          "currency": "Валюта"
+        },
+        "sheet": {
+          "create_vendor_title": "Создать нового вендора",
+          "edit_vendor_title": "Редактировать вендора",
+          "create_vendor_description": "Заполните все поля, чтобы создать нового вендора в системе",
+          "edit_vendor_description": "Заполните все поля, чтобы отредактировать существующего вендора",
+          "select_currency": "Выберите валюту",
+          "select_type": "Выберите тип",
+          "currency": "Валюта",
+          "vendor_name": "Название вендора",
+          "bank_name": "Название банка",
+          "legal_address": "Юридический адрес",
+          "actual_address": "Фактический адрес"
         }
       }
     }

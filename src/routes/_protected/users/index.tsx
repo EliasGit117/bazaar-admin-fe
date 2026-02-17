@@ -1,11 +1,12 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { getLocale, type Locale } from '@/paraglide/runtime';
 import * as z from 'zod';
 import type { ZodType } from 'zod';
-import type { PostUsersSearchData } from '@/api/generated';
+import { AdminUserRole, AdminUserStatus, type PostUsersSearchData } from '@/api/generated';
 import { users_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
 import { UsersTable } from '@/routes/_protected/users/-components/users-table/table.tsx';
 import { dateRangeSchema } from '@/components/data-table/types/schemas.ts';
+import { hasPermission } from '@/lib/utils/has-permission.ts';
 
 
 export const paginatedSchema = z.object({
@@ -19,8 +20,8 @@ const listUsersSchema = paginatedSchema.extend({
   firstName: z.string().optional().catch(undefined),
   lastName: z.string().optional().catch(undefined),
   email: z.string().optional().catch(undefined),
-  status: z.array(z.enum(['active', 'inactive'])).optional().catch(undefined),
-  role: z.array(z.enum(['admin', 'user'])).optional().catch(undefined),
+  status: z.array(z.enum(AdminUserStatus)).optional().catch(undefined),
+  role: z.array(z.enum(AdminUserRole)).optional().catch(undefined),
   createdAt: dateRangeSchema.optional().catch(undefined),
   updatedAt: dateRangeSchema.optional().catch(undefined)
 
@@ -43,6 +44,13 @@ export const Route = createFileRoute('/_protected/users/')({
   staticData: { crumbs: { title } },
   head: () => ({ meta: [{ title }] }),
   validateSearch: listUsersSchema,
+  beforeLoad: ({ context: { permissions } }) => {
+    const can = hasPermission(permissions, 'users', 'list');
+    if (can)
+      return;
+
+    throw redirect({ to: '/' })
+  },
   loaderDeps: (deps) => deps,
   loader: async ({ context: { queryClient }, deps: { search } }) => {
     void queryClient.prefetchQuery({

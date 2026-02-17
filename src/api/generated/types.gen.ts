@@ -297,6 +297,411 @@ export type ListPaginatedSessionsDto = {
     expiresAt?: DateRangeDto;
 };
 
+/**
+ * Legal form of the vendor
+ */
+export enum VendorType {
+    SRL = 'SRL',
+    IP = 'IP'
+}
+
+/**
+ * Currency of the settlement account
+ */
+export enum CurrencyCode {
+    AED = 'AED',
+    AFN = 'AFN',
+    ALL = 'ALL',
+    AMD = 'AMD',
+    ANG = 'ANG',
+    AOA = 'AOA',
+    ARS = 'ARS',
+    AUD = 'AUD',
+    AWG = 'AWG',
+    AZN = 'AZN',
+    BAM = 'BAM',
+    BBD = 'BBD',
+    BDT = 'BDT',
+    BGN = 'BGN',
+    BHD = 'BHD',
+    BIF = 'BIF',
+    BMD = 'BMD',
+    BND = 'BND',
+    BOB = 'BOB',
+    BRL = 'BRL',
+    BSD = 'BSD',
+    BTN = 'BTN',
+    BWP = 'BWP',
+    BYR = 'BYR',
+    BZD = 'BZD',
+    CAD = 'CAD',
+    CDF = 'CDF',
+    CHF = 'CHF',
+    CLP = 'CLP',
+    CNY = 'CNY',
+    COP = 'COP',
+    CRC = 'CRC',
+    CUC = 'CUC',
+    CUP = 'CUP',
+    CVE = 'CVE',
+    CZK = 'CZK',
+    DJF = 'DJF',
+    DKK = 'DKK',
+    DOP = 'DOP',
+    DZD = 'DZD',
+    EGP = 'EGP',
+    ERN = 'ERN',
+    ETB = 'ETB',
+    EUR = 'EUR',
+    FJD = 'FJD',
+    FKP = 'FKP',
+    GBP = 'GBP',
+    GEL = 'GEL',
+    GGP = 'GGP',
+    GHS = 'GHS',
+    GIP = 'GIP',
+    GMD = 'GMD',
+    GNF = 'GNF',
+    GTQ = 'GTQ',
+    GYD = 'GYD',
+    HKD = 'HKD',
+    HNL = 'HNL',
+    HRK = 'HRK',
+    HTG = 'HTG',
+    HUF = 'HUF',
+    IDR = 'IDR',
+    ILS = 'ILS',
+    IMP = 'IMP',
+    INR = 'INR',
+    IQD = 'IQD',
+    IRR = 'IRR',
+    ISK = 'ISK',
+    JEP = 'JEP',
+    JMD = 'JMD',
+    JOD = 'JOD',
+    JPY = 'JPY',
+    KES = 'KES',
+    KGS = 'KGS',
+    KHR = 'KHR',
+    KMF = 'KMF',
+    KPW = 'KPW',
+    KRW = 'KRW',
+    KWD = 'KWD',
+    KYD = 'KYD',
+    KZT = 'KZT',
+    LAK = 'LAK',
+    LBP = 'LBP',
+    LKR = 'LKR',
+    LRD = 'LRD',
+    LSL = 'LSL',
+    LYD = 'LYD',
+    MAD = 'MAD',
+    MDL = 'MDL',
+    MGA = 'MGA',
+    MKD = 'MKD',
+    MMK = 'MMK',
+    MNT = 'MNT',
+    MOP = 'MOP',
+    MRO = 'MRO',
+    MUR = 'MUR',
+    MVR = 'MVR',
+    MWK = 'MWK',
+    MXN = 'MXN',
+    MYR = 'MYR',
+    MZN = 'MZN',
+    NAD = 'NAD',
+    NGN = 'NGN',
+    NIO = 'NIO',
+    NOK = 'NOK',
+    NPR = 'NPR',
+    NZD = 'NZD',
+    OMR = 'OMR',
+    PAB = 'PAB',
+    PEN = 'PEN',
+    PGK = 'PGK',
+    PHP = 'PHP',
+    PKR = 'PKR',
+    PLN = 'PLN',
+    PYG = 'PYG',
+    QAR = 'QAR',
+    RON = 'RON',
+    RSD = 'RSD',
+    RUB = 'RUB',
+    RWF = 'RWF',
+    SAR = 'SAR',
+    SBD = 'SBD',
+    SCR = 'SCR',
+    SDG = 'SDG',
+    SEK = 'SEK',
+    SGD = 'SGD',
+    SHP = 'SHP',
+    SLL = 'SLL',
+    SOS = 'SOS',
+    SPL = 'SPL',
+    SRD = 'SRD',
+    STD = 'STD',
+    SVC = 'SVC',
+    SYP = 'SYP',
+    SZL = 'SZL',
+    THB = 'THB',
+    TJS = 'TJS',
+    TMT = 'TMT',
+    TND = 'TND',
+    TOP = 'TOP',
+    TRY = 'TRY',
+    TTD = 'TTD',
+    TVD = 'TVD',
+    TWD = 'TWD',
+    TZS = 'TZS',
+    UAH = 'UAH',
+    UGX = 'UGX',
+    USD = 'USD',
+    UYU = 'UYU',
+    UZS = 'UZS',
+    VEF = 'VEF',
+    VND = 'VND',
+    VUV = 'VUV',
+    WST = 'WST',
+    XAF = 'XAF',
+    XCD = 'XCD',
+    XDR = 'XDR',
+    XOF = 'XOF',
+    XPF = 'XPF',
+    YER = 'YER',
+    ZAR = 'ZAR',
+    ZMW = 'ZMW',
+    ZWD = 'ZWD'
+}
+
+export type VendorDto = {
+    /**
+     * Unique vendor identifier
+     */
+    id: number;
+    /**
+     * Legal form of the vendor
+     */
+    type: VendorType;
+    /**
+     * Full legal company name
+     */
+    name: string;
+    /**
+     * State registration number (IDNO)
+     */
+    idno: string;
+    /**
+     * Official legal address of the vendor
+     */
+    legalAddress: string;
+    /**
+     * Actual operating address (if different)
+     */
+    actualAddress?: string | null;
+    /**
+     * Bank name where vendor account is opened
+     */
+    bankName: string;
+    /**
+     * Bank SWIFT / BIC code
+     */
+    bicSwift: string;
+    /**
+     * International Bank Account Number
+     */
+    iban: string;
+    /**
+     * Currency of the settlement account
+     */
+    currency: CurrencyCode;
+    /**
+     * Primary contact phone number
+     */
+    phone: string;
+    /**
+     * Primary contact email address
+     */
+    email: string;
+    /**
+     * Unique owner identifier
+     */
+    ownerId: number;
+    owner: AdminUserBriefDto;
+    /**
+     * Record creation timestamp (ISO 8601)
+     */
+    createdAt: Date;
+    /**
+     * Last update timestamp (ISO 8601)
+     */
+    updatedAt: Date;
+};
+
+/**
+ * Sort items by
+ */
+export enum VendorSortBy {
+    ID = 'id',
+    OWNER_ID = 'ownerId',
+    CREATED_AT = 'createdAt',
+    UPDATED_AT = 'updatedAt'
+}
+
+export type ListPaginatedVendorsDto = {
+    /**
+     * Page number
+     */
+    page?: number;
+    /**
+     * Number of items per page
+     */
+    limit?: number;
+    /**
+     * Sorting direction
+     */
+    dir?: 'asc' | 'desc';
+    /**
+     * Sort items by
+     */
+    sort?: VendorSortBy;
+    /**
+     * Find items by id
+     */
+    id?: number;
+    /**
+     * Find items by owner id
+     */
+    ownerId?: number;
+    /**
+     * Filter items by name
+     */
+    name?: string;
+    /**
+     * Filter items by email
+     */
+    email?: string;
+    /**
+     * Filter items by IDNO
+     */
+    idno?: string;
+    /**
+     * Filter items by IBAN
+     */
+    iban?: string;
+    /**
+     * List of currency codes
+     */
+    currency?: Array<CurrencyCode>;
+    /**
+     * List of vendor types
+     */
+    type?: Array<VendorType>;
+    createdAt?: DateRangeDto;
+    updatedAt?: DateRangeDto;
+};
+
+export type CreateVendorDto = {
+    /**
+     * Legal form of the vendor
+     */
+    type: VendorType;
+    /**
+     * Full legal company name
+     */
+    name: string;
+    /**
+     * State registration number (IDNO)
+     */
+    idno: string;
+    /**
+     * Official legal address of the vendor
+     */
+    legalAddress: string;
+    /**
+     * Actual operating address (if different)
+     */
+    actualAddress?: string | null;
+    /**
+     * Bank name where vendor account is opened
+     */
+    bankName: string;
+    /**
+     * Bank SWIFT / BIC code
+     */
+    bicSwift: string;
+    /**
+     * International Bank Account Number
+     */
+    iban: string;
+    /**
+     * Currency of the settlement account
+     */
+    currency: CurrencyCode;
+    /**
+     * Primary contact phone number
+     */
+    phone: string;
+    /**
+     * Primary contact email address
+     */
+    email: string;
+    /**
+     * Unique owner identifier
+     */
+    ownerId: number;
+};
+
+export type UpdateVendorDto = {
+    /**
+     * Legal form of the vendor
+     */
+    type?: VendorType;
+    /**
+     * Full legal company name
+     */
+    name?: string;
+    /**
+     * State registration number (IDNO)
+     */
+    idno?: string;
+    /**
+     * Official legal address of the vendor
+     */
+    legalAddress?: string;
+    /**
+     * Actual operating address (if different)
+     */
+    actualAddress?: string | null;
+    /**
+     * Bank name where vendor account is opened
+     */
+    bankName?: string;
+    /**
+     * Bank SWIFT / BIC code
+     */
+    bicSwift?: string;
+    /**
+     * International Bank Account Number
+     */
+    iban?: string;
+    /**
+     * Currency of the settlement account
+     */
+    currency?: CurrencyCode;
+    /**
+     * Primary contact phone number
+     */
+    phone?: string;
+    /**
+     * Primary contact email address
+     */
+    email?: string;
+    /**
+     * Unique owner identifier
+     */
+    ownerId?: number;
+};
+
 export type GetData = {
     body?: never;
     path?: never;
@@ -484,5 +889,84 @@ export type DeleteSessionsRevokeAllResponses = {
     /**
      * Sessions successfully revoked
      */
-    200: unknown;
+    204: void;
 };
+
+export type DeleteSessionsRevokeAllResponse = DeleteSessionsRevokeAllResponses[keyof DeleteSessionsRevokeAllResponses];
+
+export type GetVendorsByIdData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/vendors/{id}';
+};
+
+export type GetVendorsByIdErrors = {
+    400: unknown;
+    401: unknown;
+    403: unknown;
+};
+
+export type GetVendorsByIdResponses = {
+    /**
+     * Vendor found
+     */
+    200: VendorDto;
+};
+
+export type GetVendorsByIdResponse = GetVendorsByIdResponses[keyof GetVendorsByIdResponses];
+
+export type PatchVendorsByIdData = {
+    body: UpdateVendorDto;
+    path?: never;
+    query?: never;
+    url: '/vendors/{id}';
+};
+
+export type PatchVendorsByIdErrors = {
+    400: unknown;
+    401: unknown;
+    403: unknown;
+};
+
+export type PatchVendorsByIdResponses = {
+    200: VendorDto;
+};
+
+export type PatchVendorsByIdResponse = PatchVendorsByIdResponses[keyof PatchVendorsByIdResponses];
+
+export type PostVendorsSearchData = {
+    body: ListPaginatedVendorsDto;
+    path?: never;
+    query?: never;
+    url: '/vendors/search';
+};
+
+export type PostVendorsSearchResponses = {
+    200: PaginatedResultDto & {
+        items: Array<VendorDto>;
+    };
+};
+
+export type PostVendorsSearchResponse = PostVendorsSearchResponses[keyof PostVendorsSearchResponses];
+
+export type PostVendorsData = {
+    body: CreateVendorDto;
+    path?: never;
+    query?: never;
+    url: '/vendors';
+};
+
+export type PostVendorsErrors = {
+    400: unknown;
+    401: unknown;
+    403: unknown;
+};
+
+export type PostVendorsResponses = {
+    201: VendorDto;
+};
+
+export type PostVendorsResponse = PostVendorsResponses[keyof PostVendorsResponses];

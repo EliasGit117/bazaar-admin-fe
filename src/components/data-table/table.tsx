@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 import type { ComponentProps, ReactNode } from 'react';
 import { getCommonPinningStyles } from '@/components/data-table/utils/pinning';
 import { Skeleton } from '@/components/ui/skeleton';
+import { m } from '@/paraglide/messages';
 
 
 interface DataTableProps<_> extends ComponentProps<'div'> {
@@ -114,7 +115,7 @@ export function DataTable<TData>(props: DataTableProps<TData>) {
                   colSpan={visibleColumns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  {m['components.data_table.no_columns_found']()}
                 </TableCell>
               </TableRow>
             )}

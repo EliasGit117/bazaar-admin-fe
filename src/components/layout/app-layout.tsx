@@ -27,10 +27,7 @@ export const AppLayout: FC<IProps> = ({ children, className, ...divProps }) => {
           </div>
         </header>
 
-        <div
-          className={cn("container mx-auto px-4 flex flex-col flex-1 gap-4", className)}
-          {...divProps}
-        >
+        <div className={cn("container mx-auto px-4 flex flex-col flex-1 gap-4", className)} {...divProps}>
           {children}
           <Footer className='mt-auto px-0'/>
         </div>

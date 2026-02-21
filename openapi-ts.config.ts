@@ -83,20 +83,28 @@ function pickMethod(op: any) {
 const VERBS = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options'] as const;
 
 export function controllerEndpoint(name: string) {
-  if (!name) return 'default_default';
+  if (!name)
+    return 'default_unknown_unknown';
 
-  const verb = VERBS.find((v) => name.startsWith(v));
-  const withoutVerb = verb ? name.slice(verb.length) : name;
+  // Extract HTTP method
+  const method = VERBS.find((v) => name.startsWith(v));
+  const withoutMethod = method ? name.slice(method.length) : name;
 
-  const tokens = withoutVerb.match(/[A-Z][a-z0-9]*/g) ?? [withoutVerb];
-  const controller = (tokens[0] ?? 'default').toLowerCase();
+  // Extract PascalCase tokens
+  const tokens = withoutMethod.match(/[A-Z][a-z0-9]*/g) ?? [];
 
-  if (tokens.length === 1) {
-    return `${controller}_index`;
-  }
+  if (!tokens.length)
+    return `default_${method ?? 'unknown'}_unknown`;
 
-  const endpointPascal = tokens.slice(1).join('');
-  const endpoint = endpointPascal[0].toLowerCase() + endpointPascal.slice(1);
+  // First token = resource
+  const [resourceToken] = tokens;
+  const resource = resourceToken!.toLowerCase();
 
-  return `${controller}_${endpoint}`;
+  // Remaining tokens = operation
+  const operationPascal = tokens.slice(1).join('');
+  const operation = operationPascal.length > 0 ?
+    operationPascal[0].toLowerCase() + operationPascal.slice(1) :
+    'index';
+
+  return `${resource}_${method ?? 'unknown'}_${operation}`;
 }

@@ -1,13 +1,11 @@
 import { type FC, Fragment, useState } from 'react';
-import {
-  keepPreviousData, useMutation,
-  useQuery, useQueryClient
-} from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   Card,
   CardAction,
   CardContent,
-  CardDescription, CardFooter,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle
 } from '@/components/ui/card.tsx';
@@ -15,8 +13,10 @@ import { LoadingButton } from '@/components/ui/loading-button.tsx';
 import { cn, normalizeError } from '@/lib/utils';
 import { useAuth } from '@/providers/auth.tsx';
 import {
-  sessions_revoke_MutationOptions, sessions_revokeAll_MutationOptions, sessions_search_QueryKeys,
-  sessions_search_QueryOptions
+  sessions_delete_revoke_MutationOptions,
+  sessions_delete_revokeAll_MutationOptions,
+  sessions_post_search_QueryKeys,
+  sessions_post_search_QueryOptions
 } from '@/api/generated/@tanstack/react-query.gen.ts';
 import {
   ChevronLeftIcon,
@@ -35,7 +35,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { toast } from 'sonner';
 import { m } from '@/paraglide/messages';
 import { useIsMobile } from '@/hooks/use-mobile.ts';
-import type { PostSessionsSearchData } from '@/api/generated';
+import { AdminSessionStatus, type PostSessionsSearchData } from '@/api/generated';
 import { useConfirm } from '@/components/ui/confirm-dialog.tsx';
 
 
@@ -49,19 +49,19 @@ export const SessionsCard: FC<ISessionsCardProps> = ({ className }) => {
   const isMobile = useIsMobile();
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
-  const body: PostSessionsSearchData['body'] = { page: page, limit: 5, status: ['active'] };
+  const body: PostSessionsSearchData['body'] = { page: page, limit: 5, status: [AdminSessionStatus.ACTIVE] };
 
   const { data, isPending, isFetching, refetch } = useQuery({
-    ...sessions_search_QueryOptions({ body: body }),
+    ...sessions_post_search_QueryOptions({ body: body }),
     placeholderData: keepPreviousData
   });
 
   const [revokingState, setRevokingState] = useState<Record<string, boolean>>({});
 
   const { mutate: revoke, isPending: isRevoking } = useMutation({
-    ...sessions_revoke_MutationOptions({}),
+    ...sessions_delete_revoke_MutationOptions({}),
     onSettled: () => setRevokingState({}),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: sessions_search_QueryKeys({ body: body }) }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: sessions_post_search_QueryKeys({ body: body }) }),
     onMutate: ({ query }) => setRevokingState(pv => {
       let newValue = { ...pv };
       query.ids.forEach(id => newValue[id] = true);
@@ -74,9 +74,9 @@ export const SessionsCard: FC<ISessionsCardProps> = ({ className }) => {
   });
 
   const { mutate: revokeAll, isPending: isRevokingAll } = useMutation({
-    ...sessions_revokeAll_MutationOptions(),
+    ...sessions_delete_revokeAll_MutationOptions(),
     onSettled: () => setRevokingState({}),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: sessions_search_QueryKeys({ body: body }) }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: sessions_post_search_QueryKeys({ body: body }) }),
     onMutate: () => setRevokingState(pv => {
       let newValue = { ...pv };
       data?.items

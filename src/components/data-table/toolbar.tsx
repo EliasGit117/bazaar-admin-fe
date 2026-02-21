@@ -101,6 +101,9 @@ function DataTableToolbarFilter<TData>(props: DataTableToolbarFilterProps<TData>
       case ColumnFilterType.DateRange:
         return <DataTableDateRangeFilter column={column} key={column.id}/>;
 
+      case ColumnFilterType.Custom:
+        return columnMeta.filter.render({ column });
+
       default:
         return null;
     }

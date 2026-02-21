@@ -1,30 +1,35 @@
 import { type ReactNode, useState } from 'react';
 import { contextFactory } from '@/lib/utils';
 
-
 export enum VendorSheetMode {
   Create = 'create',
   Update = 'update',
 }
 
-export interface VendorSheetOptions {
-  mode: VendorSheetMode;
-  vendorId?: number;
+interface IVendorSheetCreateOptions {
+  mode: VendorSheetMode.Create;
 }
+
+interface IVendorSheetUpdateOptions {
+  mode: VendorSheetMode.Update;
+  vendorId: number;
+}
+
+export type TVendorSheetOptions = | IVendorSheetCreateOptions | IVendorSheetUpdateOptions;
 
 interface VendorSheetContextValue {
   isOpen: boolean;
-  options?: VendorSheetOptions;
-  open: (options: VendorSheetOptions) => void;
+  options?: TVendorSheetOptions;
+  open: (options: TVendorSheetOptions) => void;
   close: () => void;
 }
 
 const { Context: VendorSheetContext, useContext: useVendorSheet } = contextFactory<VendorSheetContextValue>({ name: 'VendorSheetContext', });
 
 export const VendorSheetProvider = ({ children, }: { children: ReactNode; }) => {
-  const [options, setOptions] = useState<VendorSheetOptions>();
+  const [options, setOptions] = useState<TVendorSheetOptions>();
 
-  const open = (opts: VendorSheetOptions) => setOptions(opts);
+  const open = (opts: TVendorSheetOptions) => setOptions(opts);
   const close = () => setOptions(undefined);
 
   return (

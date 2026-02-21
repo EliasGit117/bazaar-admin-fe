@@ -12,19 +12,23 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { LoadingButton } from '@/components/ui/loading-button';
 import { m } from '@/paraglide/messages';
-import { SendIcon, XIcon } from 'lucide-react';
+import { FilePlusCornerIcon, SaveIcon, XIcon } from 'lucide-react';
 import { useVendorSheet, VendorSheetMode } from '@/routes/_protected/vendors/-components/vendor-sheet/provider.tsx';
 import {
   createVendorSchema,
-  updateVendorSchema,
   type TCreateVendor,
-  type TUpdateVendor
+  type TUpdateVendor,
+  updateVendorSchema
 } from '@/routes/_protected/vendors/-components/vendor-sheet/schemas.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { CurrencyCode, type VendorDto, VendorType } from '@/api/generated';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { vendors_byId_QueryOptions, vendors_index_MutationOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
+import {
+  vendors_get_byId_QueryOptions,
+  vendors_patch_byId_MutationOptions,
+  vendors_post_index_MutationOptions
+} from '@/api/generated/@tanstack/react-query.gen.ts';
 import { VendorForm } from '@/routes/_protected/vendors/-components/vendor-sheet/form.tsx';
 import { normalizeError } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -36,7 +40,7 @@ interface IProps {
 export const VendorSheet: FC<IProps> = ({ onSuccess }) => {
   const { isOpen, options, close } = useVendorSheet();
   const mode = options?.mode;
-  const isUpdating = false;
+  const vendorId: number = (options?.mode === VendorSheetMode.Create ? null : options?.vendorId) ?? -1;
 
   const form = useForm<TCreateVendor | TUpdateVendor>({
     resolver: zodResolver(mode === VendorSheetMode.Create ? createVendorSchema : updateVendorSchema),
@@ -44,22 +48,32 @@ export const VendorSheet: FC<IProps> = ({ onSuccess }) => {
   });
 
   const { data: vendor, isLoading: isLoadingVendor } = useQuery({
-    ...vendors_byId_QueryOptions({ path: { id: options?.vendorId! } }),
+    ...vendors_get_byId_QueryOptions({ path: { id: vendorId } }),
     enabled: (mode === VendorSheetMode.Update && options?.vendorId != null),
     staleTime: 0,
     gcTime: 0
   });
 
+  const onMutationSuccess = () => {
+    onSuccess?.();
+    close();
+  }
+
+  const onMutationError = (error: unknown) => {
+    const { name, message } = normalizeError(error);
+    toast.error(name, { description: message });
+  }
+
   const { mutate: create, isPending: isCreating } = useMutation({
-    ...vendors_index_MutationOptions({}),
-    onSuccess: () => {
-      onSuccess?.();
-      close();
-    },
-    onError: (error) => {
-      const { name, message } = normalizeError(error);
-      toast.error(name, { description: message });
-    },
+    ...vendors_post_index_MutationOptions({}),
+    onSuccess: onMutationSuccess,
+    onError: onMutationError
+  });
+
+  const { mutate: update, isPending: isUpdating } = useMutation({
+    ...vendors_patch_byId_MutationOptions(),
+    onSuccess: onMutationSuccess,
+    onError: onMutationError
   });
 
   const onOpenChange = (v: boolean) => {
@@ -67,6 +81,18 @@ export const VendorSheet: FC<IProps> = ({ onSuccess }) => {
       return;
 
     close();
+  };
+
+  const onSubmit = (values: TCreateVendor | TUpdateVendor) => {
+    if (mode === VendorSheetMode.Create) {
+      create({ body: values });
+      return;
+    }
+
+    if (vendorId < 1)
+      return;
+
+    update({ path: { id: vendorId }, body: values });
   };
 
   useEffect(() => {
@@ -113,7 +139,7 @@ export const VendorSheet: FC<IProps> = ({ onSuccess }) => {
             className="px-4"
             loading={isLoadingVendor}
             disabled={isCreating || isUpdating}
-            onSubmit={(values) => create({ body: values })}
+            onSubmit={onSubmit}
           />
         </ScrollArea>
 
@@ -132,8 +158,8 @@ export const VendorSheet: FC<IProps> = ({ onSuccess }) => {
               disabled={isLoadingVendor}
               loading={isCreating || isUpdating}
             >
-              <SendIcon/>
-              <span>{m['common.submit']()}</span>
+              {mode === VendorSheetMode.Create ? <FilePlusCornerIcon/> : <SaveIcon/>}
+              <span>{mode === VendorSheetMode.Create ? m['common.create']() : m['common.save']()}</span>
             </LoadingButton>
           </div>
         </SheetFooter>

@@ -1,5 +1,5 @@
-import type { RowData } from '@tanstack/react-table';
-import type { ReactNode } from 'react';
+import type { Column, RowData } from '@tanstack/react-table';
+import { type ReactNode } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
 export enum ColumnFilterType {
@@ -10,6 +10,7 @@ export enum ColumnFilterType {
   MultiSelect = 'multi-select',
   Date = 'date',
   DateRange = 'date-range',
+  Custom = 'custom'
 }
 
 export interface ITextFilterOptions {
@@ -62,21 +63,27 @@ export interface IDateRangeOptions {
   disabledAfter?: Date;
 }
 
-export type TColumnFilterOptions =
+export interface ICustomFilterOptions<TData> {
+  type: ColumnFilterType.Custom;
+  render: (props: { column: Column<TData> }) => ReactNode;
+}
+
+
+export type TColumnFilterOptions<TData extends RowData> =
   | ITextFilterOptions
   | INumberFilterOptions
   | INumberRangeFilterOptions
   | ISelectOptions
   | IMultiSelectOptions
   | IDateOptions
-  | IDateRangeOptions;
-
+  | IDateRangeOptions
+  | ICustomFilterOptions<TData>;
 
 
 declare module '@tanstack/react-table' {
   interface ColumnMeta<TData extends RowData, TValue> {
     key?: string;
-    filter?: TColumnFilterOptions;
+    filter?: TColumnFilterOptions<TData>;
     label?: string;
     icon?: LucideIcon;
     skeletonClassName?: string;

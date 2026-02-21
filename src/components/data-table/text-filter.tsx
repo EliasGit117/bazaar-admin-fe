@@ -51,7 +51,7 @@ export function DataTableTextFilter<TData, TValue>(props: IDataTableTextFilterPr
     throw new Error('Filter must be a type Text');
 
   return (
-    <InputGroup className="h-8 w-full max-w-42 lg:max-w-56">
+    <InputGroup className="h-8 w-full max-w-42 sm:max-w-56">
       <InputGroupInput
         ref={inputRef}
         {...restOfProps}

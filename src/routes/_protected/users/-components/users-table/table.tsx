@@ -14,7 +14,7 @@ import {
   useQuery
 } from '@tanstack/react-query';
 import {
-  users_search_QueryOptions
+  users_post_search_QueryOptions
 } from '@/api/generated/@tanstack/react-query.gen.ts';
 import { AdaptiveButton } from '@/components/ui/adaptive-button.tsx';
 import { FileDownIcon, RefreshCwIcon } from 'lucide-react';
@@ -33,7 +33,7 @@ export const UsersTable: FC<IProps> = ({ className, search = {}, ...divProps }) 
 
   const { user } = useAuth();
   const { data, isPending, isFetching, refetch, error } = useQuery({
-    ...users_search_QueryOptions({ body: search }),
+    ...users_post_search_QueryOptions({ body: search }),
     gcTime: 0,
     staleTime: 60 * 1000,
     placeholderData: keepPreviousData,

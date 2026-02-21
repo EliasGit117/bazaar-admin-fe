@@ -1,9 +1,9 @@
 import { type PropsWithChildren, useState } from 'react';
 import { contextFactory } from '@/lib/utils/context-factory.tsx';
 import {
-  auth_me_QueryKeys,
-  auth_signIn_MutationOptions,
-  auth_signOut_MutationOptions
+  auth_get_me_QueryKeys,
+  auth_post_signIn_MutationOptions,
+  auth_post_signOut_MutationOptions
 } from '@/api/generated/@tanstack/react-query.gen.ts';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import type {
@@ -66,7 +66,7 @@ function AuthProvider({ children }: IAuthProviderProps) {
   const [sessionData, setSessionData] = useState<SessionDataDto | undefined | null>(initialState);
 
   const { isPending: isPendingSessionData } = useQuery({
-    queryKey: auth_me_QueryKeys(),
+    queryKey: auth_get_me_QueryKeys(),
     queryFn: async () => {
       const { response, data } = await apiClient.auth.getSessionData({ throwOnError: false });
       if (response.status === 401) {
@@ -90,7 +90,7 @@ function AuthProvider({ children }: IAuthProviderProps) {
   });
 
   const { mutate: signIn, isPending: isSigningIn } = useMutation({
-    ...auth_signIn_MutationOptions(),
+    ...auth_post_signIn_MutationOptions(),
     onSuccess: ({ user, session, permissions }) => {
       writeAuth({ user: user, session: session, permissions: permissions });
       setSessionData({ user: user, session: session, permissions: permissions });
@@ -102,7 +102,7 @@ function AuthProvider({ children }: IAuthProviderProps) {
   });
 
   const { mutate: signOut, isPending: isSigningOut } = useMutation({
-    ...auth_signOut_MutationOptions(),
+    ...auth_post_signOut_MutationOptions(),
     onSuccess: () => {
       setSessionData(null);
       clearAuth();

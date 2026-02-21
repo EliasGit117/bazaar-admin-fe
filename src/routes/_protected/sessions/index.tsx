@@ -4,9 +4,9 @@ import type { ZodType } from 'zod';
 import * as z from 'zod';
 import { AdminSessionStatus, type PostSessionsSearchData } from '@/api/generated';
 import { SessionsTable } from './-components/sessions-table';
-import { sessions_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
 import { dateRangeSchema } from '@/components/data-table/types/schemas.ts';
 import { hasPermission } from '@/lib/utils/has-permission.ts';
+import { sessions_post_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
 
 
 export const paginatedSchema = z.object({
@@ -47,7 +47,7 @@ export const Route = createFileRoute('/_protected/sessions/')({
   loaderDeps: (deps) => (deps),
   loader: async ({ context: { queryClient }, deps: { search } }) => {
     void queryClient.prefetchQuery({
-      ...sessions_search_QueryOptions({ body: search }),
+      ...sessions_post_search_QueryOptions({ body: search }),
       staleTime: Infinity
     });
   }

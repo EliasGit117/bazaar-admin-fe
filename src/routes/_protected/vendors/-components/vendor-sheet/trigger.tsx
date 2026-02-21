@@ -6,14 +6,14 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useVendorSheet, type VendorSheetOptions } from './provider';
+import { useVendorSheet, type TVendorSheetOptions } from './provider';
 import { FilePlusIcon, type LucideIcon } from 'lucide-react';
 import { m } from '@/paraglide/messages';
 
 
 interface IProps
   extends Omit<ComponentProps<typeof Button>, 'onClick'> {
-  options: VendorSheetOptions;
+  options: TVendorSheetOptions;
   text?: string;
   icon?: LucideIcon;
 }
@@ -38,16 +38,17 @@ export const VendorSheetTrigger: FC<IProps> = (props) => {
       asChild={asChild}
       onClick={() => open(options)}
     >
-      {(asChild && children) ?? (
+      {asChild && children ? children : (
         <>
-          <Icon/>
+          <Icon />
           <span className="sr-only sm:not-sr-only">{text}</span>
         </>
       )}
     </Button>
   );
 
-  if (!isMobile) return button;
+  if (!isMobile)
+    return button;
 
   return (
     <Tooltip delayDuration={500}>

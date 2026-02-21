@@ -2,7 +2,7 @@
 
 import type { Client as Client2, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllErrors, DeleteSessionsRevokeAllResponses, DeleteSessionsRevokeData, DeleteSessionsRevokeErrors, DeleteSessionsRevokeResponses, GetAuthMeData, GetAuthMeErrors, GetAuthMeResponses, GetData, GetResponses, GetVendorsByIdData, GetVendorsByIdErrors, GetVendorsByIdResponses, PatchVendorsByIdData, PatchVendorsByIdErrors, PatchVendorsByIdResponses, PostAuthSignInData, PostAuthSignInErrors, PostAuthSignInResponses, PostAuthSignOutData, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthSignUpData, PostAuthSignUpErrors, PostAuthSignUpResponses, PostSessionsSearchData, PostSessionsSearchResponses, PostUsersSearchData, PostUsersSearchErrors, PostUsersSearchResponses, PostVendorsData, PostVendorsErrors, PostVendorsResponses, PostVendorsSearchData, PostVendorsSearchResponses } from './types.gen';
+import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllErrors, DeleteSessionsRevokeAllResponses, DeleteSessionsRevokeData, DeleteSessionsRevokeErrors, DeleteSessionsRevokeResponses, GetAuthMeData, GetAuthMeErrors, GetAuthMeResponses, GetData, GetResponses, GetUsersByIdData, GetUsersByIdErrors, GetUsersByIdResponses, GetVendorsByIdData, GetVendorsByIdErrors, GetVendorsByIdResponses, PatchVendorsByIdData, PatchVendorsByIdErrors, PatchVendorsByIdResponses, PostAuthSignInData, PostAuthSignInErrors, PostAuthSignInResponses, PostAuthSignOutData, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthSignUpData, PostAuthSignUpErrors, PostAuthSignUpResponses, PostSessionsSearchData, PostSessionsSearchResponses, PostUsersSearchData, PostUsersSearchErrors, PostUsersSearchResponses, PostVendorsData, PostVendorsErrors, PostVendorsResponses, PostVendorsSearchData, PostVendorsSearchResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -53,6 +53,19 @@ export class Root extends HeyApiClient {
 }
 
 export class Users extends HeyApiClient {
+    /**
+     * Get user by id
+     *
+     * Returns single user by id
+     */
+    public getById<ThrowOnError extends boolean = false>(options: Options<GetUsersByIdData, ThrowOnError>) {
+        return (options.client ?? this.client).get<GetUsersByIdResponses, GetUsersByIdErrors, ThrowOnError>({
+            security: [{ name: 'x-session-id', type: 'apiKey' }],
+            url: '/users/{id}',
+            ...options
+        });
+    }
+    
     /**
      * Search users
      *

@@ -5,9 +5,9 @@ import { Badge } from '@/components/ui/badge';
 import {
   BoxIcon,
   BuildingIcon,
-  CalendarIcon, EuroIcon,
+  CalendarIcon, EllipsisVerticalIcon, EuroIcon,
   HashIcon,
-  MailIcon,
+  MailIcon, PenIcon,
   PhoneIcon,
   UserCircleIcon,
   UserIcon
@@ -16,23 +16,39 @@ import { format } from 'date-fns';
 import { m } from '@/paraglide/messages';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar.tsx';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
+import {
+  DropdownMenu,
+  DropdownMenuContent, DropdownMenuItem,
+  DropdownMenuLabel, DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu.tsx';
+import { Button } from '@/components/ui/button';
+import { Link } from '@tanstack/react-router';
+import {
+  useVendorSheet,
+  VendorSheetMode
+} from '@/routes/_protected/vendors/-components/vendor-sheet';
+import type { ComponentPropsWithoutRef, FC } from 'react';
+import { cn } from '@/lib/utils';
+import { UserSelectDropdown } from '@/components/user-select-dropdown';
 
 
 interface IOptions {
   disabled?: boolean;
+  canEdit?: boolean;
 }
 
 const columnHelper = createColumnHelper<VendorDto>();
 
 export const vendorColumns = (options?: IOptions) => {
-  "use no memo";
+  'use no memo';
 
-  const { } = options ?? {};
+  const { disabled, canEdit } = options ?? {};
 
   return [
     columnHelper.accessor('id', {
       size: 32,
-      header: ({ column }) => <DataTableColumnHeader column={column} />,
+      header: ({ column }) => <DataTableColumnHeader column={column}/>,
       meta: {
         label: 'Id',
         filter: { type: ColumnFilterType.Number },
@@ -42,13 +58,37 @@ export const vendorColumns = (options?: IOptions) => {
     }),
 
     columnHelper.accessor('ownerId', {
-      size: 32,
-      header: ({ column }) => <DataTableColumnHeader column={column} />,
+      size: 80,
+      header: ({ column }) => (<DataTableColumnHeader column={column}/>),
+      cell: ({ getValue }) => (
+        <span className="text-xs font-mono">
+          {getValue()}
+        </span>
+      ),
       meta: {
-        label: `${m['pages.vendors.list.table.owner']()} (id)`,
+        label: m['pages.sessions.list.table.userId'](),
         icon: UserIcon,
-        filter: { type: ColumnFilterType.Number },
-        skeletonClassName: 'h-4 w-10'
+        skeletonClassName: 'h-4 w-10',
+        filter: {
+          type: ColumnFilterType.Custom,
+          render: ({ column }) => {
+            const rawValue = column.getFilterValue();
+            const value: number | undefined = typeof rawValue === 'number' ? rawValue : undefined;
+
+            return (
+              <UserSelectDropdown
+                size='sm'
+                align='start'
+                previewMode='short'
+                placeholder={m['common.user']()}
+                value={value}
+                onValueChange={(v) => column.setFilterValue(v)}
+                className="w-full max-w-42 lg:max-w-56 text-xs sm:text-sm"
+                prefetch
+              />
+            )
+          }
+        }
       }
     }),
 
@@ -63,14 +103,29 @@ export const vendorColumns = (options?: IOptions) => {
 
         return (
           <div className="flex items-center gap-2">
-            <Avatar className="size-7">
-              <AvatarFallback className="text-xs!">{value.firstName[0]}{value.lastName[0]}</AvatarFallback>
-            </Avatar>
+            <div className="parent">
+              <Avatar className="size-7">
+                <AvatarFallback className="text-xs!">
+                  {value.firstName[0]}{value.lastName[0]}
+                </AvatarFallback>
+
+                <Badge
+                  variant="outline"
+                  className={cn(
+                    "h-3 w-fit px-1! text-muted-foreground",
+                    "text-[0.5rem] absolute -bottom-1 z-10 bg-background transform left-1/2 -translate-x-1/2"
+                  )}
+                >
+                  id: {value.id}
+                </Badge>
+              </Avatar>
+            </div>
 
             <div className="flex flex-col">
               <span className="text-xs">
                 {value.firstName} {value.lastName}
               </span>
+
               <span className="text-xs text-muted-foreground">
                 {value.email}
               </span>
@@ -93,8 +148,8 @@ export const vendorColumns = (options?: IOptions) => {
     }),
 
     columnHelper.accessor('name', {
-      header: ({ column }) => <DataTableColumnHeader column={column} />,
-      cell: ({ getValue }) => <p className='text-xs'>{getValue()}</p>,
+      header: ({ column }) => <DataTableColumnHeader column={column}/>,
+      cell: ({ getValue }) => <p className="text-xs">{getValue()}</p>,
       meta: {
         icon: BuildingIcon,
         label: m['common.name'](),
@@ -104,8 +159,8 @@ export const vendorColumns = (options?: IOptions) => {
     }),
 
     columnHelper.accessor('email', {
-      header: ({ column }) => <DataTableColumnHeader column={column} />,
-      cell: ({ getValue }) => <p className='text-xs'>{getValue()}</p>,
+      header: ({ column }) => <DataTableColumnHeader column={column}/>,
+      cell: ({ getValue }) => <p className="text-xs">{getValue()}</p>,
       meta: {
         label: m['common.email'](),
         icon: MailIcon,
@@ -115,8 +170,8 @@ export const vendorColumns = (options?: IOptions) => {
     }),
 
     columnHelper.accessor('phone', {
-      header: ({ column }) => <DataTableColumnHeader column={column} />,
-      cell: ({ getValue }) => <p className='text-xs'>{getValue()}</p>,
+      header: ({ column }) => <DataTableColumnHeader column={column}/>,
+      cell: ({ getValue }) => <p className="text-xs">{getValue()}</p>,
       meta: {
         label: m['common.phone'](),
         icon: PhoneIcon,
@@ -128,8 +183,8 @@ export const vendorColumns = (options?: IOptions) => {
 
     columnHelper.accessor('idno', {
       size: 256,
-      header: ({ column }) => <DataTableColumnHeader column={column} />,
-      cell: ({ getValue }) => <p className='text-xs'>{getValue()}</p>,
+      header: ({ column }) => <DataTableColumnHeader column={column}/>,
+      cell: ({ getValue }) => <p className="text-xs">{getValue()}</p>,
       meta: {
         label: 'IDNO',
         filter: { type: ColumnFilterType.Text },
@@ -140,8 +195,8 @@ export const vendorColumns = (options?: IOptions) => {
 
     columnHelper.accessor('iban', {
       size: 324,
-      header: ({ column }) => <DataTableColumnHeader column={column} />,
-      cell: ({ getValue }) => <p className='text-xs'>{getValue()}</p>,
+      header: ({ column }) => <DataTableColumnHeader column={column}/>,
+      cell: ({ getValue }) => <p className="text-xs">{getValue()}</p>,
       meta: {
         label: 'IBAN',
         filter: { type: ColumnFilterType.Text },
@@ -151,8 +206,8 @@ export const vendorColumns = (options?: IOptions) => {
     }),
 
     columnHelper.accessor('currency', {
-      header: ({ column }) => <DataTableColumnHeader column={column} />,
-      cell: ({ getValue }) => <p className='text-xs'>{getValue()}</p>,
+      header: ({ column }) => <DataTableColumnHeader column={column}/>,
+      cell: ({ getValue }) => <p className="text-xs">{getValue()}</p>,
       meta: {
         label: m['pages.vendors.list.table.currency'](),
         icon: EuroIcon,
@@ -165,12 +220,12 @@ export const vendorColumns = (options?: IOptions) => {
     }),
 
     columnHelper.accessor('type', {
-      header: ({ column }) => <DataTableColumnHeader column={column} />,
+      header: ({ column }) => <DataTableColumnHeader column={column}/>,
       cell: ({ getValue }) => {
         const type = getValue();
 
         return (
-          <Badge variant='outline' className="rounded-sm min-h-6">
+          <Badge variant="outline" className="rounded-sm min-h-6">
             {type === VendorType.SRL && <BuildingIcon/>}
             {type === VendorType.IP && <UserIcon/>}
             <span>{type}</span>
@@ -192,7 +247,7 @@ export const vendorColumns = (options?: IOptions) => {
     }),
 
     columnHelper.accessor('createdAt', {
-      header: ({ column }) => <DataTableColumnHeader column={column} />,
+      header: ({ column }) => <DataTableColumnHeader column={column}/>,
       cell: ({ getValue }) => (
         <span className="text-xs">
           {format(new Date(getValue()), 'dd.MM.yyyy HH:mm')}
@@ -220,5 +275,61 @@ export const vendorColumns = (options?: IOptions) => {
         skeletonClassName: 'h-4 w-32'
       }
     }),
+
+    // Actions
+    columnHelper.display({
+      id: 'actions',
+      size: 40,
+      meta: {
+        label: 'Actions',
+        skeletonClassName: 'size-6 ml-auto'
+      },
+      cell: ({ row }) => {
+
+        return (
+          <div className="flex justify-end">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button size="icon-xs" variant="ghost">
+                  <EllipsisVerticalIcon/>
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent className="w-fit min-w-42" align="end">
+                <DropdownMenuLabel>
+                  {m['common.actions']()}
+                </DropdownMenuLabel>
+
+                <DropdownMenuSeparator/>
+
+                <DropdownMenuItem asChild>
+                  <Link to="/users" search={{ id: row.original.ownerId }}>
+                    <UserCircleIcon className="mr-2 size-4"/>
+                    <span>{m['common.owner']()}</span>
+                  </Link>
+                </DropdownMenuItem>
+
+                {(canEdit) && <EditMenuItem vendorId={row.original.id} disabled={disabled}/>}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        );
+      }
+    })
   ];
+};
+
+interface IEditMenuItem extends ComponentPropsWithoutRef<typeof DropdownMenuItem> {
+  vendorId: number;
+}
+
+const EditMenuItem: FC<IEditMenuItem> = ({ vendorId, ...props }) => {
+  const { open } = useVendorSheet();
+
+  return (
+    <DropdownMenuItem {...props} onClick={() => open({ mode: VendorSheetMode.Update, vendorId: vendorId })}>
+      <PenIcon className="mr-2 size-4"/>
+      <span>{m['common.edit']()}</span>
+    </DropdownMenuItem>
+  );
 };

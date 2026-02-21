@@ -43,6 +43,7 @@ import { cn } from '@/lib/utils';
 import { ChromeIcon, EdgeIcon, FirefoxIcon, OperaIcon, SafariIcon } from '@/components/icons';
 import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard.ts';
 import { m } from '@/paraglide/messages';
+import { UserSelectDropdown } from '@/components/user-select-dropdown';
 
 
 interface IOptions {
@@ -129,7 +130,26 @@ export const sessionColumns = (options?: IOptions) => {
         label: m['pages.sessions.list.table.userId'](),
         icon: UserIcon,
         skeletonClassName: 'h-4 w-10',
-        filter: { type: ColumnFilterType.Number, min: 1, placeholder: m['pages.sessions.list.table.userId']() }
+        filter: {
+          type: ColumnFilterType.Custom,
+          render: ({ column }) => {
+            const rawValue = column.getFilterValue();
+            const value: number | undefined = typeof rawValue === 'number' ? rawValue : undefined;
+
+            return (
+              <UserSelectDropdown
+                size='sm'
+                align='start'
+                previewMode='short'
+                placeholder={m['common.user']()}
+                value={value}
+                onValueChange={(v) => column.setFilterValue(v)}
+                className="w-full max-w-42 lg:max-w-56 text-xs sm:text-sm"
+                prefetch
+              />
+            )
+          }
+        }
       }
     }),
 
@@ -144,14 +164,29 @@ export const sessionColumns = (options?: IOptions) => {
 
         return (
           <div className="flex items-center gap-2">
-            <Avatar className="size-7">
-              <AvatarFallback className="text-xs!">{value.firstName[0]}{value.lastName[0]}</AvatarFallback>
-            </Avatar>
+            <div className="parent">
+              <Avatar className="size-7">
+                <AvatarFallback className="text-xs!">
+                  {value.firstName[0]}{value.lastName[0]}
+                </AvatarFallback>
+
+                <Badge
+                  variant="outline"
+                  className={cn(
+                    "h-3 w-fit px-1! text-muted-foreground",
+                    "text-[0.5rem] absolute -bottom-1 z-10 bg-background transform left-1/2 -translate-x-1/2"
+                  )}
+                >
+                  id: {value.id}
+                </Badge>
+              </Avatar>
+            </div>
 
             <div className="flex flex-col">
               <span className="text-xs">
                 {value.firstName} {value.lastName}
               </span>
+
               <span className="text-xs text-muted-foreground">
                 {value.email}
               </span>

@@ -10,7 +10,7 @@ import { type ComponentProps, type FC, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import type { ListPaginatedVendorsDto, VendorDto } from '@/api/generated';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { vendors_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen';
+
 import { AdaptiveButton } from '@/components/ui/adaptive-button';
 import { RefreshCwIcon } from 'lucide-react';
 import { m } from '@/paraglide/messages';
@@ -20,6 +20,8 @@ import {
   VendorSheetTrigger
 } from '@/routes/_protected/vendors/-components/vendor-sheet';
 import { VendorSheet } from '@/routes/_protected/vendors/-components/vendor-sheet/sheet.tsx';
+import { useHasPermissions } from '@/hooks/use-has-permissions.ts';
+import { vendors_post_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
 
 
 interface IProps extends ComponentProps<'div'> {
@@ -29,15 +31,23 @@ interface IProps extends ComponentProps<'div'> {
 export const VendorsTable: FC<IProps> = ({ className, search = {}, ...divProps }) => {
   'use no memo';
 
+  const permissions = useHasPermissions({
+    canCreate: { vendors: 'create' },
+    canEdit: { vendors: 'update' }
+  });
+
   const { data, isPending, isFetching, refetch } = useQuery({
-    ...vendors_search_QueryOptions({ body: search }),
+    ...vendors_post_search_QueryOptions({ body: search }),
     placeholderData: keepPreviousData,
     structuralSharing: false,
     staleTime: 60 * 1000,
-    gcTime: 0,
+    gcTime: 0
   });
 
-  const columns = useMemo(() => vendorColumns({ disabled: isFetching }), [isFetching]);
+  const columns = useMemo(() => vendorColumns({
+    disabled: isFetching,
+    canEdit: permissions.canEdit
+  }), [isFetching, permissions.canEdit]);
 
   const { table } = useDataTable({
     data: data?.items,
@@ -55,7 +65,7 @@ export const VendorsTable: FC<IProps> = ({ className, search = {}, ...divProps }
       } satisfies Partial<Record<keyof VendorDto, boolean>>,
       columnPinning: {
         left: [],
-        right: []
+        right: ['actions']
       }
     }
   });
@@ -66,11 +76,13 @@ export const VendorsTable: FC<IProps> = ({ className, search = {}, ...divProps }
         <DataTableProvider table={table} loading={isPending}>
           <DataTableToolbar>
             <div className="ml-auto flex items-center gap-1">
-              <VendorSheetTrigger
-                size="sm"
-                variant="ghost"
-                options={{ mode: VendorSheetMode.Create }}
-              />
+              {permissions.canCreate && (
+                <VendorSheetTrigger
+                  size="sm"
+                  variant="ghost"
+                  options={{ mode: VendorSheetMode.Create }}
+                />
+              )}
 
               <AdaptiveButton
                 text={m['common.refresh']()}

@@ -14,8 +14,9 @@ import type { AdminSessionDto, PostSessionsSearchData } from '@/api/generated';
 import { FileDownIcon, RefreshCwIcon, TrashIcon } from 'lucide-react';
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  sessions_revoke_MutationOptions, sessions_search_QueryKeys,
-  sessions_search_QueryOptions
+  sessions_delete_revoke_MutationOptions,
+  sessions_post_search_QueryKeys,
+  sessions_post_search_QueryOptions
 } from '@/api/generated/@tanstack/react-query.gen.ts';
 import { m } from '@/paraglide/messages';
 import { useHasPermissions } from '@/hooks/use-has-permissions.ts';
@@ -35,7 +36,7 @@ export const SessionsTable: FC<IProps> = (props) => {
   const permissions = useHasPermissions({ canDeleteSessions: { sessions: 'delete' } });
 
   const { data, isPending: isPendingData, isFetching: isFetchingData, refetch, error } = useQuery({
-    ...sessions_search_QueryOptions({ body: search }),
+    ...sessions_post_search_QueryOptions({ body: search }),
     gcTime: 0,
     staleTime: 60 * 1000,
     placeholderData: keepPreviousData,
@@ -43,9 +44,9 @@ export const SessionsTable: FC<IProps> = (props) => {
   });
 
   const { mutate: revokeSessions, isPending: isRevokingSession } = useMutation({
-    ...sessions_revoke_MutationOptions(),
+    ...sessions_delete_revoke_MutationOptions(),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: sessions_search_QueryKeys({ body: search }) });
+      void queryClient.invalidateQueries({ queryKey: sessions_post_search_QueryKeys({ body: search }) });
     }
   });
 

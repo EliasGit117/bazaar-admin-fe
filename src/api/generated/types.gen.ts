@@ -4,6 +4,27 @@ export type ClientOptions = {
     baseUrl: string;
 };
 
+export enum AdminUserRole {
+    ADMIN = 'admin',
+    USER = 'user'
+}
+
+export enum AdminUserStatus {
+    ACTIVE = 'active',
+    INACTIVE = 'inactive'
+}
+
+export type AdminUserDto = {
+    id: number;
+    email: string;
+    firstName: string;
+    lastName: string;
+    role: AdminUserRole;
+    status: AdminUserStatus;
+    createdAt: string;
+    updatedAt: string;
+};
+
 export type PaginatedResultDto = {
     /**
      * Total number of items available
@@ -29,27 +50,6 @@ export type PaginatedResultDto = {
      * Indicates if there is a previous page
      */
     hasPrevPage: boolean;
-};
-
-export enum AdminUserRole {
-    ADMIN = 'admin',
-    USER = 'user'
-}
-
-export enum AdminUserStatus {
-    ACTIVE = 'active',
-    INACTIVE = 'inactive'
-}
-
-export type AdminUserDto = {
-    id: number;
-    email: string;
-    firstName: string;
-    lastName: string;
-    role: AdminUserRole;
-    status: AdminUserStatus;
-    createdAt: string;
-    updatedAt: string;
 };
 
 /**
@@ -713,6 +713,26 @@ export type GetResponses = {
     200: unknown;
 };
 
+export type GetUsersByIdData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/users/{id}';
+};
+
+export type GetUsersByIdErrors = {
+    401: unknown;
+    403: unknown;
+};
+
+export type GetUsersByIdResponses = {
+    200: AdminUserDto;
+};
+
+export type GetUsersByIdResponse = GetUsersByIdResponses[keyof GetUsersByIdResponses];
+
 export type PostUsersSearchData = {
     body: ListPaginatedUsersDto;
     path?: never;
@@ -920,7 +940,9 @@ export type GetVendorsByIdResponse = GetVendorsByIdResponses[keyof GetVendorsByI
 
 export type PatchVendorsByIdData = {
     body: UpdateVendorDto;
-    path?: never;
+    path: {
+        id: number;
+    };
     query?: never;
     url: '/vendors/{id}';
 };
@@ -929,6 +951,7 @@ export type PatchVendorsByIdErrors = {
     400: unknown;
     401: unknown;
     403: unknown;
+    404: unknown;
 };
 
 export type PatchVendorsByIdResponses = {

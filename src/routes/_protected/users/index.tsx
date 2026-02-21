@@ -3,10 +3,10 @@ import { getLocale, type Locale } from '@/paraglide/runtime';
 import * as z from 'zod';
 import type { ZodType } from 'zod';
 import { AdminUserRole, AdminUserStatus, type PostUsersSearchData } from '@/api/generated';
-import { users_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
 import { UsersTable } from '@/routes/_protected/users/-components/users-table/table.tsx';
 import { dateRangeSchema } from '@/components/data-table/types/schemas.ts';
 import { hasPermission } from '@/lib/utils/has-permission.ts';
+import { users_post_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
 
 
 export const paginatedSchema = z.object({
@@ -54,7 +54,7 @@ export const Route = createFileRoute('/_protected/users/')({
   loaderDeps: (deps) => deps,
   loader: async ({ context: { queryClient }, deps: { search } }) => {
     void queryClient.prefetchQuery({
-      ...users_search_QueryOptions({ body: search }),
+      ...users_post_search_QueryOptions({ body: search }),
       staleTime: Infinity
     });
   }

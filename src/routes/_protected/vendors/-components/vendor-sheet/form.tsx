@@ -1,14 +1,9 @@
 import { type ComponentProps, type FC, useState } from 'react';
 import { Controller, type UseFormReturn } from 'react-hook-form';
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel
-} from '@/components/ui/field';
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { TCreateVendor, TUpdateVendor } from '@/routes/_protected/vendors/-components/vendor-sheet/schemas.ts';
-import { CurrencyCode, VendorType } from '@/api/generated';
+import { AdminUserRole, CurrencyCode, VendorType } from '@/api/generated';
 import {
   Command,
   CommandEmpty,
@@ -25,13 +20,13 @@ import { m } from '@/paraglide/messages';
 import { Input } from '@/components/ui/input.tsx';
 import {
   DropdownMenu,
-  DropdownMenuRadioItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu.tsx';
-import { NumberInput } from '@/components/ui/number-input.tsx';
+import { UserSelectDropdown } from '@/components/user-select-dropdown';
 
 
 interface IProps extends Omit<ComponentProps<'form'>, 'onSubmit'> {
@@ -177,14 +172,15 @@ export const VendorForm: FC<IProps> = (props) => {
             control={form.control}
             render={({ field, fieldState }) => {
               return (
-                <Field data-invalid={fieldState.invalid} className="col-span-full">
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel>{m['common.owner']()}</FieldLabel>
-                  <NumberInput
-                    inputSize="sm"
-                    min={1}
+                  <UserSelectDropdown
+                    prefetch
                     value={field.value}
                     onValueChange={field.onChange}
-                    placeholder="1"
+                    isItemDisabled={(user) => (
+                      user.role === AdminUserRole.ADMIN
+                    )}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
                 </Field>
@@ -197,7 +193,7 @@ export const VendorForm: FC<IProps> = (props) => {
             name="name"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid} className="col-span-full">
+              <Field data-invalid={fieldState.invalid}>
                 <FieldLabel>{m['pages.vendors.list.sheet.vendor_name']()}</FieldLabel>
                 <Input placeholder="Some SRL" {...field} />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}

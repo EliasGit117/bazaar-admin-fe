@@ -4,7 +4,7 @@ import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOption
 
 import { client } from '../client.gen';
 import { Client, type Options } from '../sdk.gen';
-import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllResponse, DeleteSessionsRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, GetVendorsByIdData, GetVendorsByIdResponse, PatchVendorsByIdData, PatchVendorsByIdResponse, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostUsersSearchData, PostUsersSearchResponse, PostVendorsData, PostVendorsResponse, PostVendorsSearchData, PostVendorsSearchResponse } from '../types.gen';
+import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllResponse, DeleteSessionsRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, GetUsersByIdData, GetUsersByIdResponse, GetVendorsByIdData, GetVendorsByIdResponse, PatchVendorsByIdData, PatchVendorsByIdResponse, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostUsersSearchData, PostUsersSearchResponse, PostVendorsData, PostVendorsResponse, PostVendorsSearchData, PostVendorsSearchResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -39,9 +39,9 @@ const createQueryKey = <TOptions extends Options>(id: string, options?: TOptions
     return [params];
 };
 
-export const _index_QueryKeys = (options?: Options<GetData>) => createQueryKey('get', options);
+export const default_get_unknown_QueryKeys = (options?: Options<GetData>) => createQueryKey('get', options);
 
-export const _index_QueryOptions = (options?: Options<GetData>) => queryOptions<unknown, DefaultError, unknown, ReturnType<typeof _index_QueryKeys>>({
+export const default_get_unknown_QueryOptions = (options?: Options<GetData>) => queryOptions<unknown, DefaultError, unknown, ReturnType<typeof default_get_unknown_QueryKeys>>({
     queryFn: async ({ queryKey, signal }) => {
         const { data } = await Client.__registry.get().root.getHello({
             ...options,
@@ -51,17 +51,37 @@ export const _index_QueryOptions = (options?: Options<GetData>) => queryOptions<
         });
         return data;
     },
-    queryKey: _index_QueryKeys(options)
+    queryKey: default_get_unknown_QueryKeys(options)
 });
 
-export const users_search_QueryKeys = (options: Options<PostUsersSearchData>) => createQueryKey('postUsersSearch', options);
+export const users_get_byId_QueryKeys = (options: Options<GetUsersByIdData>) => createQueryKey('getUsersById', options);
+
+/**
+ * Get user by id
+ *
+ * Returns single user by id
+ */
+export const users_get_byId_QueryOptions = (options: Options<GetUsersByIdData>) => queryOptions<GetUsersByIdResponse, DefaultError, GetUsersByIdResponse, ReturnType<typeof users_get_byId_QueryKeys>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await Client.__registry.get().users.getById({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: users_get_byId_QueryKeys(options)
+});
+
+export const users_post_search_QueryKeys = (options: Options<PostUsersSearchData>) => createQueryKey('postUsersSearch', options);
 
 /**
  * Search users
  *
  * Returns paginated list of users
  */
-export const users_search_QueryOptions = (options: Options<PostUsersSearchData>) => queryOptions<PostUsersSearchResponse, DefaultError, PostUsersSearchResponse, ReturnType<typeof users_search_QueryKeys>>({
+export const users_post_search_QueryOptions = (options: Options<PostUsersSearchData>) => queryOptions<PostUsersSearchResponse, DefaultError, PostUsersSearchResponse, ReturnType<typeof users_post_search_QueryKeys>>({
     queryFn: async ({ queryKey, signal }) => {
         const { data } = await Client.__registry.get().users.search({
             ...options,
@@ -71,7 +91,7 @@ export const users_search_QueryOptions = (options: Options<PostUsersSearchData>)
         });
         return data;
     },
-    queryKey: users_search_QueryKeys(options)
+    queryKey: users_post_search_QueryKeys(options)
 });
 
 const createInfiniteParams = <K extends Pick<QueryKey<Options>[0], 'body' | 'headers' | 'path' | 'query'>>(queryKey: QueryKey<Options>, page: K) => {
@@ -103,14 +123,14 @@ const createInfiniteParams = <K extends Pick<QueryKey<Options>[0], 'body' | 'hea
     return params as unknown as typeof page;
 };
 
-export const users_search_InfiniteQueryKeys = (options: Options<PostUsersSearchData>): QueryKey<Options<PostUsersSearchData>> => createQueryKey('postUsersSearch', options, true);
+export const users_post_search_InfiniteQueryKeys = (options: Options<PostUsersSearchData>): QueryKey<Options<PostUsersSearchData>> => createQueryKey('postUsersSearch', options, true);
 
 /**
  * Search users
  *
  * Returns paginated list of users
  */
-export const users_search_InfiniteQueryOptions = (options: Options<PostUsersSearchData>) => infiniteQueryOptions<PostUsersSearchResponse, DefaultError, InfiniteData<PostUsersSearchResponse>, QueryKey<Options<PostUsersSearchData>>, number | Pick<QueryKey<Options<PostUsersSearchData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+export const users_post_search_InfiniteQueryOptions = (options: Options<PostUsersSearchData>) => infiniteQueryOptions<PostUsersSearchResponse, DefaultError, InfiniteData<PostUsersSearchResponse>, QueryKey<Options<PostUsersSearchData>>, number | Pick<QueryKey<Options<PostUsersSearchData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
 // @ts-ignore
 {
     queryFn: async ({ pageParam, queryKey, signal }) => {
@@ -129,7 +149,7 @@ export const users_search_InfiniteQueryOptions = (options: Options<PostUsersSear
         });
         return data;
     },
-    queryKey: users_search_InfiniteQueryKeys(options)
+    queryKey: users_post_search_InfiniteQueryKeys(options)
 });
 
 /**
@@ -137,7 +157,7 @@ export const users_search_InfiniteQueryOptions = (options: Options<PostUsersSear
  *
  * Returns paginated list of users
  */
-export const users_search_MutationOptions = (options?: Partial<Options<PostUsersSearchData>>): UseMutationOptions<PostUsersSearchResponse, DefaultError, Options<PostUsersSearchData>> => {
+export const users_post_search_MutationOptions = (options?: Partial<Options<PostUsersSearchData>>): UseMutationOptions<PostUsersSearchResponse, DefaultError, Options<PostUsersSearchData>> => {
     const mutationOptions: UseMutationOptions<PostUsersSearchResponse, DefaultError, Options<PostUsersSearchData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().users.search({
@@ -151,14 +171,14 @@ export const users_search_MutationOptions = (options?: Partial<Options<PostUsers
     return mutationOptions;
 };
 
-export const auth_me_QueryKeys = (options?: Options<GetAuthMeData>) => createQueryKey('getAuthMe', options);
+export const auth_get_me_QueryKeys = (options?: Options<GetAuthMeData>) => createQueryKey('getAuthMe', options);
 
 /**
  * Me
  *
  * Returns current user and session data of user
  */
-export const auth_me_QueryOptions = (options?: Options<GetAuthMeData>) => queryOptions<GetAuthMeResponse, DefaultError, GetAuthMeResponse, ReturnType<typeof auth_me_QueryKeys>>({
+export const auth_get_me_QueryOptions = (options?: Options<GetAuthMeData>) => queryOptions<GetAuthMeResponse, DefaultError, GetAuthMeResponse, ReturnType<typeof auth_get_me_QueryKeys>>({
     queryFn: async ({ queryKey, signal }) => {
         const { data } = await Client.__registry.get().auth.getSessionData({
             ...options,
@@ -168,7 +188,7 @@ export const auth_me_QueryOptions = (options?: Options<GetAuthMeData>) => queryO
         });
         return data;
     },
-    queryKey: auth_me_QueryKeys(options)
+    queryKey: auth_get_me_QueryKeys(options)
 });
 
 /**
@@ -176,7 +196,7 @@ export const auth_me_QueryOptions = (options?: Options<GetAuthMeData>) => queryO
  *
  * Authenticates a user and sets session via cookies/headers.
  */
-export const auth_signIn_MutationOptions = (options?: Partial<Options<PostAuthSignInData>>): UseMutationOptions<PostAuthSignInResponse, DefaultError, Options<PostAuthSignInData>> => {
+export const auth_post_signIn_MutationOptions = (options?: Partial<Options<PostAuthSignInData>>): UseMutationOptions<PostAuthSignInResponse, DefaultError, Options<PostAuthSignInData>> => {
     const mutationOptions: UseMutationOptions<PostAuthSignInResponse, DefaultError, Options<PostAuthSignInData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().auth.signIn({
@@ -195,7 +215,7 @@ export const auth_signIn_MutationOptions = (options?: Partial<Options<PostAuthSi
  *
  * Creates a new user account. Requires the secret key.
  */
-export const auth_signUp_MutationOptions = (options?: Partial<Options<PostAuthSignUpData>>): UseMutationOptions<unknown, DefaultError, Options<PostAuthSignUpData>> => {
+export const auth_post_signUp_MutationOptions = (options?: Partial<Options<PostAuthSignUpData>>): UseMutationOptions<unknown, DefaultError, Options<PostAuthSignUpData>> => {
     const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<PostAuthSignUpData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().auth.signUp({
@@ -214,7 +234,7 @@ export const auth_signUp_MutationOptions = (options?: Partial<Options<PostAuthSi
  *
  * Invalidates the current session and clears cookies/tokens.
  */
-export const auth_signOut_MutationOptions = (options?: Partial<Options<PostAuthSignOutData>>): UseMutationOptions<PostAuthSignOutResponse, DefaultError, Options<PostAuthSignOutData>> => {
+export const auth_post_signOut_MutationOptions = (options?: Partial<Options<PostAuthSignOutData>>): UseMutationOptions<PostAuthSignOutResponse, DefaultError, Options<PostAuthSignOutData>> => {
     const mutationOptions: UseMutationOptions<PostAuthSignOutResponse, DefaultError, Options<PostAuthSignOutData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().auth.signOut({
@@ -228,14 +248,14 @@ export const auth_signOut_MutationOptions = (options?: Partial<Options<PostAuthS
     return mutationOptions;
 };
 
-export const sessions_search_QueryKeys = (options: Options<PostSessionsSearchData>) => createQueryKey('postSessionsSearch', options);
+export const sessions_post_search_QueryKeys = (options: Options<PostSessionsSearchData>) => createQueryKey('postSessionsSearch', options);
 
 /**
  * Search sessions
  *
  * Returns a paginated list of all admin user sessions. Admin role required.
  */
-export const sessions_search_QueryOptions = (options: Options<PostSessionsSearchData>) => queryOptions<PostSessionsSearchResponse, DefaultError, PostSessionsSearchResponse, ReturnType<typeof sessions_search_QueryKeys>>({
+export const sessions_post_search_QueryOptions = (options: Options<PostSessionsSearchData>) => queryOptions<PostSessionsSearchResponse, DefaultError, PostSessionsSearchResponse, ReturnType<typeof sessions_post_search_QueryKeys>>({
     queryFn: async ({ queryKey, signal }) => {
         const { data } = await Client.__registry.get().sessions.search({
             ...options,
@@ -245,17 +265,17 @@ export const sessions_search_QueryOptions = (options: Options<PostSessionsSearch
         });
         return data;
     },
-    queryKey: sessions_search_QueryKeys(options)
+    queryKey: sessions_post_search_QueryKeys(options)
 });
 
-export const sessions_search_InfiniteQueryKeys = (options: Options<PostSessionsSearchData>): QueryKey<Options<PostSessionsSearchData>> => createQueryKey('postSessionsSearch', options, true);
+export const sessions_post_search_InfiniteQueryKeys = (options: Options<PostSessionsSearchData>): QueryKey<Options<PostSessionsSearchData>> => createQueryKey('postSessionsSearch', options, true);
 
 /**
  * Search sessions
  *
  * Returns a paginated list of all admin user sessions. Admin role required.
  */
-export const sessions_search_InfiniteQueryOptions = (options: Options<PostSessionsSearchData>) => infiniteQueryOptions<PostSessionsSearchResponse, DefaultError, InfiniteData<PostSessionsSearchResponse>, QueryKey<Options<PostSessionsSearchData>>, number | Pick<QueryKey<Options<PostSessionsSearchData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+export const sessions_post_search_InfiniteQueryOptions = (options: Options<PostSessionsSearchData>) => infiniteQueryOptions<PostSessionsSearchResponse, DefaultError, InfiniteData<PostSessionsSearchResponse>, QueryKey<Options<PostSessionsSearchData>>, number | Pick<QueryKey<Options<PostSessionsSearchData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
 // @ts-ignore
 {
     queryFn: async ({ pageParam, queryKey, signal }) => {
@@ -274,7 +294,7 @@ export const sessions_search_InfiniteQueryOptions = (options: Options<PostSessio
         });
         return data;
     },
-    queryKey: sessions_search_InfiniteQueryKeys(options)
+    queryKey: sessions_post_search_InfiniteQueryKeys(options)
 });
 
 /**
@@ -282,7 +302,7 @@ export const sessions_search_InfiniteQueryOptions = (options: Options<PostSessio
  *
  * Returns a paginated list of all admin user sessions. Admin role required.
  */
-export const sessions_search_MutationOptions = (options?: Partial<Options<PostSessionsSearchData>>): UseMutationOptions<PostSessionsSearchResponse, DefaultError, Options<PostSessionsSearchData>> => {
+export const sessions_post_search_MutationOptions = (options?: Partial<Options<PostSessionsSearchData>>): UseMutationOptions<PostSessionsSearchResponse, DefaultError, Options<PostSessionsSearchData>> => {
     const mutationOptions: UseMutationOptions<PostSessionsSearchResponse, DefaultError, Options<PostSessionsSearchData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().sessions.search({
@@ -301,7 +321,7 @@ export const sessions_search_MutationOptions = (options?: Partial<Options<PostSe
  *
  * Revokes multiple admin sessions using query parameters
  */
-export const sessions_revoke_MutationOptions = (options?: Partial<Options<DeleteSessionsRevokeData>>): UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsRevokeData>> => {
+export const sessions_delete_revoke_MutationOptions = (options?: Partial<Options<DeleteSessionsRevokeData>>): UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsRevokeData>> => {
     const mutationOptions: UseMutationOptions<unknown, DefaultError, Options<DeleteSessionsRevokeData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().sessions.revokeSessions({
@@ -318,7 +338,7 @@ export const sessions_revoke_MutationOptions = (options?: Partial<Options<Delete
 /**
  * Revoke all sessions
  */
-export const sessions_revokeAll_MutationOptions = (options?: Partial<Options<DeleteSessionsRevokeAllData>>): UseMutationOptions<DeleteSessionsRevokeAllResponse, DefaultError, Options<DeleteSessionsRevokeAllData>> => {
+export const sessions_delete_revokeAll_MutationOptions = (options?: Partial<Options<DeleteSessionsRevokeAllData>>): UseMutationOptions<DeleteSessionsRevokeAllResponse, DefaultError, Options<DeleteSessionsRevokeAllData>> => {
     const mutationOptions: UseMutationOptions<DeleteSessionsRevokeAllResponse, DefaultError, Options<DeleteSessionsRevokeAllData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().sessions.revokeAllSessions({
@@ -332,12 +352,12 @@ export const sessions_revokeAll_MutationOptions = (options?: Partial<Options<Del
     return mutationOptions;
 };
 
-export const vendors_byId_QueryKeys = (options: Options<GetVendorsByIdData>) => createQueryKey('getVendorsById', options);
+export const vendors_get_byId_QueryKeys = (options: Options<GetVendorsByIdData>) => createQueryKey('getVendorsById', options);
 
 /**
  * Get vendor by id
  */
-export const vendors_byId_QueryOptions = (options: Options<GetVendorsByIdData>) => queryOptions<GetVendorsByIdResponse, DefaultError, GetVendorsByIdResponse, ReturnType<typeof vendors_byId_QueryKeys>>({
+export const vendors_get_byId_QueryOptions = (options: Options<GetVendorsByIdData>) => queryOptions<GetVendorsByIdResponse, DefaultError, GetVendorsByIdResponse, ReturnType<typeof vendors_get_byId_QueryKeys>>({
     queryFn: async ({ queryKey, signal }) => {
         const { data } = await Client.__registry.get().vendors.findById({
             ...options,
@@ -347,13 +367,13 @@ export const vendors_byId_QueryOptions = (options: Options<GetVendorsByIdData>) 
         });
         return data;
     },
-    queryKey: vendors_byId_QueryKeys(options)
+    queryKey: vendors_get_byId_QueryKeys(options)
 });
 
 /**
  * Update vendor
  */
-export const vendors_byId_MutationOptions = (options?: Partial<Options<PatchVendorsByIdData>>): UseMutationOptions<PatchVendorsByIdResponse, DefaultError, Options<PatchVendorsByIdData>> => {
+export const vendors_patch_byId_MutationOptions = (options?: Partial<Options<PatchVendorsByIdData>>): UseMutationOptions<PatchVendorsByIdResponse, DefaultError, Options<PatchVendorsByIdData>> => {
     const mutationOptions: UseMutationOptions<PatchVendorsByIdResponse, DefaultError, Options<PatchVendorsByIdData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().vendors.update({
@@ -367,14 +387,14 @@ export const vendors_byId_MutationOptions = (options?: Partial<Options<PatchVend
     return mutationOptions;
 };
 
-export const vendors_search_QueryKeys = (options: Options<PostVendorsSearchData>) => createQueryKey('postVendorsSearch', options);
+export const vendors_post_search_QueryKeys = (options: Options<PostVendorsSearchData>) => createQueryKey('postVendorsSearch', options);
 
 /**
  * Search sessions
  *
  * Returns a paginated list of all admin user sessions. Admin role required.
  */
-export const vendors_search_QueryOptions = (options: Options<PostVendorsSearchData>) => queryOptions<PostVendorsSearchResponse, DefaultError, PostVendorsSearchResponse, ReturnType<typeof vendors_search_QueryKeys>>({
+export const vendors_post_search_QueryOptions = (options: Options<PostVendorsSearchData>) => queryOptions<PostVendorsSearchResponse, DefaultError, PostVendorsSearchResponse, ReturnType<typeof vendors_post_search_QueryKeys>>({
     queryFn: async ({ queryKey, signal }) => {
         const { data } = await Client.__registry.get().vendors.search({
             ...options,
@@ -384,17 +404,17 @@ export const vendors_search_QueryOptions = (options: Options<PostVendorsSearchDa
         });
         return data;
     },
-    queryKey: vendors_search_QueryKeys(options)
+    queryKey: vendors_post_search_QueryKeys(options)
 });
 
-export const vendors_search_InfiniteQueryKeys = (options: Options<PostVendorsSearchData>): QueryKey<Options<PostVendorsSearchData>> => createQueryKey('postVendorsSearch', options, true);
+export const vendors_post_search_InfiniteQueryKeys = (options: Options<PostVendorsSearchData>): QueryKey<Options<PostVendorsSearchData>> => createQueryKey('postVendorsSearch', options, true);
 
 /**
  * Search sessions
  *
  * Returns a paginated list of all admin user sessions. Admin role required.
  */
-export const vendors_search_InfiniteQueryOptions = (options: Options<PostVendorsSearchData>) => infiniteQueryOptions<PostVendorsSearchResponse, DefaultError, InfiniteData<PostVendorsSearchResponse>, QueryKey<Options<PostVendorsSearchData>>, number | Pick<QueryKey<Options<PostVendorsSearchData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+export const vendors_post_search_InfiniteQueryOptions = (options: Options<PostVendorsSearchData>) => infiniteQueryOptions<PostVendorsSearchResponse, DefaultError, InfiniteData<PostVendorsSearchResponse>, QueryKey<Options<PostVendorsSearchData>>, number | Pick<QueryKey<Options<PostVendorsSearchData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
 // @ts-ignore
 {
     queryFn: async ({ pageParam, queryKey, signal }) => {
@@ -413,7 +433,7 @@ export const vendors_search_InfiniteQueryOptions = (options: Options<PostVendors
         });
         return data;
     },
-    queryKey: vendors_search_InfiniteQueryKeys(options)
+    queryKey: vendors_post_search_InfiniteQueryKeys(options)
 });
 
 /**
@@ -421,7 +441,7 @@ export const vendors_search_InfiniteQueryOptions = (options: Options<PostVendors
  *
  * Returns a paginated list of all admin user sessions. Admin role required.
  */
-export const vendors_search_MutationOptions = (options?: Partial<Options<PostVendorsSearchData>>): UseMutationOptions<PostVendorsSearchResponse, DefaultError, Options<PostVendorsSearchData>> => {
+export const vendors_post_search_MutationOptions = (options?: Partial<Options<PostVendorsSearchData>>): UseMutationOptions<PostVendorsSearchResponse, DefaultError, Options<PostVendorsSearchData>> => {
     const mutationOptions: UseMutationOptions<PostVendorsSearchResponse, DefaultError, Options<PostVendorsSearchData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().vendors.search({
@@ -438,7 +458,7 @@ export const vendors_search_MutationOptions = (options?: Partial<Options<PostVen
 /**
  * Create vendor
  */
-export const vendors_index_MutationOptions = (options?: Partial<Options<PostVendorsData>>): UseMutationOptions<PostVendorsResponse, DefaultError, Options<PostVendorsData>> => {
+export const vendors_post_index_MutationOptions = (options?: Partial<Options<PostVendorsData>>): UseMutationOptions<PostVendorsResponse, DefaultError, Options<PostVendorsData>> => {
     const mutationOptions: UseMutationOptions<PostVendorsResponse, DefaultError, Options<PostVendorsData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().vendors.create({

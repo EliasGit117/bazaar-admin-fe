@@ -17,12 +17,8 @@ import {
 import { Button } from '@/components/ui/button';
 import {
   ChevronsUpDownIcon,
-  CircleCheckIcon,
-  CircleXIcon,
-  EyeIcon, EyeOffIcon,
-  UserIcon,
-  UserSearchIcon,
-  UserStarIcon
+  EyeIcon,
+  EyeOffIcon,
 } from 'lucide-react';
 import {
   AdminUserRole,
@@ -35,6 +31,8 @@ import type {
 import { m } from '@/paraglide/messages';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@/components/ui/input-group.tsx';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
+import { UserStatusIcon } from '@/components/icons/user-status-icon.tsx';
+import { UserRoleIcon } from '@/components/icons';
 
 
 interface IProps extends Omit<ComponentProps<'form'>, 'onSubmit'> {
@@ -236,32 +234,3 @@ const LoadingSkeleton: FC = () => {
     </div>
   );
 };
-
-
-function UserRoleIcon(props: { role: AdminUserRole | string | undefined | null }) {
-  const defaultClassName = 'text-muted-foreground';
-
-  switch (props.role) {
-    case AdminUserRole.ADMIN:
-      return <UserStarIcon className={defaultClassName}/>;
-    case AdminUserRole.USER:
-      return <UserIcon className={defaultClassName}/>;
-    case AdminUserRole.MANAGER:
-      return <UserSearchIcon className={defaultClassName}/>;
-    default:
-      return <UserIcon className={defaultClassName}/>;
-  }
-}
-
-function UserStatusIcon(props: { status: AdminUserStatus | string | undefined | null }) {
-  const defaultClassName = 'text-muted-foreground';
-
-  switch (props.status) {
-    case AdminUserStatus.ACTIVE:
-      return <CircleCheckIcon className={defaultClassName}/>;
-    case AdminUserStatus.INACTIVE:
-      return <CircleXIcon className={defaultClassName}/>;
-    default:
-      return null;
-  }
-}

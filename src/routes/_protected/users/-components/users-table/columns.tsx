@@ -7,7 +7,6 @@ import {
   ActivityIcon,
   CalendarIcon,
   CheckCircleIcon,
-  CircleCheckIcon,
   EllipsisVerticalIcon,
   HashIcon,
   IdCardIcon,
@@ -15,7 +14,6 @@ import {
   MonitorCogIcon, PenIcon,
   ShieldIcon,
   UserIcon,
-  UserStarIcon,
   XCircleIcon
 } from 'lucide-react';
 import { m } from '@/paraglide/messages';
@@ -32,6 +30,7 @@ import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { Link } from '@tanstack/react-router';
 import type { ComponentPropsWithoutRef, FC } from 'react';
 import { UserSheetMode, useUserSheet } from '@/routes/_protected/users/-components/user-sheet';
+import { getUserRoleIcon, getUserStatusIcon } from '@/components/icons';
 
 
 
@@ -138,10 +137,11 @@ export const userColumns = (options?: IOptions) => {
         skeletonClassName: 'h-5 w-16',
         filter: {
           type: ColumnFilterType.MultiSelect,
-          options: [
-            { title: m['roles.admin'](), value: AdminUserRole.ADMIN, icon: UserStarIcon },
-            { title: m['roles.user'](), value: AdminUserRole.USER, icon: UserIcon }
-          ]
+          options: Object.values(AdminUserRole).map((role) => ({
+            value: role,
+            title: m[`roles.${role}`](),
+            icon: getUserRoleIcon(role)
+          }))
         }
       },
       cell: ({ getValue }) => {
@@ -150,7 +150,7 @@ export const userColumns = (options?: IOptions) => {
 
         return (
           <Badge variant={role === 'admin' ? 'outline' : 'secondary'} className="rounded-sm min-h-6">
-            {role === 'admin' ? <UserStarIcon/> : <UserIcon/>}
+            <UserIcon role={role}/>
             <span>{translated}</span>
           </Badge>
         );
@@ -165,10 +165,11 @@ export const userColumns = (options?: IOptions) => {
         skeletonClassName: 'h-5 w-16',
         filter: {
           type: ColumnFilterType.MultiSelect,
-          options: [
-            { title: m['common.active'](), value: AdminUserStatus.ACTIVE, icon: CircleCheckIcon },
-            { title: m['common.inactive'](), value: AdminUserStatus.INACTIVE, icon: XCircleIcon }
-          ]
+          options: Object.values(AdminUserStatus).map(status => ({
+            title: m[`common.${status}`](),
+            value: status,
+            icon: getUserStatusIcon(status)
+          }))
         }
       },
       cell: ({ getValue }) => {

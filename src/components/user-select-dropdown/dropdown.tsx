@@ -7,9 +7,7 @@ import {
   ChevronsLeftIcon,
   ChevronsRightIcon,
   ChevronsUpDownIcon,
-  UserStarIcon,
   XCircleIcon,
-  UserIcon
 } from 'lucide-react';
 import {
   Command,
@@ -34,6 +32,7 @@ import { Badge } from '@/components/ui/badge.tsx';
 import { Separator } from '@/components/ui/separator.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { useDebounce } from 'use-debounce';
+import { UserRoleIcon } from '@/components/icons';
 
 
 type TValue = number | undefined;
@@ -254,8 +253,7 @@ export const UserSelectDropdown: FC<IProps> = (props) => {
                           </span>
 
                           <Badge variant="outline" className="rounded-sm h-4 px-1 text-[0.6rem]">
-                            {user.role === 'admin' ? <UserStarIcon className="size-[0.6rem]"/> :
-                              <UserIcon className="size-[0.6rem]"/>}
+                            <UserRoleIcon role={user.role} className='size-[0.6rem]'/>
                             <span>{translatedRole}</span>
                           </Badge>
                         </div>

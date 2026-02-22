@@ -91,7 +91,7 @@ export const UsersTable: FC<IProps> = ({ className, search = {}, ...divProps }) 
 
   return (
     <div
-      className={cn('space-y-2', className)}
+      className={cn('space-y-2 relative', className)}
       {...divProps}
     >
       <UserSheetProvider>

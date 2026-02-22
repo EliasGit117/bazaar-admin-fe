@@ -72,7 +72,7 @@ export const VendorsTable: FC<IProps> = ({ className, search = {}, ...divProps }
 
   return (
     <VendorSheetProvider>
-      <div className={cn('space-y-2', className)} {...divProps}>
+      <div className={cn('space-y-2 relative', className)} {...divProps}>
         <DataTableProvider table={table} loading={isPending}>
           <DataTableToolbar>
             <div className="ml-auto flex items-center gap-1">

@@ -6,3 +6,5 @@ export * from './safari';
 export * from './chrome';
 export * from './edge';
 export * from './opera';
+export * from './user-role-icon'
+export * from './user-status-icon';

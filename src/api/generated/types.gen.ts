@@ -6,8 +6,8 @@ export type ClientOptions = {
 
 export enum AdminUserRole {
     ADMIN = 'admin',
+    MANAGER = 'manager',
     USER = 'user',
-    MANAGER = 'manager'
 }
 
 export enum AdminUserStatus {

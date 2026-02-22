@@ -122,6 +122,12 @@
       "list": {
         "table": {
           "sessions": "Sesiuni"
+        },
+        "sheet": {
+          "create_user_title": "Creează un utilizator nou",
+          "edit_user_title": "Editează utilizatorul",
+          "create_user_description": "Completează toate câmpurile pentru a crea un utilizator nou în sistem",
+          "edit_user_description": "Completează toate câmpurile pentru a edita utilizatorul existent"
         }
       }
     },

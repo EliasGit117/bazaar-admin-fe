@@ -104,7 +104,7 @@ export const SessionsTable: FC<IProps> = (props) => {
 
 
   return (
-    <div className={cn('space-y-2', className)} {...divProps}>
+    <div className={cn('space-y-2 relative', className)} {...divProps}>
       <DataTableProvider table={table} loading={isPendingData}>
         <DataTableToolbar>
           <AdaptiveButton

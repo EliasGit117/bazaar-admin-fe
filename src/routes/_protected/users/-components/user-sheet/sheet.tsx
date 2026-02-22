@@ -128,11 +128,11 @@ export const UserSheet: FC<IProps> = ({ onSuccess }) => {
       >
         <SheetHeader className="text-left">
           <SheetTitle>
-            {mode === UserSheetMode.Update ? 'Edit user' : 'Create user'}
+            {mode === UserSheetMode.Update ? m['pages.users.list.sheet.edit_user_title']() : m['pages.users.list.sheet.create_user_title']()}
           </SheetTitle>
 
           <SheetDescription>
-            {mode === UserSheetMode.Update ? 'Update user information.' : 'Create a new user.'}
+            {mode === UserSheetMode.Update ? m['pages.users.list.sheet.edit_user_description']() : m['pages.users.list.sheet.create_user_description']()}
           </SheetDescription>
         </SheetHeader>
 

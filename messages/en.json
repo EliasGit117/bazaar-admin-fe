@@ -122,6 +122,12 @@
       "list": {
         "table": {
           "sessions": "Sessions"
+        },
+        "sheet":  {
+          "create_user_title": "Create new user",
+          "edit_user_title": "Edit user",
+          "create_user_description": "Fill all fields to create new user in the system",
+          "edit_user_description": "Fill all fields to edit existing user"
         }
       }
     },

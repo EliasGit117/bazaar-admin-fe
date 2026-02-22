@@ -178,9 +178,7 @@ export const VendorForm: FC<IProps> = (props) => {
                     prefetch
                     value={field.value}
                     onValueChange={field.onChange}
-                    isItemDisabled={(user) => (
-                      user.role === AdminUserRole.ADMIN
-                    )}
+                    isItemDisabled={(user) => [AdminUserRole.ADMIN, AdminUserRole.MANAGER].includes(user.role)}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
                 </Field>

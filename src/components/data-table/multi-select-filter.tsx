@@ -117,7 +117,7 @@ export function DataTableMultiSelectFilter<TData, TValue>({ column }: IDataTable
                 <div className="hidden items-center gap-1 lg:flex">
                   {filterValue.length > 2 ? (
                     <Badge variant="secondary" className="border border-border rounded-sm px-1 font-normal">
-                      {filterValue.length} selected
+                      {filterValue.length} {m['common.selected']().toLowerCase()}
                     </Badge>
                   ) : (
                     selectedOptions.map((option) => (
@@ -137,16 +137,16 @@ export function DataTableMultiSelectFilter<TData, TValue>({ column }: IDataTable
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent className="w-fit min-w-52 p-0" align="start">
-          <Command>
+        <PopoverContent className="min-w-52 w-fit p-0 gap-1" align='start'>
+          <Command className='space-y-1'>
             {options.length > 5 && (<CommandInput placeholder={title}/>)}
 
-            <CommandList className="max-h-full">
+            <CommandList className="max-h-72">
               <CommandEmpty>
                 {m['components.data_table.no_results_found']()}
               </CommandEmpty>
 
-              <CommandGroup className="max-h-75 overflow-y-auto overflow-x-hidden" heading={title}>
+              <CommandGroup className="p-0" heading={title}>
                 {options.map((option) => {
                   const isSelected = selectedSet.has(option.value);
 

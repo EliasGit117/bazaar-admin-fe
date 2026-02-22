@@ -115,7 +115,7 @@ export function DataTable<TData>(props: DataTableProps<TData>) {
                   colSpan={visibleColumns.length}
                   className="h-24 text-center"
                 >
-                  {m['components.data_table.no_columns_found']()}
+                  {m['components.data_table.no_results_found']()}
                 </TableCell>
               </TableRow>
             )}

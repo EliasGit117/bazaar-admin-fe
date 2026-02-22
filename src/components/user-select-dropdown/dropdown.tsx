@@ -78,6 +78,7 @@ export const UserSelectDropdown: FC<IProps> = (props) => {
     previewMode = 'default',
     ...btnProps
   } = props;
+
   const queryClient = useQueryClient();
   const locale = getLocale();
 
@@ -153,7 +154,7 @@ export const UserSelectDropdown: FC<IProps> = (props) => {
 
   return (
     <Popover open={open} onOpenChange={setOpen} modal>
-      <PopoverTrigger {...props} asChild>
+      <PopoverTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
@@ -315,13 +316,15 @@ export const UserSelectDropdown: FC<IProps> = (props) => {
           </Button>
         </div>
 
-        <div className="p-1 pt-0 space-y-1">
-          <Separator/>
-          <Button size="sm" variant="ghost" className="w-full" onClick={() => onSelect(undefined, undefined)}>
-            <XCircleIcon/>
-            <span>{m['components.data_table.clear_filters']()}</span>
-          </Button>
-        </div>
+        {value && (
+          <div className="p-1 pt-0 space-y-1">
+            <Separator/>
+            <Button size="sm" variant="ghost" className="w-full" onClick={() => onSelect(undefined, undefined)}>
+              <XCircleIcon/>
+              <span>{m['components.data_table.clear_filters']()}</span>
+            </Button>
+          </div>
+        )}
       </PopoverContent>
     </Popover>
   );

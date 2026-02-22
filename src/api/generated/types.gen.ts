@@ -6,7 +6,8 @@ export type ClientOptions = {
 
 export enum AdminUserRole {
     ADMIN = 'admin',
-    USER = 'user'
+    USER = 'user',
+    MANAGER = 'manager'
 }
 
 export enum AdminUserStatus {
@@ -23,6 +24,15 @@ export type AdminUserDto = {
     status: AdminUserStatus;
     createdAt: string;
     updatedAt: string;
+};
+
+export type CreateAdminUserDto = {
+    email: string;
+    firstName: string;
+    lastName: string;
+    role: AdminUserRole;
+    status: AdminUserStatus;
+    password: string;
 };
 
 export type PaginatedResultDto = {
@@ -120,6 +130,15 @@ export type ListPaginatedUsersDto = {
     status?: Array<AdminUserStatus>;
     createdAt?: DateRangeDto;
     updatedAt?: DateRangeDto;
+};
+
+export type UpdateAdminUserDto = {
+    email?: string;
+    firstName?: string;
+    lastName?: string;
+    role?: AdminUserRole;
+    status?: AdminUserStatus;
+    password?: string;
 };
 
 /**
@@ -732,6 +751,44 @@ export type GetUsersByIdResponses = {
 };
 
 export type GetUsersByIdResponse = GetUsersByIdResponses[keyof GetUsersByIdResponses];
+
+export type PatchUsersByIdData = {
+    body: UpdateAdminUserDto;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/users/{id}';
+};
+
+export type PatchUsersByIdErrors = {
+    401: unknown;
+    403: unknown;
+};
+
+export type PatchUsersByIdResponses = {
+    200: AdminUserDto;
+};
+
+export type PatchUsersByIdResponse = PatchUsersByIdResponses[keyof PatchUsersByIdResponses];
+
+export type PostUsersData = {
+    body: CreateAdminUserDto;
+    path?: never;
+    query?: never;
+    url: '/users';
+};
+
+export type PostUsersErrors = {
+    401: unknown;
+    403: unknown;
+};
+
+export type PostUsersResponses = {
+    200: AdminUserDto;
+};
+
+export type PostUsersResponse = PostUsersResponses[keyof PostUsersResponses];
 
 export type PostUsersSearchData = {
     body: ListPaginatedUsersDto;

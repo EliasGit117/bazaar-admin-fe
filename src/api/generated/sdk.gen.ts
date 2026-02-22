@@ -2,7 +2,7 @@
 
 import type { Client as Client2, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllErrors, DeleteSessionsRevokeAllResponses, DeleteSessionsRevokeData, DeleteSessionsRevokeErrors, DeleteSessionsRevokeResponses, GetAuthMeData, GetAuthMeErrors, GetAuthMeResponses, GetData, GetResponses, GetUsersByIdData, GetUsersByIdErrors, GetUsersByIdResponses, GetVendorsByIdData, GetVendorsByIdErrors, GetVendorsByIdResponses, PatchVendorsByIdData, PatchVendorsByIdErrors, PatchVendorsByIdResponses, PostAuthSignInData, PostAuthSignInErrors, PostAuthSignInResponses, PostAuthSignOutData, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthSignUpData, PostAuthSignUpErrors, PostAuthSignUpResponses, PostSessionsSearchData, PostSessionsSearchResponses, PostUsersSearchData, PostUsersSearchErrors, PostUsersSearchResponses, PostVendorsData, PostVendorsErrors, PostVendorsResponses, PostVendorsSearchData, PostVendorsSearchResponses } from './types.gen';
+import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllErrors, DeleteSessionsRevokeAllResponses, DeleteSessionsRevokeData, DeleteSessionsRevokeErrors, DeleteSessionsRevokeResponses, GetAuthMeData, GetAuthMeErrors, GetAuthMeResponses, GetData, GetResponses, GetUsersByIdData, GetUsersByIdErrors, GetUsersByIdResponses, GetVendorsByIdData, GetVendorsByIdErrors, GetVendorsByIdResponses, PatchUsersByIdData, PatchUsersByIdErrors, PatchUsersByIdResponses, PatchVendorsByIdData, PatchVendorsByIdErrors, PatchVendorsByIdResponses, PostAuthSignInData, PostAuthSignInErrors, PostAuthSignInResponses, PostAuthSignOutData, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthSignUpData, PostAuthSignUpErrors, PostAuthSignUpResponses, PostSessionsSearchData, PostSessionsSearchResponses, PostUsersData, PostUsersErrors, PostUsersResponses, PostUsersSearchData, PostUsersSearchErrors, PostUsersSearchResponses, PostVendorsData, PostVendorsErrors, PostVendorsResponses, PostVendorsSearchData, PostVendorsSearchResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -63,6 +63,40 @@ export class Users extends HeyApiClient {
             security: [{ name: 'x-session-id', type: 'apiKey' }],
             url: '/users/{id}',
             ...options
+        });
+    }
+    
+    /**
+     * Update user
+     *
+     * Updates existing admin user
+     */
+    public update<ThrowOnError extends boolean = false>(options: Options<PatchUsersByIdData, ThrowOnError>) {
+        return (options.client ?? this.client).patch<PatchUsersByIdResponses, PatchUsersByIdErrors, ThrowOnError>({
+            security: [{ name: 'x-session-id', type: 'apiKey' }],
+            url: '/users/{id}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Create user
+     *
+     * Creates a new admin user
+     */
+    public create<ThrowOnError extends boolean = false>(options: Options<PostUsersData, ThrowOnError>) {
+        return (options.client ?? this.client).post<PostUsersResponses, PostUsersErrors, ThrowOnError>({
+            security: [{ name: 'x-session-id', type: 'apiKey' }],
+            url: '/users',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
         });
     }
     
@@ -215,7 +249,7 @@ export class Vendors extends HeyApiClient {
     }
     
     /**
-     * Search sessions
+     * Search vendors
      *
      * Returns a paginated list of all admin user sessions. Admin role required.
      */

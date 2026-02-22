@@ -56,11 +56,13 @@
     "user": "Utilizator"
   },
   "errors": {
-    "invalid_format": "Format invalid"
+    "invalid_format": "Format invalid",
+    "unknown_error": "Eroare necunoscută"
   },
   "roles": {
     "admin": "Admin",
-    "user": "Utilizator"
+    "user": "Utilizator",
+    "manager": "Manager"
   },
   "components": {
     "auth": {

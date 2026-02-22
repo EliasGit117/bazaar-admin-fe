@@ -309,7 +309,7 @@ export const vendorColumns = (options?: IOptions) => {
                   </Link>
                 </DropdownMenuItem>
 
-                {(canEdit) && <EditMenuItem vendorId={row.original.id} disabled={disabled}/>}
+                {canEdit && <EditMenuItem vendorId={row.original.id} disabled={disabled}/>}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

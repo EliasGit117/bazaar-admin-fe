@@ -53,11 +53,13 @@
     "user": "User"
   },
   "errors": {
-    "invalid_format": "Invalid format"
+    "invalid_format": "Invalid format",
+    "unknown_error": "Unknown error"
   },
   "roles": {
     "admin": "Admin",
-    "user": "User"
+    "user": "User",
+    "manager": "Manager"
   },
   "components": {
     "auth": {

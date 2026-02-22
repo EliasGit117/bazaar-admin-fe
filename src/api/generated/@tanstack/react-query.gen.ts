@@ -4,7 +4,7 @@ import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOption
 
 import { client } from '../client.gen';
 import { Client, type Options } from '../sdk.gen';
-import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllResponse, DeleteSessionsRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, GetUsersByIdData, GetUsersByIdResponse, GetVendorsByIdData, GetVendorsByIdResponse, PatchVendorsByIdData, PatchVendorsByIdResponse, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostUsersSearchData, PostUsersSearchResponse, PostVendorsData, PostVendorsResponse, PostVendorsSearchData, PostVendorsSearchResponse } from '../types.gen';
+import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllResponse, DeleteSessionsRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, GetUsersByIdData, GetUsersByIdResponse, GetVendorsByIdData, GetVendorsByIdResponse, PatchUsersByIdData, PatchUsersByIdResponse, PatchVendorsByIdData, PatchVendorsByIdResponse, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostUsersData, PostUsersResponse, PostUsersSearchData, PostUsersSearchResponse, PostVendorsData, PostVendorsResponse, PostVendorsSearchData, PostVendorsSearchResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -73,6 +73,44 @@ export const users_get_byId_QueryOptions = (options: Options<GetUsersByIdData>) 
     },
     queryKey: users_get_byId_QueryKeys(options)
 });
+
+/**
+ * Update user
+ *
+ * Updates existing admin user
+ */
+export const users_patch_byId_MutationOptions = (options?: Partial<Options<PatchUsersByIdData>>): UseMutationOptions<PatchUsersByIdResponse, DefaultError, Options<PatchUsersByIdData>> => {
+    const mutationOptions: UseMutationOptions<PatchUsersByIdResponse, DefaultError, Options<PatchUsersByIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await Client.__registry.get().users.update({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Create user
+ *
+ * Creates a new admin user
+ */
+export const users_post_index_MutationOptions = (options?: Partial<Options<PostUsersData>>): UseMutationOptions<PostUsersResponse, DefaultError, Options<PostUsersData>> => {
+    const mutationOptions: UseMutationOptions<PostUsersResponse, DefaultError, Options<PostUsersData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await Client.__registry.get().users.create({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
 
 export const users_post_search_QueryKeys = (options: Options<PostUsersSearchData>) => createQueryKey('postUsersSearch', options);
 
@@ -390,7 +428,7 @@ export const vendors_patch_byId_MutationOptions = (options?: Partial<Options<Pat
 export const vendors_post_search_QueryKeys = (options: Options<PostVendorsSearchData>) => createQueryKey('postVendorsSearch', options);
 
 /**
- * Search sessions
+ * Search vendors
  *
  * Returns a paginated list of all admin user sessions. Admin role required.
  */
@@ -410,7 +448,7 @@ export const vendors_post_search_QueryOptions = (options: Options<PostVendorsSea
 export const vendors_post_search_InfiniteQueryKeys = (options: Options<PostVendorsSearchData>): QueryKey<Options<PostVendorsSearchData>> => createQueryKey('postVendorsSearch', options, true);
 
 /**
- * Search sessions
+ * Search vendors
  *
  * Returns a paginated list of all admin user sessions. Admin role required.
  */
@@ -437,7 +475,7 @@ export const vendors_post_search_InfiniteQueryOptions = (options: Options<PostVe
 });
 
 /**
- * Search sessions
+ * Search vendors
  *
  * Returns a paginated list of all admin user sessions. Admin role required.
  */

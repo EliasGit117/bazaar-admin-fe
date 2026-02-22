@@ -22,6 +22,9 @@ import { m } from '@/paraglide/messages';
 import { ActionBarButton } from '@/components/data-table/action-bar.tsx';
 import { toast } from 'sonner';
 import { useAuth } from '@/providers/auth.tsx';
+import { UserSheetMode, UserSheetProvider, UserSheetTrigger } from '@/routes/_protected/users/-components/user-sheet';
+import { useHasPermissions } from '@/hooks/use-has-permissions.ts';
+import { UserSheet } from '@/routes/_protected/users/-components/user-sheet/sheet.tsx';
 
 
 interface IProps extends ComponentProps<'div'> {
@@ -32,6 +35,11 @@ export const UsersTable: FC<IProps> = ({ className, search = {}, ...divProps }) 
   'use no memo';
 
   const { user } = useAuth();
+  const permissions = useHasPermissions({
+    canCreate: { users: 'create' },
+    canEdit: { users: 'update' }
+  });
+
   const { data, isPending, isFetching, refetch, error } = useQuery({
     ...users_post_search_QueryOptions({ body: search }),
     gcTime: 0,
@@ -40,7 +48,11 @@ export const UsersTable: FC<IProps> = ({ className, search = {}, ...divProps }) 
     structuralSharing: false
   });
 
-  const columns = useMemo(() => userColumns({ disabled: isFetching, userId: user?.id }), [isFetching]);
+  const columns = useMemo(() => userColumns({
+    userId: user?.id,
+    disabled: isFetching,
+    canEdit: permissions.canEdit
+  }), [isFetching, permissions.canEdit]);
 
   const { table, selectedItems, setRowSelection } = useDataTable({
     data: data?.items,
@@ -82,25 +94,34 @@ export const UsersTable: FC<IProps> = ({ className, search = {}, ...divProps }) 
       className={cn('space-y-2', className)}
       {...divProps}
     >
-      <DataTableProvider table={table} loading={isPending}>
-        <DataTableToolbar>
-          <AdaptiveButton
-            text={m['common.refresh']()}
-            size="sm"
-            variant="ghost"
-            icon={RefreshCwIcon}
-            className="ml-auto"
-            onClick={() => refetch()}
-          />
-        </DataTableToolbar>
+      <UserSheetProvider>
+        <DataTableProvider table={table} loading={isPending}>
+          <DataTableToolbar>
+            <div className="ml-auto flex items-center gap-1">
+              {permissions.canCreate && (
+                <UserSheetTrigger size="sm" variant="ghost" options={{ mode: UserSheetMode.Create }}/>
+              )}
 
-        <DataTable/>
-        <DataTablePagination/>
+              <AdaptiveButton
+                size="sm"
+                variant="ghost"
+                icon={RefreshCwIcon}
+                text={m['common.refresh']()}
+                onClick={() => refetch()}
+              />
+            </div>
+          </DataTableToolbar>
 
-        <DataTableActionBar disabled={isFetching}>
-          <ActionBarButton text="CSV" icon={FileDownIcon} onClick={onExportToCsvClick}/>
-        </DataTableActionBar>
-      </DataTableProvider>
+          <DataTable/>
+          <DataTablePagination/>
+
+          <DataTableActionBar disabled={isFetching}>
+            <ActionBarButton text="CSV" icon={FileDownIcon} onClick={onExportToCsvClick}/>
+          </DataTableActionBar>
+        </DataTableProvider>
+
+        <UserSheet onSuccess={refetch}/>
+      </UserSheetProvider>
     </div>
   );
 };

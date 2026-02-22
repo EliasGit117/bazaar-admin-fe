@@ -12,7 +12,7 @@ import {
   HashIcon,
   IdCardIcon,
   MailIcon,
-  MonitorCogIcon,
+  MonitorCogIcon, PenIcon,
   ShieldIcon,
   UserIcon,
   UserStarIcon,
@@ -30,12 +30,15 @@ import {
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { Link } from '@tanstack/react-router';
+import type { ComponentPropsWithoutRef, FC } from 'react';
+import { UserSheetMode, useUserSheet } from '@/routes/_protected/users/-components/user-sheet';
 
 
 
 interface IOptions {
   disabled?: boolean;
   userId?: number;
+  canEdit?: boolean;
 }
 
 const columnHelper = createColumnHelper<AdminUserDto>();
@@ -43,7 +46,7 @@ const columnHelper = createColumnHelper<AdminUserDto>();
 export const userColumns = (options?: IOptions) => {
   'use no memo';
 
-  const { disabled, userId } = options ?? {};
+  const { disabled, userId, canEdit } = options ?? {};
 
   return [
     columnHelper.display({
@@ -235,7 +238,7 @@ export const userColumns = (options?: IOptions) => {
                 </Button>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" className="min-w-48 w-fit">
                 <DropdownMenuLabel>
                   {m['common.actions']()}
                 </DropdownMenuLabel>
@@ -248,6 +251,8 @@ export const userColumns = (options?: IOptions) => {
                     <span>{m['pages.users.list.table.sessions']()}</span>
                   </Link>
                 </DropdownMenuItem>
+
+                {canEdit && <EditMenuItem userId={row.original.id} disabled={disabled}/>}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -255,4 +260,19 @@ export const userColumns = (options?: IOptions) => {
       }
     })
   ];
+};
+
+interface IEditMenuItem extends ComponentPropsWithoutRef<typeof DropdownMenuItem> {
+  userId: number;
+}
+
+const EditMenuItem: FC<IEditMenuItem> = ({ userId, ...props }) => {
+  const { open } = useUserSheet();
+
+  return (
+    <DropdownMenuItem {...props} onClick={() => open({ mode: UserSheetMode.Update, userId: userId })}>
+      <PenIcon className="mr-2 size-4"/>
+      <span>{m['common.edit']()}</span>
+    </DropdownMenuItem>
+  );
 };

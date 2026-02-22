@@ -278,7 +278,7 @@ export const VendorForm: FC<IProps> = (props) => {
             name="legalAddress"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid} className="col-span-full sm:col-span-1">
+              <Field data-invalid={fieldState.invalid} className="col-span-full">
                 <FieldLabel>{m['pages.vendors.list.sheet.legal_address']()}</FieldLabel>
                 <Input placeholder="Nr.498, 537026, Harghita" {...field} />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
@@ -290,7 +290,7 @@ export const VendorForm: FC<IProps> = (props) => {
             name="actualAddress"
             control={form.control}
             render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid} className="col-span-full sm:col-span-1">
+              <Field data-invalid={fieldState.invalid} className="col-span-full">
                 <FieldLabel>{m['pages.vendors.list.sheet.actual_address']()}</FieldLabel>
                 <Input placeholder="Strada Traian Mosoiu 74, 400132, Cluj" {...field} />
                 {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}

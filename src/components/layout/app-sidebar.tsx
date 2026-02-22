@@ -100,10 +100,7 @@ export const AppSidebar: FC<ComponentPropsWithoutRef<typeof Sidebar>> = ({ ...pr
       </SidebarHeader>
 
       <SidebarContent>
-        <NavSidebarGroup
-          label={m['components.sidebar.main']()}
-          items={navMain}
-        />
+        <NavSidebarGroup label={m['components.sidebar.main']()} items={navMain}/>
         <div className="flex-1"/>
       </SidebarContent>
 
@@ -133,6 +130,10 @@ const sidebarMenuSubButtonSizes: Record<
 const NavSidebarGroup: FC<INavSidebarGroupProps> = ({ label, items, itemsSize, ...props }) => {
   const { setOpenMobile } = useSidebar();
   const { pathname } = useLocation({ select: (state) => ({ pathname: state.pathname }) });
+
+  const filteredItems = items.filter(item => (item.linkOptions || item.items?.length));
+  if (!filteredItems.length)
+    return null;
 
   return (
     <SidebarGroup {...props}>

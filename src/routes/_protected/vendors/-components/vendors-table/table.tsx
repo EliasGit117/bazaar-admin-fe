@@ -77,11 +77,7 @@ export const VendorsTable: FC<IProps> = ({ className, search = {}, ...divProps }
           <DataTableToolbar>
             <div className="ml-auto flex items-center gap-1">
               {permissions.canCreate && (
-                <VendorSheetTrigger
-                  size="sm"
-                  variant="ghost"
-                  options={{ mode: VendorSheetMode.Create }}
-                />
+                <VendorSheetTrigger size="sm" variant="ghost" options={{ mode: VendorSheetMode.Create }}/>
               )}
 
               <AdaptiveButton

@@ -56,7 +56,7 @@ export function DataTableColumnsOptions<TData>({ ...props }: IDataTableColumnsOp
             groupClassName='rounded-sm!'
           />
 
-          <CommandList>
+          <CommandList className="max-h-full">
             <CommandEmpty>
               {m['components.data_table.no_columns_found']()}
             </CommandEmpty>

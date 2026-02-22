@@ -13,7 +13,7 @@ import type { IBreadcrumb } from '@/components/layout/nav-breadcrumb.tsx';
 export interface IApiException {
   statusCode: number;
   error: string;
-  message: string;
+  message: string | string[];
 }
 
 declare module '@tanstack/react-query' {

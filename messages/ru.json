@@ -53,11 +53,13 @@
     "user": "Пользователь"
   },
   "errors": {
-    "invalid_format": "Неверный формат"
+    "invalid_format": "Неверный формат",
+    "unknown_error": "Неизвестная ошибка"
   },
   "roles": {
     "admin": "Админ",
-    "user": "Пользователь"
+    "user": "Пользователь",
+    "manager": "Менеджер"
   },
   "components": {
     "auth": {

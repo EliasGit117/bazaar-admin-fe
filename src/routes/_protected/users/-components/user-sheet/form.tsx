@@ -104,7 +104,7 @@ export const UserForm: FC<IProps> = ({ id = 'user-form', form, onSubmit, disable
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="w-full justify-start">
-                      <UserRoleIcon role={field.value}/>
+                      <UserRoleIcon role={field.value} className='text-muted-foreground'/>
                       <span>{m[`roles.${field.value}`] ? m[`roles.${field.value}`]() : field.value}</span>
                       <ChevronsUpDownIcon className="h-4 w-4 opacity-50 ml-auto"/>
                     </Button>
@@ -114,8 +114,8 @@ export const UserForm: FC<IProps> = ({ id = 'user-form', form, onSubmit, disable
                     <DropdownMenuRadioGroup value={field.value} onValueChange={field.onChange}>
                       {Object.values(AdminUserRole).map(role => (
                         <DropdownMenuRadioItem key={role} value={role}>
-                          <UserRoleIcon role={role}/>
-                          <span>{m[`roles.${role}`] ? m[`roles.${role}`]() : role}</span>
+                          <UserRoleIcon role={field.value} className='text-muted-foreground'/>
+                          <span>{m[`roles.${role}`]?.() ?? role}</span>
                         </DropdownMenuRadioItem>
                       ))}
                     </DropdownMenuRadioGroup>
@@ -134,7 +134,7 @@ export const UserForm: FC<IProps> = ({ id = 'user-form', form, onSubmit, disable
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="w-full justify-start">
-                      <UserStatusIcon status={field.value}/>
+                      <UserStatusIcon status={field.value} className='text-muted-foreground'/>
                       <span>{m[`common.${field.value}`] ? m[`common.${field.value}`]() : field.value}</span>
                       <ChevronsUpDownIcon className="h-4 w-4 opacity-50 ml-auto"/>
                     </Button>
@@ -144,8 +144,8 @@ export const UserForm: FC<IProps> = ({ id = 'user-form', form, onSubmit, disable
                     <DropdownMenuRadioGroup value={field.value} onValueChange={field.onChange}>
                       {Object.values(AdminUserStatus).map(status => (
                         <DropdownMenuRadioItem key={status} value={status}>
-                          <UserStatusIcon status={field.value}/>
-                          <span>{m[`common.${status}`] ? m[`common.${status}`]() : status}</span>
+                          <UserStatusIcon status={field.value} className='text-muted-foreground'/>
+                          <span>{m[`common.${status}`]?.() ?? status}</span>
                         </DropdownMenuRadioItem>
                       ))}
                     </DropdownMenuRadioGroup>

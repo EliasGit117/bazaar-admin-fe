@@ -18,7 +18,7 @@
     "refresh": "Reîmprospătează",
     "list": "Lista",
     "businesses": "Afacerilor",
-    "vendors": "Vânzători",
+    "vendors": "Venduri",
     "stores": "Magazine",
     "asc": "Ascendent",
     "desc": "Descendent",
@@ -53,7 +53,8 @@
     "owner": "Proprietar",
     "edit": "Editează",
     "save": "Salvare",
-    "user": "Utilizator"
+    "user": "Utilizator",
+    "vendor": "Venduri"
   },
   "errors": {
     "invalid_format": "Format invalid",
@@ -102,7 +103,8 @@
       "settings": "Setări",
       "sessions": "Sesiuni",
       "users": "Utilizatori",
-      "user_list": "Lista utilizatorilor"
+      "user_list": "Lista utilizatorilor",
+      "stores": "Magazine"
     },
     "footer": {
       "text": "© {year} {name} | Creat cu grijă"
@@ -171,6 +173,18 @@
         "bank_name": "Numele bancii",
         "legal_address": "Adresa legală",
         "actual_address": "Adresa actuală"
+      }
+    },
+    "stores": {
+      "list": {
+        "sheet": {
+          "slug": "Slug",
+          "create_store_title": "Creează magazin nou",
+          "create_store_description": "Completează toate câmpurile pentru a crea un magazin nou în sistem",
+          "store_name": "Denumirea magazinului",
+          "short_description": "Descriere scurtă",
+          "add_tag": "Adaugă tag"
+        }
       }
     }
   }

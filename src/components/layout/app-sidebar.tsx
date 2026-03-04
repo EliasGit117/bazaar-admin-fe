@@ -439,7 +439,7 @@ const useNavMain = () => {
     businessesGroup.items?.push({
       icon: StoreIcon,
       title: m['components.sidebar.stores'](),
-      linkOptions: { to: '/', activeOptions: { includeSearch: false } }
+      linkOptions: { to: '/stores', activeOptions: { includeSearch: false } }
     });
 
   const usersGroup: ISidebarMenuItem = {

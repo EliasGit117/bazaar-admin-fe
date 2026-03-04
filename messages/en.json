@@ -50,7 +50,8 @@
     "owner": "Owner",
     "edit": "Edit",
     "save": "Save",
-    "user": "User"
+    "user": "User",
+    "vendor": "Vendor"
   },
   "errors": {
     "invalid_format": "Invalid format",
@@ -170,6 +171,18 @@
           "bank_name": "Bank name",
           "legal_address": "Legal address",
           "actual_address": "Actual address"
+        }
+      }
+    },
+    "stores": {
+      "list": {
+        "sheet": {
+          "slug": "Slug",
+          "create_store_tilte": "Create new store",
+          "create_store_description": "Fill all fields to create new store in the system",
+          "store_name": "Store name",
+          "short_description": "Short description",
+          "add_tag": "Add tag"
         }
       }
     }

@@ -139,14 +139,16 @@ export function DataTableMultiSelectFilter<TData, TValue>({ column }: IDataTable
 
         <PopoverContent className="min-w-52 w-fit p-0 gap-1" align='start'>
           <Command className='space-y-1'>
-            {options.length > 5 && (<CommandInput placeholder={title}/>)}
+            {options.length > 5 && (
+              <CommandInput placeholder={title} wrapperClassName="p-0" groupClassName="rounded-sm!"/>
+            )}
 
             <CommandList className="max-h-72">
               <CommandEmpty>
                 {m['components.data_table.no_results_found']()}
               </CommandEmpty>
 
-              <CommandGroup className="p-0" heading={title}>
+              <CommandGroup  className="p-0" heading={title}>
                 {options.map((option) => {
                   const isSelected = selectedSet.has(option.value);
 

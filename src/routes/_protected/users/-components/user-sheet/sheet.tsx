@@ -123,7 +123,7 @@ export const UserSheet: FC<IProps> = ({ onSuccess }) => {
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetContent
-        className="w-full! max-w-full! sm:max-w-full! md:max-w-xl! gap-0 border-l-0! md:border-l!"
+        className="w-full! max-w-full! sm:max-w-full! md:max-w-2xl! gap-0 border-l-0! md:border-l!"
         showCloseButton={false}
       >
         <SheetHeader className="text-left">
@@ -140,7 +140,7 @@ export const UserSheet: FC<IProps> = ({ onSuccess }) => {
           <UserForm
             id="user-form"
             form={form}
-            className="px-4"
+            className="px-4 py-1"
             loading={isLoadingUser}
             disabled={isCreating || isUpdating}
             onSubmit={onSubmit}

@@ -22,6 +22,7 @@ import { Route as ProtectedDocsRouteRouteImport } from './routes/_protected/docs
 import { Route as AuthSignInIndexRouteImport } from './routes/auth/sign-in/index'
 import { Route as ProtectedVendorsIndexRouteImport } from './routes/_protected/vendors/index'
 import { Route as ProtectedUsersIndexRouteImport } from './routes/_protected/users/index'
+import { Route as ProtectedStoresIndexRouteImport } from './routes/_protected/stores/index'
 import { Route as ProtectedSettingsIndexRouteImport } from './routes/_protected/settings/index'
 import { Route as ProtectedSessionsIndexRouteImport } from './routes/_protected/sessions/index'
 import { Route as ProtectedPlaygroundIndexRouteImport } from './routes/_protected/playground/index'
@@ -104,6 +105,11 @@ const ProtectedVendorsIndexRoute = ProtectedVendorsIndexRouteImport.update({
 const ProtectedUsersIndexRoute = ProtectedUsersIndexRouteImport.update({
   id: '/users/',
   path: '/users/',
+  getParentRoute: () => ProtectedRouteRoute,
+} as any)
+const ProtectedStoresIndexRoute = ProtectedStoresIndexRouteImport.update({
+  id: '/stores/',
+  path: '/stores/',
   getParentRoute: () => ProtectedRouteRoute,
 } as any)
 const ProtectedSettingsIndexRoute = ProtectedSettingsIndexRouteImport.update({
@@ -234,6 +240,7 @@ export interface FileRoutesByFullPath {
   '/playground/': typeof ProtectedPlaygroundIndexRoute
   '/sessions/': typeof ProtectedSessionsIndexRoute
   '/settings/': typeof ProtectedSettingsIndexRoute
+  '/stores/': typeof ProtectedStoresIndexRoute
   '/users/': typeof ProtectedUsersIndexRoute
   '/vendors/': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
@@ -263,6 +270,7 @@ export interface FileRoutesByTo {
   '/playground': typeof ProtectedPlaygroundIndexRoute
   '/sessions': typeof ProtectedSessionsIndexRoute
   '/settings': typeof ProtectedSettingsIndexRoute
+  '/stores': typeof ProtectedStoresIndexRoute
   '/users': typeof ProtectedUsersIndexRoute
   '/vendors': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
@@ -297,6 +305,7 @@ export interface FileRoutesById {
   '/_protected/playground/': typeof ProtectedPlaygroundIndexRoute
   '/_protected/sessions/': typeof ProtectedSessionsIndexRoute
   '/_protected/settings/': typeof ProtectedSettingsIndexRoute
+  '/_protected/stores/': typeof ProtectedStoresIndexRoute
   '/_protected/users/': typeof ProtectedUsersIndexRoute
   '/_protected/vendors/': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
@@ -331,6 +340,7 @@ export interface FileRouteTypes {
     | '/playground/'
     | '/sessions/'
     | '/settings/'
+    | '/stores/'
     | '/users/'
     | '/vendors/'
     | '/auth/sign-in/'
@@ -360,6 +370,7 @@ export interface FileRouteTypes {
     | '/playground'
     | '/sessions'
     | '/settings'
+    | '/stores'
     | '/users'
     | '/vendors'
     | '/auth/sign-in'
@@ -393,6 +404,7 @@ export interface FileRouteTypes {
     | '/_protected/playground/'
     | '/_protected/sessions/'
     | '/_protected/settings/'
+    | '/_protected/stores/'
     | '/_protected/users/'
     | '/_protected/vendors/'
     | '/auth/sign-in/'
@@ -494,6 +506,13 @@ declare module '@tanstack/react-router' {
       path: '/users'
       fullPath: '/users/'
       preLoaderRoute: typeof ProtectedUsersIndexRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/stores/': {
+      id: '/_protected/stores/'
+      path: '/stores'
+      fullPath: '/stores/'
+      preLoaderRoute: typeof ProtectedStoresIndexRouteImport
       parentRoute: typeof ProtectedRouteRoute
     }
     '/_protected/settings/': {
@@ -700,6 +719,7 @@ interface ProtectedRouteRouteChildren {
   ProtectedIndexRoute: typeof ProtectedIndexRoute
   ProtectedUsersSelectRoute: typeof ProtectedUsersSelectRoute
   ProtectedSessionsIndexRoute: typeof ProtectedSessionsIndexRoute
+  ProtectedStoresIndexRoute: typeof ProtectedStoresIndexRoute
   ProtectedUsersIndexRoute: typeof ProtectedUsersIndexRoute
   ProtectedVendorsIndexRoute: typeof ProtectedVendorsIndexRoute
 }
@@ -714,6 +734,7 @@ const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
   ProtectedIndexRoute: ProtectedIndexRoute,
   ProtectedUsersSelectRoute: ProtectedUsersSelectRoute,
   ProtectedSessionsIndexRoute: ProtectedSessionsIndexRoute,
+  ProtectedStoresIndexRoute: ProtectedStoresIndexRoute,
   ProtectedUsersIndexRoute: ProtectedUsersIndexRoute,
   ProtectedVendorsIndexRoute: ProtectedVendorsIndexRoute,
 }

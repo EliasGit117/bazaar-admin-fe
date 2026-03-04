@@ -302,6 +302,8 @@ export const vendorColumns = (options?: IOptions) => {
 
                 <DropdownMenuSeparator/>
 
+                {canEdit && <EditMenuItem vendorId={row.original.id} disabled={disabled}/>}
+
                 <DropdownMenuItem asChild>
                   <Link to="/users" search={{ id: row.original.ownerId }}>
                     <UserCircleIcon className="mr-2 size-4"/>
@@ -309,7 +311,6 @@ export const vendorColumns = (options?: IOptions) => {
                   </Link>
                 </DropdownMenuItem>
 
-                {canEdit && <EditMenuItem vendorId={row.original.id} disabled={disabled}/>}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

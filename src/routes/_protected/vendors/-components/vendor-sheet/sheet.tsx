@@ -136,7 +136,7 @@ export const VendorSheet: FC<IProps> = ({ onSuccess }) => {
           <VendorForm
             id='vendor-form'
             form={form}
-            className="px-4"
+            className="px-4 py-1"
             loading={isLoadingVendor}
             disabled={isCreating || isUpdating}
             onSubmit={onSubmit}

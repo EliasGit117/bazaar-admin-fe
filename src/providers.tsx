@@ -4,6 +4,7 @@ import { ThemeProvider } from 'better-themes';
 import { Toaster } from '@/components/ui/sonner.tsx';
 import { AuthProvider } from '@/providers/auth.tsx';
 import { ConfirmDialogProvider } from '@/components/ui/confirm-dialog.tsx';
+import { TooltipProvider } from '@/components/ui/tooltip.tsx';
 
 
 interface IProps extends PropsWithChildren {
@@ -17,10 +18,12 @@ export const Providers: FC<IProps> = ({ queryClient, children }) => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="theme" disableTransitionOnChange>
         <ConfirmDialogProvider>
-          <AuthProvider>
-            {children}
-            <Toaster richColors/>
-          </AuthProvider>
+          <TooltipProvider>
+            <AuthProvider>
+              {children}
+              <Toaster richColors/>
+            </AuthProvider>
+          </TooltipProvider>
         </ConfirmDialogProvider>
       </ThemeProvider>
     </QueryClientProvider>

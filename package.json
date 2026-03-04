@@ -14,6 +14,7 @@
     "generate-api": "bunx @hey-api/openapi-ts"
   },
   "dependencies": {
+    "@diceui/tags-input": "^0.7.2",
     "@fontsource-variable/inter": "^5.2.8",
     "@hookform/resolvers": "^5.2.2",
     "@tailwindcss/vite": "^4.1.18",
@@ -41,7 +42,7 @@
     "react-number-format": "^5.4.4",
     "react-resizable-panels": "^4.4.1",
     "recharts": "2.15.4",
-    "shadcn": "^3.6.3",
+    "shadcn": "^3.8.5",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18",

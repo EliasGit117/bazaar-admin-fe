@@ -5,9 +5,9 @@ export type ClientOptions = {
 };
 
 export enum AdminUserRole {
-    ADMIN = 'admin',
-    MANAGER = 'manager',
     USER = 'user',
+    ADMIN = 'admin',
+    MANAGER = 'manager'
 }
 
 export enum AdminUserStatus {
@@ -721,6 +721,206 @@ export type UpdateVendorDto = {
     ownerId?: number;
 };
 
+/**
+ * Store status
+ */
+export enum StoreStatus {
+    DRAFT = 'draft',
+    ACTIVE = 'active',
+    INACTIVE = 'inactive',
+    ARCHIVED = 'archived'
+}
+
+export type StoreDto = {
+    /**
+     * Unique store identifier
+     */
+    id: number;
+    /**
+     * Store status
+     */
+    status: StoreStatus;
+    /**
+     * Store display name
+     */
+    name: string;
+    /**
+     * Unique store slug
+     */
+    slug: string;
+    /**
+     * Short description (EN)
+     */
+    shortDescriptionEn: string;
+    /**
+     * Short description (RO)
+     */
+    shortDescriptionRo: string;
+    /**
+     * Short description (RU)
+     */
+    shortDescriptionRu: string;
+    /**
+     * Full description (EN)
+     */
+    descriptionEn: string;
+    /**
+     * Full description (RO)
+     */
+    descriptionRo: string;
+    /**
+     * Full description (RU)
+     */
+    descriptionRu: string;
+    /**
+     * Vendor identifier
+     */
+    vendorId: number;
+    vendor: VendorDto;
+    /**
+     * Record creation timestamp (ISO 8601)
+     */
+    createdAt: Date;
+    /**
+     * Last update timestamp (ISO 8601)
+     */
+    updatedAt: Date;
+};
+
+export type StoreBriefDto = {
+    /**
+     * Unique store identifier
+     */
+    id: number;
+    /**
+     * Store status
+     */
+    status: StoreStatus;
+    /**
+     * Store display name
+     */
+    name: string;
+    /**
+     * Unique store slug
+     */
+    slug: string;
+    /**
+     * Vendor identifier
+     */
+    vendorId: number;
+    /**
+     * Record creation timestamp (ISO 8601)
+     */
+    createdAt: Date;
+};
+
+/**
+ * Sort items by
+ */
+export enum StoreSortBy {
+    ID = 'id',
+    VENDOR_ID = 'vendorId',
+    CREATED_AT = 'createdAt',
+    UPDATED_AT = 'updatedAt',
+    CREATED_BY = 'createdBy',
+    UPDATED_BY = 'updatedBy'
+}
+
+export type ListPaginatedStoresDto = {
+    /**
+     * Page number
+     */
+    page?: number;
+    /**
+     * Number of items per page
+     */
+    limit?: number;
+    /**
+     * Sorting direction
+     */
+    dir?: 'asc' | 'desc';
+    /**
+     * Sort items by
+     */
+    sort?: StoreSortBy;
+    /**
+     * Find items by id
+     */
+    id?: string;
+    /**
+     * Filter items by vendor id
+     */
+    vendorId?: number;
+    /**
+     * List of session status
+     */
+    status?: Array<AdminSessionStatus>;
+    createdAt?: DateRangeDto;
+    updatedAt?: DateRangeDto;
+};
+
+export type CreateStoreDto = {
+    /**
+     * Store status
+     */
+    status: StoreStatus;
+    /**
+     * Store display name
+     */
+    name: string;
+    /**
+     * Unique store slug
+     */
+    slug: string;
+    /**
+     * Short description (EN)
+     */
+    shortDescriptionEn: string;
+    /**
+     * Short description (RO)
+     */
+    shortDescriptionRo: string;
+    /**
+     * Short description (RU)
+     */
+    shortDescriptionRu: string;
+    /**
+     * Vendor identifier
+     */
+    vendorId: number;
+};
+
+export type UpdateStoreDto = {
+    /**
+     * Store status
+     */
+    status?: StoreStatus;
+    /**
+     * Store display name
+     */
+    name?: string;
+    /**
+     * Unique store slug
+     */
+    slug?: string;
+    /**
+     * Short description (EN)
+     */
+    shortDescriptionEn?: string;
+    /**
+     * Short description (RO)
+     */
+    shortDescriptionRo?: string;
+    /**
+     * Short description (RU)
+     */
+    shortDescriptionRu?: string;
+    /**
+     * Vendor identifier
+     */
+    vendorId?: number;
+};
+
 export type GetData = {
     body?: never;
     path?: never;
@@ -1050,3 +1250,83 @@ export type PostVendorsResponses = {
 };
 
 export type PostVendorsResponse = PostVendorsResponses[keyof PostVendorsResponses];
+
+export type GetStoresByIdData = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/stores/{id}';
+};
+
+export type GetStoresByIdErrors = {
+    400: unknown;
+    401: unknown;
+    403: unknown;
+};
+
+export type GetStoresByIdResponses = {
+    /**
+     * Store found
+     */
+    200: StoreDto;
+};
+
+export type GetStoresByIdResponse = GetStoresByIdResponses[keyof GetStoresByIdResponses];
+
+export type PatchStoresByIdData = {
+    body: UpdateStoreDto;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/stores/{id}';
+};
+
+export type PatchStoresByIdErrors = {
+    400: unknown;
+    401: unknown;
+    403: unknown;
+    404: unknown;
+};
+
+export type PatchStoresByIdResponses = {
+    200: StoreDto;
+};
+
+export type PatchStoresByIdResponse = PatchStoresByIdResponses[keyof PatchStoresByIdResponses];
+
+export type PostStoresSearchData = {
+    body: ListPaginatedStoresDto;
+    path?: never;
+    query?: never;
+    url: '/stores/search';
+};
+
+export type PostStoresSearchResponses = {
+    200: PaginatedResultDto & {
+        items: Array<StoreBriefDto>;
+    };
+};
+
+export type PostStoresSearchResponse = PostStoresSearchResponses[keyof PostStoresSearchResponses];
+
+export type PostStoresData = {
+    body: CreateStoreDto;
+    path?: never;
+    query?: never;
+    url: '/stores';
+};
+
+export type PostStoresErrors = {
+    400: unknown;
+    401: unknown;
+    403: unknown;
+};
+
+export type PostStoresResponses = {
+    201: StoreDto;
+};
+
+export type PostStoresResponse = PostStoresResponses[keyof PostStoresResponses];

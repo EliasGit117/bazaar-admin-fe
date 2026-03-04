@@ -4,7 +4,7 @@ import { type DefaultError, type InfiniteData, infiniteQueryOptions, queryOption
 
 import { client } from '../client.gen';
 import { Client, type Options } from '../sdk.gen';
-import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllResponse, DeleteSessionsRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, GetUsersByIdData, GetUsersByIdResponse, GetVendorsByIdData, GetVendorsByIdResponse, PatchUsersByIdData, PatchUsersByIdResponse, PatchVendorsByIdData, PatchVendorsByIdResponse, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostUsersData, PostUsersResponse, PostUsersSearchData, PostUsersSearchResponse, PostVendorsData, PostVendorsResponse, PostVendorsSearchData, PostVendorsSearchResponse } from '../types.gen';
+import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllResponse, DeleteSessionsRevokeData, GetAuthMeData, GetAuthMeResponse, GetData, GetStoresByIdData, GetStoresByIdResponse, GetUsersByIdData, GetUsersByIdResponse, GetVendorsByIdData, GetVendorsByIdResponse, PatchStoresByIdData, PatchStoresByIdResponse, PatchUsersByIdData, PatchUsersByIdResponse, PatchVendorsByIdData, PatchVendorsByIdResponse, PostAuthSignInData, PostAuthSignInResponse, PostAuthSignOutData, PostAuthSignOutResponse, PostAuthSignUpData, PostSessionsSearchData, PostSessionsSearchResponse, PostStoresData, PostStoresResponse, PostStoresSearchData, PostStoresSearchResponse, PostUsersData, PostUsersResponse, PostUsersSearchData, PostUsersSearchResponse, PostVendorsData, PostVendorsResponse, PostVendorsSearchData, PostVendorsSearchResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -430,7 +430,7 @@ export const vendors_post_search_QueryKeys = (options: Options<PostVendorsSearch
 /**
  * Search vendors
  *
- * Returns a paginated list of all admin user sessions. Admin role required.
+ * Returns a paginated list of all vendors
  */
 export const vendors_post_search_QueryOptions = (options: Options<PostVendorsSearchData>) => queryOptions<PostVendorsSearchResponse, DefaultError, PostVendorsSearchResponse, ReturnType<typeof vendors_post_search_QueryKeys>>({
     queryFn: async ({ queryKey, signal }) => {
@@ -450,7 +450,7 @@ export const vendors_post_search_InfiniteQueryKeys = (options: Options<PostVendo
 /**
  * Search vendors
  *
- * Returns a paginated list of all admin user sessions. Admin role required.
+ * Returns a paginated list of all vendors
  */
 export const vendors_post_search_InfiniteQueryOptions = (options: Options<PostVendorsSearchData>) => infiniteQueryOptions<PostVendorsSearchResponse, DefaultError, InfiniteData<PostVendorsSearchResponse>, QueryKey<Options<PostVendorsSearchData>>, number | Pick<QueryKey<Options<PostVendorsSearchData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
 // @ts-ignore
@@ -477,7 +477,7 @@ export const vendors_post_search_InfiniteQueryOptions = (options: Options<PostVe
 /**
  * Search vendors
  *
- * Returns a paginated list of all admin user sessions. Admin role required.
+ * Returns a paginated list of all vendors
  */
 export const vendors_post_search_MutationOptions = (options?: Partial<Options<PostVendorsSearchData>>): UseMutationOptions<PostVendorsSearchResponse, DefaultError, Options<PostVendorsSearchData>> => {
     const mutationOptions: UseMutationOptions<PostVendorsSearchResponse, DefaultError, Options<PostVendorsSearchData>> = {
@@ -500,6 +500,126 @@ export const vendors_post_index_MutationOptions = (options?: Partial<Options<Pos
     const mutationOptions: UseMutationOptions<PostVendorsResponse, DefaultError, Options<PostVendorsData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await Client.__registry.get().vendors.create({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const stores_get_byId_QueryKeys = (options: Options<GetStoresByIdData>) => createQueryKey('getStoresById', options);
+
+/**
+ * Get store by id
+ */
+export const stores_get_byId_QueryOptions = (options: Options<GetStoresByIdData>) => queryOptions<GetStoresByIdResponse, DefaultError, GetStoresByIdResponse, ReturnType<typeof stores_get_byId_QueryKeys>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await Client.__registry.get().stores.findById({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: stores_get_byId_QueryKeys(options)
+});
+
+/**
+ * Update store
+ */
+export const stores_patch_byId_MutationOptions = (options?: Partial<Options<PatchStoresByIdData>>): UseMutationOptions<PatchStoresByIdResponse, DefaultError, Options<PatchStoresByIdData>> => {
+    const mutationOptions: UseMutationOptions<PatchStoresByIdResponse, DefaultError, Options<PatchStoresByIdData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await Client.__registry.get().stores.update({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const stores_post_search_QueryKeys = (options: Options<PostStoresSearchData>) => createQueryKey('postStoresSearch', options);
+
+/**
+ * Search stores
+ *
+ * Returns a paginated list of all stores
+ */
+export const stores_post_search_QueryOptions = (options: Options<PostStoresSearchData>) => queryOptions<PostStoresSearchResponse, DefaultError, PostStoresSearchResponse, ReturnType<typeof stores_post_search_QueryKeys>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await Client.__registry.get().stores.search({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: stores_post_search_QueryKeys(options)
+});
+
+export const stores_post_search_InfiniteQueryKeys = (options: Options<PostStoresSearchData>): QueryKey<Options<PostStoresSearchData>> => createQueryKey('postStoresSearch', options, true);
+
+/**
+ * Search stores
+ *
+ * Returns a paginated list of all stores
+ */
+export const stores_post_search_InfiniteQueryOptions = (options: Options<PostStoresSearchData>) => infiniteQueryOptions<PostStoresSearchResponse, DefaultError, InfiniteData<PostStoresSearchResponse>, QueryKey<Options<PostStoresSearchData>>, number | Pick<QueryKey<Options<PostStoresSearchData>>[0], 'body' | 'headers' | 'path' | 'query'>>(
+// @ts-ignore
+{
+    queryFn: async ({ pageParam, queryKey, signal }) => {
+        // @ts-ignore
+        const page: Pick<QueryKey<Options<PostStoresSearchData>>[0], 'body' | 'headers' | 'path' | 'query'> = typeof pageParam === 'object' ? pageParam : {
+            body: {
+                page: pageParam
+            }
+        };
+        const params = createInfiniteParams(queryKey, page);
+        const { data } = await Client.__registry.get().stores.search({
+            ...options,
+            ...params,
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: stores_post_search_InfiniteQueryKeys(options)
+});
+
+/**
+ * Search stores
+ *
+ * Returns a paginated list of all stores
+ */
+export const stores_post_search_MutationOptions = (options?: Partial<Options<PostStoresSearchData>>): UseMutationOptions<PostStoresSearchResponse, DefaultError, Options<PostStoresSearchData>> => {
+    const mutationOptions: UseMutationOptions<PostStoresSearchResponse, DefaultError, Options<PostStoresSearchData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await Client.__registry.get().stores.search({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+/**
+ * Create store
+ */
+export const stores_post_index_MutationOptions = (options?: Partial<Options<PostStoresData>>): UseMutationOptions<PostStoresResponse, DefaultError, Options<PostStoresData>> => {
+    const mutationOptions: UseMutationOptions<PostStoresResponse, DefaultError, Options<PostStoresData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await Client.__registry.get().stores.create({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

@@ -6,7 +6,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useVendorSheet, type TVendorSheetOptions } from './provider';
+import { useStoreSheet } from './provider';
 import { FilePlusIcon, type LucideIcon } from 'lucide-react';
 import { m } from '@/paraglide/messages';
 import type { VariantProps } from 'class-variance-authority';
@@ -15,7 +15,6 @@ import { cn } from '@/lib/utils';
 
 interface IProps
   extends Omit<ComponentProps<typeof Button>, 'onClick'> {
-  options: TVendorSheetOptions;
   text?: string;
   icon?: LucideIcon;
   tooltipAlign?: 'center' | 'end' | 'start';
@@ -34,34 +33,33 @@ const sizeClassNames: Record<NonNullable<VariantProps<typeof buttonVariants>['si
   dense: ''
 };
 
-export const VendorSheetTrigger: FC<IProps> = (props) => {
+export const CreateStoreSheetTrigger: FC<IProps> = (props) => {
   const {
     children,
     asChild,
     size,
     text = m['common.create'](),
     icon: Icon = FilePlusIcon,
-    tooltipAlign,
-    tooltipSide,
     className,
-    options,
+    tooltipSide,
+    tooltipAlign,
     ...btnProps
   } = props;
 
-  const { open } = useVendorSheet();
+  const { open } = useStoreSheet();
   const isMobile = useIsMobile();
 
   const button = (
     <Button
       size={size}
+      onClick={open}
       asChild={asChild}
-      onClick={() => open(options)}
       className={cn(sizeClassNames[size ?? 'default'], 'sm:w-fit', className)}
       {...btnProps}
     >
       {asChild && children ? children : (
         <>
-          <Icon />
+          <Icon/>
           <span className="sr-only sm:not-sr-only">{text}</span>
         </>
       )}
@@ -74,7 +72,7 @@ export const VendorSheetTrigger: FC<IProps> = (props) => {
   return (
     <Tooltip delayDuration={500}>
       <TooltipTrigger asChild>{button}</TooltipTrigger>
-      <TooltipContent>
+      <TooltipContent align={tooltipAlign} side={tooltipSide}>
         <p>{text}</p>
       </TooltipContent>
     </Tooltip>

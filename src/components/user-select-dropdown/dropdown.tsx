@@ -7,10 +7,10 @@ import {
   ChevronsLeftIcon,
   ChevronsRightIcon,
   ChevronsUpDownIcon,
-  XCircleIcon,
+  XCircleIcon
 } from 'lucide-react';
 import {
-  Command,
+  Command, CommandEmpty,
   CommandGroup,
   CommandItem,
   CommandList
@@ -119,7 +119,7 @@ export const UserSelectDropdown: FC<IProps> = (props) => {
       }
     }),
     placeholderData: keepPreviousData,
-    enabled: open || prefetch,
+    enabled: Boolean(open || prefetch),
     staleTime: 0,
     gcTime: 0
   });
@@ -130,6 +130,7 @@ export const UserSelectDropdown: FC<IProps> = (props) => {
     queryClient.setQueryData(users_get_byId_QueryKeys({ path: { id: selectedValue! } }), user!);
   };
 
+  // Handle error
   useEffect(() => {
     if (!searchError)
       return;
@@ -138,10 +139,12 @@ export const UserSelectDropdown: FC<IProps> = (props) => {
     toast.error(name, { description: message });
   }, [searchError]);
 
+  // Reset page on filter change
   useEffect(() => {
     setPage(1);
   }, [debouncedFirstName, debouncedLastName]);
 
+  // On close
   useEffect(() => {
     if (open)
       return;
@@ -158,7 +161,7 @@ export const UserSelectDropdown: FC<IProps> = (props) => {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={cn('font-normal w-full', !selectedValue && 'text-muted-foreground', className)}
+          className={cn('font-normal text-base md:text-sm', !selectedValue && 'text-muted-foreground', className)}
           {...btnProps}
         >
           <div className="flex items-center w-full min-w-0">
@@ -217,57 +220,63 @@ export const UserSelectDropdown: FC<IProps> = (props) => {
 
         <Command className="space-y-1">
           <CommandList>
+            {!isPendingSearch && <CommandEmpty>{m['common.no_results_found']()}</CommandEmpty>}
+
             <CommandGroup className="p-0">
-              {!isPendingSearch ? searchResult?.items.map(user => {
-                const translatedRole = m[`roles.${user.role}`] ? m[`roles.${user.role}`]() : user.role;
+              {!isPendingSearch ?
+                searchResult?.items.map(user => {
+                  const translatedRole = m[`roles.${user.role}`] ? m[`roles.${user.role}`]() : user.role;
 
-                return (
-                  <CommandItem
-                    key={user.id}
-                    value={`${user.id}`}
-                    data-checked={selectedValue === user.id}
-                    onSelect={() => onSelect(user.id, user)}
-                    disabled={isItemDisabled?.(user) ?? false}
-                  >
-                    <div className="flex items-center gap-2 flex-1">
-                      <div className="parent">
-                        <Avatar className="size-7">
-                          <AvatarFallback className="text-xs!">{user.firstName[0]}{user.lastName[0]}</AvatarFallback>
+                  return (
+                    <>
+                      <CommandItem
+                        key={user.id}
+                        value={`${user.id}`}
+                        data-checked={selectedValue === user.id}
+                        onSelect={() => onSelect(user.id, user)}
+                        disabled={isItemDisabled?.(user) ?? false}
+                      >
+                        <div className="flex items-center gap-2 flex-1">
+                          <div className="parent">
+                            <Avatar className="size-7">
+                              <AvatarFallback
+                                className="text-xs!">{user.firstName[0]}{user.lastName[0]}</AvatarFallback>
 
-                          <Badge
-                            variant="outline"
-                            className={cn(
-                              'h-3 w-fit px-1! text-muted-foreground',
-                              'text-[0.5rem] absolute -bottom-1 z-10 bg-background transform left-1/2 -translate-x-1/2'
-                            )}
-                          >
-                            id: {user.id}
-                          </Badge>
-                        </Avatar>
-                      </div>
+                              <Badge
+                                variant="outline"
+                                className={cn(
+                                  'h-3 w-fit px-1! text-muted-foreground',
+                                  'text-[0.5rem] absolute -bottom-1 z-10 bg-background transform left-1/2 -translate-x-1/2'
+                                )}
+                              >
+                                id: {user.id}
+                              </Badge>
+                            </Avatar>
+                          </div>
 
-                      <div className="flex flex-col flex-1">
-                        <div className="flex gap-2 items-center">
-                          <span className="text-xs">
-                            {user.firstName} {user.lastName}
-                          </span>
+                          <div className="flex flex-col flex-1">
+                            <div className="flex gap-2 items-center">
+                              <span className="text-xs">
+                                {user.firstName} {user.lastName}
+                              </span>
 
-                          <Badge variant="outline" className="rounded-sm h-4 px-1 text-[0.6rem]">
-                            <UserRoleIcon role={user.role} className='size-[0.6rem]'/>
-                            <span>{translatedRole}</span>
-                          </Badge>
+                              <Badge variant="outline" className="rounded-sm h-4 px-1 text-[0.6rem]">
+                                <UserRoleIcon role={user.role} className="size-[0.6rem]"/>
+                                <span>{translatedRole}</span>
+                              </Badge>
+                            </div>
+
+                            <span className="text-xs text-muted-foreground">
+                              {user.email}
+                            </span>
+                          </div>
                         </div>
-
-                        <span className="text-xs text-muted-foreground">
-                          {user.email}
-                        </span>
-                      </div>
-                    </div>
-                  </CommandItem>
-                );
-              }) : (
-                <Skeleton className="rounded-sm" style={{ height: 32 * pageLimit }}/>
-              )}
+                      </CommandItem>
+                    </>
+                  );
+                }) : (
+                  <Skeleton className="rounded-sm" style={{ height: 32 * pageLimit }}/>
+                )}
             </CommandGroup>
           </CommandList>
         </Command>
@@ -314,7 +323,7 @@ export const UserSelectDropdown: FC<IProps> = (props) => {
           </Button>
         </div>
 
-        {value && (
+        {selectedValue && (
           <div className="p-1 pt-0 space-y-1">
             <Separator/>
             <Button size="sm" variant="ghost" className="w-full" onClick={() => onSelect(undefined, undefined)}>

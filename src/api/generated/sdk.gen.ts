@@ -2,7 +2,7 @@
 
 import type { Client as Client2, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllErrors, DeleteSessionsRevokeAllResponses, DeleteSessionsRevokeData, DeleteSessionsRevokeErrors, DeleteSessionsRevokeResponses, GetAuthMeData, GetAuthMeErrors, GetAuthMeResponses, GetData, GetResponses, GetUsersByIdData, GetUsersByIdErrors, GetUsersByIdResponses, GetVendorsByIdData, GetVendorsByIdErrors, GetVendorsByIdResponses, PatchUsersByIdData, PatchUsersByIdErrors, PatchUsersByIdResponses, PatchVendorsByIdData, PatchVendorsByIdErrors, PatchVendorsByIdResponses, PostAuthSignInData, PostAuthSignInErrors, PostAuthSignInResponses, PostAuthSignOutData, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthSignUpData, PostAuthSignUpErrors, PostAuthSignUpResponses, PostSessionsSearchData, PostSessionsSearchResponses, PostUsersData, PostUsersErrors, PostUsersResponses, PostUsersSearchData, PostUsersSearchErrors, PostUsersSearchResponses, PostVendorsData, PostVendorsErrors, PostVendorsResponses, PostVendorsSearchData, PostVendorsSearchResponses } from './types.gen';
+import type { DeleteSessionsRevokeAllData, DeleteSessionsRevokeAllErrors, DeleteSessionsRevokeAllResponses, DeleteSessionsRevokeData, DeleteSessionsRevokeErrors, DeleteSessionsRevokeResponses, GetAuthMeData, GetAuthMeErrors, GetAuthMeResponses, GetData, GetResponses, GetStoresByIdData, GetStoresByIdErrors, GetStoresByIdResponses, GetUsersByIdData, GetUsersByIdErrors, GetUsersByIdResponses, GetVendorsByIdData, GetVendorsByIdErrors, GetVendorsByIdResponses, PatchStoresByIdData, PatchStoresByIdErrors, PatchStoresByIdResponses, PatchUsersByIdData, PatchUsersByIdErrors, PatchUsersByIdResponses, PatchVendorsByIdData, PatchVendorsByIdErrors, PatchVendorsByIdResponses, PostAuthSignInData, PostAuthSignInErrors, PostAuthSignInResponses, PostAuthSignOutData, PostAuthSignOutErrors, PostAuthSignOutResponses, PostAuthSignUpData, PostAuthSignUpErrors, PostAuthSignUpResponses, PostSessionsSearchData, PostSessionsSearchResponses, PostStoresData, PostStoresErrors, PostStoresResponses, PostStoresSearchData, PostStoresSearchResponses, PostUsersData, PostUsersErrors, PostUsersResponses, PostUsersSearchData, PostUsersSearchErrors, PostUsersSearchResponses, PostVendorsData, PostVendorsErrors, PostVendorsResponses, PostVendorsSearchData, PostVendorsSearchResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -251,7 +251,7 @@ export class Vendors extends HeyApiClient {
     /**
      * Search vendors
      *
-     * Returns a paginated list of all admin user sessions. Admin role required.
+     * Returns a paginated list of all vendors
      */
     public search<ThrowOnError extends boolean = false>(options: Options<PostVendorsSearchData, ThrowOnError>) {
         return (options.client ?? this.client).post<PostVendorsSearchResponses, unknown, ThrowOnError>({
@@ -272,6 +272,66 @@ export class Vendors extends HeyApiClient {
         return (options.client ?? this.client).post<PostVendorsResponses, PostVendorsErrors, ThrowOnError>({
             security: [{ name: 'x-session-id', type: 'apiKey' }],
             url: '/vendors',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+}
+
+export class Stores extends HeyApiClient {
+    /**
+     * Get store by id
+     */
+    public findById<ThrowOnError extends boolean = false>(options: Options<GetStoresByIdData, ThrowOnError>) {
+        return (options.client ?? this.client).get<GetStoresByIdResponses, GetStoresByIdErrors, ThrowOnError>({
+            security: [{ name: 'x-session-id', type: 'apiKey' }],
+            url: '/stores/{id}',
+            ...options
+        });
+    }
+    
+    /**
+     * Update store
+     */
+    public update<ThrowOnError extends boolean = false>(options: Options<PatchStoresByIdData, ThrowOnError>) {
+        return (options.client ?? this.client).patch<PatchStoresByIdResponses, PatchStoresByIdErrors, ThrowOnError>({
+            security: [{ name: 'x-session-id', type: 'apiKey' }],
+            url: '/stores/{id}',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Search stores
+     *
+     * Returns a paginated list of all stores
+     */
+    public search<ThrowOnError extends boolean = false>(options: Options<PostStoresSearchData, ThrowOnError>) {
+        return (options.client ?? this.client).post<PostStoresSearchResponses, unknown, ThrowOnError>({
+            security: [{ name: 'x-session-id', type: 'apiKey' }],
+            url: '/stores/search',
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers
+            }
+        });
+    }
+    
+    /**
+     * Create store
+     */
+    public create<ThrowOnError extends boolean = false>(options: Options<PostStoresData, ThrowOnError>) {
+        return (options.client ?? this.client).post<PostStoresResponses, PostStoresErrors, ThrowOnError>({
+            security: [{ name: 'x-session-id', type: 'apiKey' }],
+            url: '/stores',
             ...options,
             headers: {
                 'Content-Type': 'application/json',
@@ -315,5 +375,10 @@ export class Client extends HeyApiClient {
     private _vendors?: Vendors;
     get vendors(): Vendors {
         return this._vendors ??= new Vendors({ client: this.client });
+    }
+    
+    private _stores?: Stores;
+    get stores(): Stores {
+        return this._stores ??= new Stores({ client: this.client });
     }
 }

@@ -167,7 +167,7 @@ export const SessionsCard: FC<ISessionsCardProps> = ({ className }) => {
                       </span>
 
                       {session.isCurrent && (
-                        <Badge variant="secondary" className="rounded-sm px-1.5 h-4 text-[10px] font-normal">
+                        <Badge variant="secondary" className="rounded-sm px-1.5 h-4 text-[10px] font-normal border-border">
                           {m['components.auth.sessions_card.current']()}
                         </Badge>
                       )}

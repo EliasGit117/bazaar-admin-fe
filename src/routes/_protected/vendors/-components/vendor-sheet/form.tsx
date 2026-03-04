@@ -91,7 +91,7 @@ export const VendorForm: FC<IProps> = (props) => {
                       <DropdownMenuGroup>
                         <DropdownMenuRadioGroup value={field.value} onValueChange={field.onChange}>
                           {typeOptions.map(({ value, title, icon: Icon }) => (
-                            <DropdownMenuRadioItem value={value}>
+                            <DropdownMenuRadioItem value={value} key={value}>
                               <Icon className="text-muted-foreground"/>
                               <span>{title}</span>
                             </DropdownMenuRadioItem>
@@ -312,69 +312,63 @@ const typeOptions: { value: VendorType; title: string; icon: LucideIcon; }[] = [
 const LoadingSkeleton: FC = () => {
   return (
     <div className="grid grid-cols-2 gap-4">
-      {/* Type */}
       <div>
         <Skeleton className="mb-2 h-4 w-full max-w-24"/>
         <Skeleton className="h-10 w-full"/>
       </div>
 
-      {/* Currency */}
       <div>
         <Skeleton className="mb-2 h-4 w-full max-w-24"/>
         <Skeleton className="h-10 w-full"/>
       </div>
 
-      {/* Name (full width) */}
+      <div className="col-span-full sm:col-span-1">
+        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
+        <Skeleton className="h-10 w-full"/>
+      </div>
+
+      <div className="col-span-full sm:col-span-1">
+        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
+        <Skeleton className="h-10 w-full"/>
+      </div>
+
+      <div className="col-span-full sm:col-span-1">
+        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
+        <Skeleton className="h-10 w-full"/>
+      </div>
+
+      <div className="col-span-full sm:col-span-1">
+        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
+        <Skeleton className="h-10 w-full"/>
+      </div>
+
+      <div className="col-span-full sm:col-span-1">
+        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
+        <Skeleton className="h-10 w-full"/>
+      </div>
+
+      <div className="col-span-full sm:col-span-1">
+        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
+        <Skeleton className="h-10 w-full"/>
+      </div>
+
+      <div className="col-span-full sm:col-span-1">
+        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
+        <Skeleton className="h-10 w-full"/>
+      </div>
+
+      <div className="col-span-full sm:col-span-1">
+        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
+        <Skeleton className="h-10 w-full"/>
+      </div>
+
       <div className="col-span-full">
-        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
+        <Skeleton className="mb-2 h-4 w-full max-w-42"/>
         <Skeleton className="h-10 w-full"/>
       </div>
 
-      {/* Email */}
-      <div className="col-span-full sm:col-span-1">
-        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
-        <Skeleton className="h-10 w-full"/>
-      </div>
-
-      {/* Phone */}
-      <div className="col-span-full sm:col-span-1">
-        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
-        <Skeleton className="h-10 w-full"/>
-      </div>
-
-      {/* Bank Name */}
-      <div className="col-span-full sm:col-span-1">
-        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
-        <Skeleton className="h-10 w-full"/>
-      </div>
-
-      {/* BIC Swift */}
-      <div className="col-span-full sm:col-span-1">
-        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
-        <Skeleton className="h-10 w-full"/>
-      </div>
-
-      {/* IBAN */}
-      <div className="col-span-full sm:col-span-1">
-        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
-        <Skeleton className="h-10 w-full"/>
-      </div>
-
-      {/* IDNO */}
-      <div className="col-span-full sm:col-span-1">
-        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
-        <Skeleton className="h-10 w-full"/>
-      </div>
-
-      {/* Legal Address */}
-      <div className="col-span-full sm:col-span-1">
-        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
-        <Skeleton className="h-10 w-full"/>
-      </div>
-
-      {/* Actual Address */}
-      <div className="col-span-full sm:col-span-1">
-        <Skeleton className="mb-2 h-4 w-full max-w-24"/>
+      <div className="col-span-full">
+        <Skeleton className="mb-2 h-4 w-full max-w-42"/>
         <Skeleton className="h-10 w-full"/>
       </div>
     </div>

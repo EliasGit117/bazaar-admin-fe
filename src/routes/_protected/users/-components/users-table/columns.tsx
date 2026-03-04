@@ -84,6 +84,7 @@ export const userColumns = (options?: IOptions) => {
     }),
 
     columnHelper.accessor('id', {
+      size: 32,
       header: ({ column }) => <DataTableColumnHeader column={column}/>,
       meta: {
         label: 'Id',
@@ -139,7 +140,7 @@ export const userColumns = (options?: IOptions) => {
           type: ColumnFilterType.MultiSelect,
           options: Object.values(AdminUserRole).map((role) => ({
             value: role,
-            title: m[`roles.${role}`](),
+            title: m[`roles.${role}`]?.() ?? role,
             icon: getUserRoleIcon(role)
           }))
         }
@@ -166,8 +167,8 @@ export const userColumns = (options?: IOptions) => {
         filter: {
           type: ColumnFilterType.MultiSelect,
           options: Object.values(AdminUserStatus).map(status => ({
-            title: m[`common.${status}`](),
             value: status,
+            title: m[`common.${status}`]?.() ?? status,
             icon: getUserStatusIcon(status)
           }))
         }
@@ -246,6 +247,8 @@ export const userColumns = (options?: IOptions) => {
 
                 <DropdownMenuSeparator/>
 
+                {canEdit && <EditMenuItem userId={row.original.id} disabled={disabled}/>}
+
                 <DropdownMenuItem asChild>
                   <Link to="/sessions" search={{ userId: row.original.id }}>
                     <MonitorCogIcon className="mr-2 size-4"/>
@@ -253,7 +256,6 @@ export const userColumns = (options?: IOptions) => {
                   </Link>
                 </DropdownMenuItem>
 
-                {canEdit && <EditMenuItem userId={row.original.id} disabled={disabled}/>}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

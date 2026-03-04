@@ -178,7 +178,7 @@ export const VendorSelectDropdown: FC<IProps> = (props) => {
                   {findVendorData.name}
                 </span>
               ) : isPendingVendor ? (
-                <Skeleton className="h-4 m w-full"/>
+                <Skeleton className="h-4 m w-full max-w-28"/>
               ) : (
                 <span className="truncate flex-1 text-left">
                   {translations.user_with_id[locale]}: {selectedValue}
@@ -190,7 +190,7 @@ export const VendorSelectDropdown: FC<IProps> = (props) => {
               </span>
             )}
 
-            <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50"/>
+            <ChevronsUpDownIcon className="ml-auto h-4 w-4 shrink-0 opacity-50"/>
           </div>
         </Button>
       </PopoverTrigger>

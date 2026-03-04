@@ -49,9 +49,12 @@
     "search": "Search",
     "owner": "Owner",
     "edit": "Edit",
+    "details": "Details",
     "save": "Save",
     "user": "User",
-    "vendor": "Vendor"
+    "vendor": "Vendor",
+    "draft": "Draft",
+    "archived": "Archived"
   },
   "errors": {
     "invalid_format": "Invalid format",

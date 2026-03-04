@@ -731,6 +731,29 @@ export enum StoreStatus {
     ARCHIVED = 'archived'
 }
 
+export type VendorBriefDto = {
+    /**
+     * Unique vendor identifier
+     */
+    id: number;
+    /**
+     * Legal form of the vendor
+     */
+    type: VendorType;
+    /**
+     * Full legal company name
+     */
+    name: string;
+    /**
+     * Primary contact phone number
+     */
+    phone: string;
+    /**
+     * Primary contact email address
+     */
+    email: string;
+};
+
 export type StoreDto = {
     /**
      * Unique store identifier
@@ -763,20 +786,20 @@ export type StoreDto = {
     /**
      * Full description (EN)
      */
-    descriptionEn: string;
+    descriptionEn?: string;
     /**
      * Full description (RO)
      */
-    descriptionRo: string;
+    descriptionRo?: string;
     /**
      * Full description (RU)
      */
-    descriptionRu: string;
+    descriptionRu?: string;
     /**
      * Vendor identifier
      */
     vendorId: number;
-    vendor: VendorDto;
+    vendor?: VendorBriefDto;
     /**
      * Record creation timestamp (ISO 8601)
      */
@@ -808,10 +831,15 @@ export type StoreBriefDto = {
      * Vendor identifier
      */
     vendorId: number;
+    vendor?: VendorBriefDto;
     /**
      * Record creation timestamp (ISO 8601)
      */
     createdAt: Date;
+    /**
+     * Last update timestamp (ISO 8601)
+     */
+    updatedAt: Date;
 };
 
 /**
@@ -822,8 +850,8 @@ export enum StoreSortBy {
     VENDOR_ID = 'vendorId',
     CREATED_AT = 'createdAt',
     UPDATED_AT = 'updatedAt',
-    CREATED_BY = 'createdBy',
-    UPDATED_BY = 'updatedBy'
+    CREATED_BY_ID = 'createdById',
+    UPDATED_BY_ID = 'updatedById'
 }
 
 export type ListPaginatedStoresDto = {
@@ -840,21 +868,25 @@ export type ListPaginatedStoresDto = {
      */
     dir?: 'asc' | 'desc';
     /**
+     * Name of store
+     */
+    name?: string;
+    /**
      * Sort items by
      */
     sort?: StoreSortBy;
     /**
      * Find items by id
      */
-    id?: string;
+    id?: number;
     /**
      * Filter items by vendor id
      */
     vendorId?: number;
     /**
-     * List of session status
+     * List of store status
      */
-    status?: Array<AdminSessionStatus>;
+    status?: Array<StoreStatus>;
     createdAt?: DateRangeDto;
     updatedAt?: DateRangeDto;
 };

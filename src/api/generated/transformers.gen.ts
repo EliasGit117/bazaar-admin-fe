@@ -46,7 +46,6 @@ export const postVendorsResponseTransformer = async (data: any): Promise<PostVen
 };
 
 const storeDtoSchemaResponseTransformer = (data: any) => {
-    data.vendor = vendorDtoSchemaResponseTransformer(data.vendor);
     data.createdAt = new Date(data.createdAt);
     data.updatedAt = new Date(data.updatedAt);
     return data;

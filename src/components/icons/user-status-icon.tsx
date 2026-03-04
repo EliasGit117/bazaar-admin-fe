@@ -3,12 +3,12 @@ import type { FC } from 'react';
 import { cn } from '@/lib/utils';
 import { CircleCheckIcon, CircleQuestionMarkIcon, CircleXIcon } from 'lucide-react';
 
-interface IUserStatusIcon {
+interface IUserStatusIconProps {
   status: AdminUserStatus | string | undefined | null;
   className?: string;
 }
 
-export const UserStatusIcon: FC<IUserStatusIcon> = (props) => {
+export const UserStatusIcon: FC<IUserStatusIconProps> = (props) => {
   const className = cn(props.className);
   const Icon = getUserStatusIcon(props.status)
 

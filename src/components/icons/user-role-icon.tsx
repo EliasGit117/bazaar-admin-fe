@@ -8,12 +8,12 @@ import type { FC } from 'react';
 import { cn } from '@/lib/utils/cn.ts';
 
 
-interface IUserRoleIcon {
+interface IUserRoleIconProps {
   role: AdminUserRole | string | undefined | null;
   className?: string;
 }
 
-export const UserRoleIcon: FC<IUserRoleIcon> = (props) => {
+export const UserRoleIcon: FC<IUserRoleIconProps> = (props) => {
   const className = cn(props.className);
   const Icon = getUserRoleIcon(props.role);
 

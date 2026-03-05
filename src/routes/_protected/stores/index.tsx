@@ -6,6 +6,9 @@ import { hasPermission } from '@/lib/utils/has-permission.ts';
 import { type PostStoresSearchData, StoreStatus } from '@/api/generated';
 import { StoresTable } from '@/routes/_protected/stores/-components/stores-table';
 import { dateRangeSchema } from '@/components/data-table';
+import {
+  stores_post_search_QueryOptions,
+} from '@/api/generated/@tanstack/react-query.gen.ts';
 
 
 const paginatedSchema = z.object({
@@ -43,7 +46,11 @@ export const Route = createFileRoute('/_protected/stores/')({
       return;
 
     throw redirect({ to: '/' });
-  }
+  },
+  loaderDeps: ({ search }) => ({ search }),
+  loader: ({ context: { queryClient }, deps: { search } }) => {
+    void queryClient.prefetchQuery(stores_post_search_QueryOptions({ body: search }));
+  },
 });
 
 function RouteComponent() {

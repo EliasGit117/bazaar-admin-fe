@@ -40,7 +40,6 @@ export const SessionsTable: FC<IProps> = (props) => {
     gcTime: 0,
     staleTime: 60 * 1000,
     placeholderData: keepPreviousData,
-    structuralSharing: false
   });
 
   const { mutate: revokeSessions, isPending: isRevokingSession } = useMutation({

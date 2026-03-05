@@ -33,7 +33,7 @@ export const DataTableActionBar: FC<IProps> = ({ children, disabled, className }
       <div
         className={cn(
           'fixed bottom-4 left-1/2 transform -translate-x-1/2',
-          'bg-background border p-1.5 z-50 rounded-xl shadow-sm',
+          'bg-background border p-1.5 z-50 rounded-xl shadow-sm ',
           className
         )}
       >

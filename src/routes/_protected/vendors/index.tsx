@@ -6,6 +6,7 @@ import { hasPermission } from '@/lib/utils/has-permission';
 import { CurrencyCode, type PostVendorsSearchData, VendorType } from '@/api/generated';
 import { VendorsTable } from '@/routes/_protected/vendors/-components/vendors-table';
 import { dateRangeSchema } from '@/components/data-table';
+import { vendors_post_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
 
 
 
@@ -45,13 +46,16 @@ export const Route = createFileRoute('/_protected/vendors/')({
   staticData: { crumbs: { title: title } },
   head: () => ({ meta: [{ title: title }] }),
   validateSearch: listVendorsSchema,
-
   beforeLoad: ({ context: { permissions } }) => {
     const can = hasPermission(permissions, 'vendors', 'list');
     if (can) return;
 
     throw redirect({ to: '/' });
-  }
+  },
+  loaderDeps: ({ search }) => ({ search }),
+  loader: ({ context: { queryClient }, deps: { search } }) => {
+    void queryClient.prefetchQuery(vendors_post_search_QueryOptions({ body: search }));
+  },
 });
 
 function RouteComponent() {

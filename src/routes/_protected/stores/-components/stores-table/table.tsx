@@ -40,9 +40,7 @@ export const StoresTable: FC<IProps> = ({ className, search = {}, ...divProps })
   const { data, isPending, isFetching, refetch } = useQuery({
     ...stores_post_search_QueryOptions({ body: search }),
     placeholderData: keepPreviousData,
-    structuralSharing: false,
-    staleTime: 60 * 1000,
-    gcTime: 0
+    staleTime: 60 * 1000
   });
 
   const columns = useMemo(() => storeColumns({

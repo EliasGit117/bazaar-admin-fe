@@ -44,8 +44,7 @@ export const UsersTable: FC<IProps> = ({ className, search = {}, ...divProps }) 
     ...users_post_search_QueryOptions({ body: search }),
     gcTime: 0,
     staleTime: 60 * 1000,
-    placeholderData: keepPreviousData,
-    structuralSharing: false
+    placeholderData: keepPreviousData
   });
 
   const columns = useMemo(() => userColumns({

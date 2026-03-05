@@ -24,6 +24,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu.tsx';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { Link } from '@tanstack/react-router';
 import type { ComponentPropsWithoutRef, FC } from 'react';
 import { getStoreStatusIcon, StoreStatusIcon } from '@/components/icons/store-status-icon.tsx';
@@ -51,6 +52,34 @@ export const storeColumns = (options?: IOptions) => {
   };
 
   return [
+    columnHelper.display({
+      size: 24,
+      id: 'select',
+      enableSorting: false,
+      meta: {
+        label: m['common.select'](),
+        skeletonClassName: 'size-4.5 rounded-sm'
+      },
+      header: ({ table }) => (
+        <div className="size-6 pr-2 flex items-center justify-center">
+          <Checkbox
+            disabled={disabled}
+            checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
+            onCheckedChange={(v) => table.toggleAllPageRowsSelected(!!v)}
+          />
+        </div>
+      ),
+      cell: ({ row }) => (
+        <div className="size-6 pr-2 flex items-center justify-center">
+          <Checkbox
+            disabled={disabled}
+            checked={row.getIsSelected()}
+            onCheckedChange={(v) => row.toggleSelected(!!v)}
+          />
+        </div>
+      )
+    }),
+
     columnHelper.accessor('id', {
       size: 32,
       header: ({ column }) => <DataTableColumnHeader column={column}/>,

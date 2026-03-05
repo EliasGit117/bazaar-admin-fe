@@ -30,7 +30,11 @@ import { normalizeError } from '@/lib/utils';
 import { toast } from 'sonner';
 
 
-export const CreateStoreSheet: FC = () => {
+interface IProps {
+  onSuccess?: () => void;
+}
+
+export const CreateStoreSheet: FC<IProps> = ({ onSuccess }) => {
   const { isOpen, close } = useStoreSheet();
 
   const form = useForm<TCreateStore>({
@@ -49,7 +53,10 @@ export const CreateStoreSheet: FC = () => {
 
   const { mutate: create, isPending: isCreating } = useMutation({
     ...stores_post_index_MutationOptions(),
-    onSuccess: close,
+    onSuccess: () => {
+      close?.();
+      onSuccess?.();
+    },
     onError: (error) => {
       const { name, message } = normalizeError(error);
       toast.error(name, { description: message });

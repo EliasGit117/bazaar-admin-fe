@@ -1,5 +1,6 @@
 import {
   DataTable,
+  DataTableActionBar,
   DataTablePagination,
   DataTableProvider,
   DataTableToolbar,
@@ -7,12 +8,12 @@ import {
 } from '@/components/data-table';
 import { vendorColumns } from './columns';
 import { type ComponentProps, type FC, useMemo } from 'react';
-import { cn } from '@/lib/utils';
+import { cn, exportToCsv } from '@/lib/utils';
 import type { ListPaginatedVendorsDto, VendorDto } from '@/api/generated';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { AdaptiveButton } from '@/components/ui/adaptive-button';
-import { RefreshCwIcon } from 'lucide-react';
+import { FileDownIcon, RefreshCwIcon } from 'lucide-react';
 import { m } from '@/paraglide/messages';
 import {
   VendorSheetMode,
@@ -22,6 +23,7 @@ import {
 import { VendorSheet } from '@/routes/_protected/vendors/-components/vendor-sheet/sheet.tsx';
 import { useHasPermissions } from '@/hooks/use-has-permissions.ts';
 import { vendors_post_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
+import { ActionBarButton } from '@/components/data-table/action-bar.tsx';
 
 
 interface IProps extends ComponentProps<'div'> {
@@ -49,7 +51,7 @@ export const VendorsTable: FC<IProps> = ({ className, search = {}, ...divProps }
     canEdit: permissions.canEdit
   }), [isFetching, permissions.canEdit]);
 
-  const { table } = useDataTable({
+  const { table, selectedItems, setRowSelection } = useDataTable({
     data: data?.items,
     page: data?.page,
     limit: search.limit,
@@ -64,11 +66,19 @@ export const VendorsTable: FC<IProps> = ({ className, search = {}, ...divProps }
         updatedAt: false
       } satisfies Partial<Record<keyof VendorDto, boolean>>,
       columnPinning: {
-        left: [],
+        left: ['select'],
         right: ['actions']
       }
     }
   });
+
+  const onExportToCsvClick = () => {
+    if (!selectedItems.length)
+      return;
+
+    setRowSelection({});
+    exportToCsv('vendors.csv', selectedItems);
+  };
 
   return (
     <VendorSheetProvider>
@@ -92,6 +102,10 @@ export const VendorsTable: FC<IProps> = ({ className, search = {}, ...divProps }
 
           <DataTable/>
           <DataTablePagination/>
+
+          <DataTableActionBar disabled={isFetching}>
+            <ActionBarButton text="CSV" icon={FileDownIcon} onClick={onExportToCsvClick}/>
+          </DataTableActionBar>
         </DataTableProvider>
       </div>
 

@@ -46,6 +46,7 @@ export const SessionsTable: FC<IProps> = (props) => {
     ...sessions_delete_revoke_MutationOptions(),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: sessions_post_search_QueryKeys({ body: search }) });
+      setRowSelection({});
     }
   });
 

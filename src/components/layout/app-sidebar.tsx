@@ -78,7 +78,6 @@ export const AppSidebar: FC<ComponentPropsWithoutRef<typeof Sidebar>> = ({ ...pr
   const { setOpenMobile } = useSidebar();
   const navMain = useNavMain();
 
-
   return (
     <Sidebar variant="floating" {...props}>
       <SidebarHeader>
@@ -121,11 +120,7 @@ interface INavSidebarGroupProps extends ComponentPropsWithoutRef<typeof SidebarG
 const sidebarMenuSubButtonSizes: Record<
   NonNullable<VariantProps<typeof sidebarMenuButtonVariants>['size']>,
   ComponentPropsWithoutRef<typeof SidebarMenuSubButton>['size']
-> = {
-  default: 'md',
-  sm: 'sm',
-  lg: 'md'
-};
+> = { default: 'md', sm: 'sm', lg: 'md' };
 
 const NavSidebarGroup: FC<INavSidebarGroupProps> = ({ label, items, itemsSize, ...props }) => {
   const { setOpenMobile } = useSidebar();
@@ -140,7 +135,7 @@ const NavSidebarGroup: FC<INavSidebarGroupProps> = ({ label, items, itemsSize, .
       {label && <SidebarGroupLabel>{label}</SidebarGroupLabel>}
       <SidebarMenu>
         {items.map((item) => {
-          const hasActiveChild = item.items?.some((sub) => sub.linkOptions.to === pathname) ?? false;
+          const hasActiveChild = item.items?.some((sub) => isLinkActive(pathname, sub.linkOptions)) ?? false;
 
           return (
             <Collapsible key={item.title} defaultOpen={hasActiveChild} className="group/collapsible" asChild>
@@ -412,6 +407,14 @@ const NavPreferences: FC<INavPreferencesProps> = ({ itemsSize, ...props }) => {
   );
 };
 
+const isLinkActive = (pathname: string, linkOptions?: LinkOptions) => {
+  const path = linkOptions?.to ?? linkOptions?.href;
+  const exact = linkOptions?.activeOptions?.exact ?? false;
+  if (exact)
+    return pathname === path;
+
+  return pathname === path || pathname.startsWith(`${path}/`);
+};
 
 const useNavMain = () => {
   const permissions = useHasPermissions({
@@ -459,7 +462,11 @@ const useNavMain = () => {
     usersGroup.items?.push({
       icon: MonitorCogIcon,
       title: m['components.sidebar.sessions'](),
-      linkOptions: { to: '/sessions', search: { status: [AdminUserStatus.ACTIVE] }, activeOptions: { includeSearch: false } }
+      linkOptions: {
+        to: '/sessions',
+        search: { status: [AdminUserStatus.ACTIVE] },
+        activeOptions: { includeSearch: false }
+      }
     });
 
   return [

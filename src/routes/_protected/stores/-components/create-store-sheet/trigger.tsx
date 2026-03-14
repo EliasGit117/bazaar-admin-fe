@@ -71,7 +71,10 @@ export const CreateStoreSheetTrigger: FC<IProps> = (props) => {
 
   return (
     <Tooltip delayDuration={500}>
-      <TooltipTrigger asChild>{button}</TooltipTrigger>
+      <TooltipTrigger asChild>
+        {button}
+      </TooltipTrigger>
+
       <TooltipContent align={tooltipAlign} side={tooltipSide}>
         <p>{text}</p>
       </TooltipContent>

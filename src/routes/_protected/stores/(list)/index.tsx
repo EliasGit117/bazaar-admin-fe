@@ -4,7 +4,7 @@ import * as z from 'zod';
 import type { ZodType } from 'zod';
 import { hasPermission } from '@/lib/utils/has-permission.ts';
 import { type PostStoresSearchData, StoreStatus } from '@/api/generated';
-import { StoresTable } from '@/routes/_protected/stores/-components/stores-table';
+import { StoresTable } from '@/routes/_protected/stores/(list)/-components/stores-table';
 import { dateRangeSchema } from '@/components/data-table';
 import {
   stores_post_search_QueryOptions,
@@ -35,7 +35,7 @@ const titleTranslations: Record<Locale, string> = {
 };
 const title = titleTranslations[locale];
 
-export const Route = createFileRoute('/_protected/stores/')({
+export const Route = createFileRoute('/_protected/stores/(list)/')({
   component: RouteComponent,
   staticData: { crumbs: { title: title } },
   head: () => ({ meta: [{ title: title }] }),

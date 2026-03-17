@@ -23,12 +23,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu.tsx';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button.tsx';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
 import { Link } from '@tanstack/react-router';
 import type { ComponentPropsWithoutRef, FC } from 'react';
 import { getStoreStatusIcon, StoreStatusIcon } from '@/components/icons/store-status-icon.tsx';
-
 
 
 const columnHelper = createColumnHelper<StoreBriefDto>();
@@ -245,7 +244,7 @@ export const storeColumns = (options?: IOptions) => {
               {canGet && <DetailsMenuItem storeId={row.original.id} disabled={disabled}/>}
 
               {canDelete && (
-                <DropdownMenuItem disabled={disabled} variant='destructive'>
+                <DropdownMenuItem disabled={disabled} variant="destructive">
                   <Trash2Icon className="mr-2 size-4"/>
                   <span>{m['common.delete']()}</span>
                 </DropdownMenuItem>
@@ -264,7 +263,7 @@ interface IDetailsMenuItem extends ComponentPropsWithoutRef<typeof DropdownMenuI
 
 const DetailsMenuItem: FC<IDetailsMenuItem> = ({ storeId, ...props }) => (
   <DropdownMenuItem {...props} asChild>
-    <Link to="/stores/$storeId" params={{ storeId: String(storeId) }}>
+    <Link to="/stores/$storeId" params={{ storeId: storeId }}>
       <StoreIcon className="mr-2 size-4"/>
       <span>{m['common.details']()}</span>
     </Link>

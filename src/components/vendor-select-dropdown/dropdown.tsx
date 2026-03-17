@@ -245,7 +245,7 @@ export const VendorSelectDropdown: FC<IProps> = (props) => {
                   );
                 })
                 : (
-                  <Skeleton className="rounded-sm w-74" style={{ height: 32 * pageLimit }}/>
+                  <Skeleton className="rounded-sm" style={{ height: 32 * pageLimit }}/>
                 )}
             </CommandGroup>
           </CommandList>

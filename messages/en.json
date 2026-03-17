@@ -54,7 +54,8 @@
     "user": "User",
     "vendor": "Vendor",
     "draft": "Draft",
-    "archived": "Archived"
+    "archived": "Archived",
+    "tags": "Tags"
   },
   "errors": {
     "invalid_format": "Invalid format",

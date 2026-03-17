@@ -54,7 +54,8 @@
     "user": "Пользователь",
     "vendor": "Вендор",
     "draft": "Черновик",
-    "archived": "Архивный"
+    "archived": "Архивный",
+    "tags": "Теги"
   },
   "errors": {
     "invalid_format": "Неверный формат",

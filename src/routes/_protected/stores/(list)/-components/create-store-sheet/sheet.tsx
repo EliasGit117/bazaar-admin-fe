@@ -7,19 +7,19 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle
-} from '@/components/ui/sheet';
+} from '@/components/ui/sheet.tsx';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { useStoreSheet } from './provider';
+import { useStoreSheet } from './provider.tsx';
 import {
   createStoreSchema,
   type TCreateStore
-} from './schemas';
-import { CreateStoreForm } from './form';
+} from './schemas.tsx';
+import { CreateStoreForm } from './form.tsx';
 import {
   stores_post_index_MutationOptions
-} from '@/api/generated/@tanstack/react-query.gen';
+} from '@/api/generated/@tanstack/react-query.gen.ts';
 import { StoreStatus } from '@/api/generated';
 import { m } from '@/paraglide/messages';
 import { ScrollArea } from '@/components/ui/scroll-area.tsx';

@@ -11,15 +11,15 @@ import { cn, exportToCsv } from '@/lib/utils';
 import type { ListPaginatedStoresDto, StoreDto } from '@/api/generated';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { stores_post_search_QueryOptions } from '@/api/generated/@tanstack/react-query.gen.ts';
-import { storeColumns } from './columns';
-import { AdaptiveButton } from '@/components/ui/adaptive-button';
+import { storeColumns } from './columns.tsx';
+import { AdaptiveButton } from '@/components/ui/adaptive-button.tsx';
 import { FileDownIcon, RefreshCwIcon } from 'lucide-react';
 import { m } from '@/paraglide/messages';
 import {
   CreateStoreSheetProvider,
   CreateStoreSheetTrigger
-} from '@/routes/_protected/stores/-components/create-store-sheet';
-import { CreateStoreSheet } from '@/routes/_protected/stores/-components/create-store-sheet/sheet.tsx';
+} from '@/routes/_protected/stores/(list)/-components/create-store-sheet';
+import { CreateStoreSheet } from '@/routes/_protected/stores/(list)/-components/create-store-sheet/sheet.tsx';
 import { useHasPermissions } from '@/hooks/use-has-permissions.ts';
 import { ActionBarButton } from '@/components/data-table/action-bar.tsx';
 

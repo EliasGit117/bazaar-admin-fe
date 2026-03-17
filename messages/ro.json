@@ -57,7 +57,8 @@
     "user": "Utilizator",
     "vendor": "Venduri",
     "draft": "Ciornă",
-    "archived": "Arhivat"
+    "archived": "Arhivat",
+    "tags": "Taguri"
   },
   "errors": {
     "invalid_format": "Format invalid",

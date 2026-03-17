@@ -22,13 +22,11 @@ import { Route as ProtectedDocsRouteRouteImport } from './routes/_protected/docs
 import { Route as AuthSignInIndexRouteImport } from './routes/auth/sign-in/index'
 import { Route as ProtectedVendorsIndexRouteImport } from './routes/_protected/vendors/index'
 import { Route as ProtectedUsersIndexRouteImport } from './routes/_protected/users/index'
-import { Route as ProtectedStoresIndexRouteImport } from './routes/_protected/stores/index'
 import { Route as ProtectedSettingsIndexRouteImport } from './routes/_protected/settings/index'
 import { Route as ProtectedSessionsIndexRouteImport } from './routes/_protected/sessions/index'
 import { Route as ProtectedPlaygroundIndexRouteImport } from './routes/_protected/playground/index'
 import { Route as ProtectedDocsIndexRouteImport } from './routes/_protected/docs/index'
 import { Route as ProtectedUsersSelectRouteImport } from './routes/_protected/users/select'
-import { Route as ProtectedStoresStoreIdRouteImport } from './routes/_protected/stores/$storeId'
 import { Route as ProtectedSettingsTeamRouteImport } from './routes/_protected/settings/team'
 import { Route as ProtectedSettingsSessionsRouteImport } from './routes/_protected/settings/sessions'
 import { Route as ProtectedSettingsSecurityRouteImport } from './routes/_protected/settings/security'
@@ -42,6 +40,8 @@ import { Route as ProtectedDocsTutorialsRouteImport } from './routes/_protected/
 import { Route as ProtectedDocsIntroductionRouteImport } from './routes/_protected/docs/introduction'
 import { Route as ProtectedDocsGetStartedRouteImport } from './routes/_protected/docs/get-started'
 import { Route as ProtectedDocsChangelogRouteImport } from './routes/_protected/docs/changelog'
+import { Route as ProtectedStoreslistIndexRouteImport } from './routes/_protected/stores/(list)/index'
+import { Route as ProtectedStoresdetailsStoreIdRouteImport } from './routes/_protected/stores/(details)/$storeId'
 
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/auth',
@@ -108,11 +108,6 @@ const ProtectedUsersIndexRoute = ProtectedUsersIndexRouteImport.update({
   path: '/users/',
   getParentRoute: () => ProtectedRouteRoute,
 } as any)
-const ProtectedStoresIndexRoute = ProtectedStoresIndexRouteImport.update({
-  id: '/stores/',
-  path: '/stores/',
-  getParentRoute: () => ProtectedRouteRoute,
-} as any)
 const ProtectedSettingsIndexRoute = ProtectedSettingsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -137,11 +132,6 @@ const ProtectedDocsIndexRoute = ProtectedDocsIndexRouteImport.update({
 const ProtectedUsersSelectRoute = ProtectedUsersSelectRouteImport.update({
   id: '/users/select',
   path: '/users/select',
-  getParentRoute: () => ProtectedRouteRoute,
-} as any)
-const ProtectedStoresStoreIdRoute = ProtectedStoresStoreIdRouteImport.update({
-  id: '/stores/$storeId',
-  path: '/stores/$storeId',
   getParentRoute: () => ProtectedRouteRoute,
 } as any)
 const ProtectedSettingsTeamRoute = ProtectedSettingsTeamRouteImport.update({
@@ -217,6 +207,18 @@ const ProtectedDocsChangelogRoute = ProtectedDocsChangelogRouteImport.update({
   path: '/changelog',
   getParentRoute: () => ProtectedDocsRouteRoute,
 } as any)
+const ProtectedStoreslistIndexRoute =
+  ProtectedStoreslistIndexRouteImport.update({
+    id: '/stores/(list)/',
+    path: '/stores/',
+    getParentRoute: () => ProtectedRouteRoute,
+  } as any)
+const ProtectedStoresdetailsStoreIdRoute =
+  ProtectedStoresdetailsStoreIdRouteImport.update({
+    id: '/stores/(details)/$storeId',
+    path: '/stores/$storeId',
+    getParentRoute: () => ProtectedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof ProtectedIndexRoute
@@ -241,16 +243,16 @@ export interface FileRoutesByFullPath {
   '/settings/security': typeof ProtectedSettingsSecurityRoute
   '/settings/sessions': typeof ProtectedSettingsSessionsRoute
   '/settings/team': typeof ProtectedSettingsTeamRoute
-  '/stores/$storeId': typeof ProtectedStoresStoreIdRoute
   '/users/select': typeof ProtectedUsersSelectRoute
   '/docs/': typeof ProtectedDocsIndexRoute
   '/playground/': typeof ProtectedPlaygroundIndexRoute
   '/sessions/': typeof ProtectedSessionsIndexRoute
   '/settings/': typeof ProtectedSettingsIndexRoute
-  '/stores/': typeof ProtectedStoresIndexRoute
   '/users/': typeof ProtectedUsersIndexRoute
   '/vendors/': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
+  '/stores/$storeId': typeof ProtectedStoresdetailsStoreIdRoute
+  '/stores/': typeof ProtectedStoreslistIndexRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRouteRouteWithChildren
@@ -272,16 +274,16 @@ export interface FileRoutesByTo {
   '/settings/security': typeof ProtectedSettingsSecurityRoute
   '/settings/sessions': typeof ProtectedSettingsSessionsRoute
   '/settings/team': typeof ProtectedSettingsTeamRoute
-  '/stores/$storeId': typeof ProtectedStoresStoreIdRoute
   '/users/select': typeof ProtectedUsersSelectRoute
   '/docs': typeof ProtectedDocsIndexRoute
   '/playground': typeof ProtectedPlaygroundIndexRoute
   '/sessions': typeof ProtectedSessionsIndexRoute
   '/settings': typeof ProtectedSettingsIndexRoute
-  '/stores': typeof ProtectedStoresIndexRoute
   '/users': typeof ProtectedUsersIndexRoute
   '/vendors': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
+  '/stores/$storeId': typeof ProtectedStoresdetailsStoreIdRoute
+  '/stores': typeof ProtectedStoreslistIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -308,16 +310,16 @@ export interface FileRoutesById {
   '/_protected/settings/security': typeof ProtectedSettingsSecurityRoute
   '/_protected/settings/sessions': typeof ProtectedSettingsSessionsRoute
   '/_protected/settings/team': typeof ProtectedSettingsTeamRoute
-  '/_protected/stores/$storeId': typeof ProtectedStoresStoreIdRoute
   '/_protected/users/select': typeof ProtectedUsersSelectRoute
   '/_protected/docs/': typeof ProtectedDocsIndexRoute
   '/_protected/playground/': typeof ProtectedPlaygroundIndexRoute
   '/_protected/sessions/': typeof ProtectedSessionsIndexRoute
   '/_protected/settings/': typeof ProtectedSettingsIndexRoute
-  '/_protected/stores/': typeof ProtectedStoresIndexRoute
   '/_protected/users/': typeof ProtectedUsersIndexRoute
   '/_protected/vendors/': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
+  '/_protected/stores/(details)/$storeId': typeof ProtectedStoresdetailsStoreIdRoute
+  '/_protected/stores/(list)/': typeof ProtectedStoreslistIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -344,16 +346,16 @@ export interface FileRouteTypes {
     | '/settings/security'
     | '/settings/sessions'
     | '/settings/team'
-    | '/stores/$storeId'
     | '/users/select'
     | '/docs/'
     | '/playground/'
     | '/sessions/'
     | '/settings/'
-    | '/stores/'
     | '/users/'
     | '/vendors/'
     | '/auth/sign-in/'
+    | '/stores/$storeId'
+    | '/stores/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/auth'
@@ -375,16 +377,16 @@ export interface FileRouteTypes {
     | '/settings/security'
     | '/settings/sessions'
     | '/settings/team'
-    | '/stores/$storeId'
     | '/users/select'
     | '/docs'
     | '/playground'
     | '/sessions'
     | '/settings'
-    | '/stores'
     | '/users'
     | '/vendors'
     | '/auth/sign-in'
+    | '/stores/$storeId'
+    | '/stores'
   id:
     | '__root__'
     | '/_protected'
@@ -410,16 +412,16 @@ export interface FileRouteTypes {
     | '/_protected/settings/security'
     | '/_protected/settings/sessions'
     | '/_protected/settings/team'
-    | '/_protected/stores/$storeId'
     | '/_protected/users/select'
     | '/_protected/docs/'
     | '/_protected/playground/'
     | '/_protected/sessions/'
     | '/_protected/settings/'
-    | '/_protected/stores/'
     | '/_protected/users/'
     | '/_protected/vendors/'
     | '/auth/sign-in/'
+    | '/_protected/stores/(details)/$storeId'
+    | '/_protected/stores/(list)/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -520,13 +522,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedUsersIndexRouteImport
       parentRoute: typeof ProtectedRouteRoute
     }
-    '/_protected/stores/': {
-      id: '/_protected/stores/'
-      path: '/stores'
-      fullPath: '/stores/'
-      preLoaderRoute: typeof ProtectedStoresIndexRouteImport
-      parentRoute: typeof ProtectedRouteRoute
-    }
     '/_protected/settings/': {
       id: '/_protected/settings/'
       path: '/'
@@ -560,13 +555,6 @@ declare module '@tanstack/react-router' {
       path: '/users/select'
       fullPath: '/users/select'
       preLoaderRoute: typeof ProtectedUsersSelectRouteImport
-      parentRoute: typeof ProtectedRouteRoute
-    }
-    '/_protected/stores/$storeId': {
-      id: '/_protected/stores/$storeId'
-      path: '/stores/$storeId'
-      fullPath: '/stores/$storeId'
-      preLoaderRoute: typeof ProtectedStoresStoreIdRouteImport
       parentRoute: typeof ProtectedRouteRoute
     }
     '/_protected/settings/team': {
@@ -660,6 +648,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedDocsChangelogRouteImport
       parentRoute: typeof ProtectedDocsRouteRoute
     }
+    '/_protected/stores/(list)/': {
+      id: '/_protected/stores/(list)/'
+      path: '/stores'
+      fullPath: '/stores/'
+      preLoaderRoute: typeof ProtectedStoreslistIndexRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
+    '/_protected/stores/(details)/$storeId': {
+      id: '/_protected/stores/(details)/$storeId'
+      path: '/stores/$storeId'
+      fullPath: '/stores/$storeId'
+      preLoaderRoute: typeof ProtectedStoresdetailsStoreIdRouteImport
+      parentRoute: typeof ProtectedRouteRoute
+    }
   }
 }
 
@@ -736,12 +738,12 @@ interface ProtectedRouteRouteChildren {
   ProtectedFeedbackRoute: typeof ProtectedFeedbackRoute
   ProtectedSupportRoute: typeof ProtectedSupportRoute
   ProtectedIndexRoute: typeof ProtectedIndexRoute
-  ProtectedStoresStoreIdRoute: typeof ProtectedStoresStoreIdRoute
   ProtectedUsersSelectRoute: typeof ProtectedUsersSelectRoute
   ProtectedSessionsIndexRoute: typeof ProtectedSessionsIndexRoute
-  ProtectedStoresIndexRoute: typeof ProtectedStoresIndexRoute
   ProtectedUsersIndexRoute: typeof ProtectedUsersIndexRoute
   ProtectedVendorsIndexRoute: typeof ProtectedVendorsIndexRoute
+  ProtectedStoresdetailsStoreIdRoute: typeof ProtectedStoresdetailsStoreIdRoute
+  ProtectedStoreslistIndexRoute: typeof ProtectedStoreslistIndexRoute
 }
 
 const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
@@ -752,12 +754,12 @@ const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
   ProtectedFeedbackRoute: ProtectedFeedbackRoute,
   ProtectedSupportRoute: ProtectedSupportRoute,
   ProtectedIndexRoute: ProtectedIndexRoute,
-  ProtectedStoresStoreIdRoute: ProtectedStoresStoreIdRoute,
   ProtectedUsersSelectRoute: ProtectedUsersSelectRoute,
   ProtectedSessionsIndexRoute: ProtectedSessionsIndexRoute,
-  ProtectedStoresIndexRoute: ProtectedStoresIndexRoute,
   ProtectedUsersIndexRoute: ProtectedUsersIndexRoute,
   ProtectedVendorsIndexRoute: ProtectedVendorsIndexRoute,
+  ProtectedStoresdetailsStoreIdRoute: ProtectedStoresdetailsStoreIdRoute,
+  ProtectedStoreslistIndexRoute: ProtectedStoreslistIndexRoute,
 }
 
 const ProtectedRouteRouteWithChildren = ProtectedRouteRoute._addFileChildren(

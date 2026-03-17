@@ -1,8 +1,8 @@
 import { type ComponentProps, type FC } from 'react';
 import { Controller, type UseFormReturn } from 'react-hook-form';
-import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
-import { type TCreateStore } from './schemas';
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
+import { Input } from '@/components/ui/input.tsx';
+import { type TCreateStore } from './schemas.tsx';
 import { m } from '@/paraglide/messages';
 import { Textarea } from '@/components/ui/textarea.tsx';
 import { VendorSelectDropdown } from '@/components/vendor-select-dropdown';
@@ -12,6 +12,16 @@ import {
   TagsInputItem,
   TagsInputList
 } from '@/components/ui/tags-input.tsx';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup, DropdownMenuRadioItem,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu.tsx';
+import { Button } from '@/components/ui/button.tsx';
+import { ChevronsUpDownIcon } from 'lucide-react';
+import { AdminUserStatus } from '@/api/generated';
+import { StoreStatusIcon } from '@/components/icons/store-status-icon.tsx';
 
 
 interface IProps extends Omit<ComponentProps<'form'>, 'onSubmit'> {
@@ -42,6 +52,20 @@ export const CreateStoreForm: FC<IProps> = ({ id = 'store-form', form, onSubmit,
             )}
           />
 
+
+          <Controller
+            name="slug"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid} className="col-span-full sm:col-span-3">
+                <FieldLabel>{m['pages.stores.list.sheet.slug']()}</FieldLabel>
+                <Input placeholder="some-slug-for-store" {...field} />
+                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
+              </Field>
+            )}
+          />
+
+
           <Controller
             name="vendorId"
             control={form.control}
@@ -55,13 +79,31 @@ export const CreateStoreForm: FC<IProps> = ({ id = 'store-form', form, onSubmit,
           />
 
           <Controller
-            name="slug"
+            name="status"
             control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid} className="col-span-full">
-                <FieldLabel>{m['pages.stores.list.sheet.slug']()}</FieldLabel>
-                <Input placeholder="some-slug-for-store" {...field} />
-                {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
+            render={({ field }) => (
+              <Field className="col-span-full sm:col-span-3">
+                <FieldLabel>{m['common.status']()}</FieldLabel>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="w-full justify-start">
+                      <StoreStatusIcon status={field.value} className="text-muted-foreground"/>
+                      <span>{m[`common.${field.value}`] ? m[`common.${field.value}`]() : field.value}</span>
+                      <ChevronsUpDownIcon className="h-4 w-4 opacity-50 ml-auto"/>
+                    </Button>
+                  </DropdownMenuTrigger>
+
+                  <DropdownMenuContent>
+                    <DropdownMenuRadioGroup value={field.value} onValueChange={field.onChange}>
+                      {Object.values(AdminUserStatus).map(status => (
+                        <DropdownMenuRadioItem key={status} value={status}>
+                          <StoreStatusIcon status={status} className="text-muted-foreground"/>
+                          <span>{m[`common.${status}`]?.() ?? status}</span>
+                        </DropdownMenuRadioItem>
+                      ))}
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </Field>
             )}
           />
@@ -72,7 +114,7 @@ export const CreateStoreForm: FC<IProps> = ({ id = 'store-form', form, onSubmit,
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid} className="col-span-full">
                 <FieldLabel>
-                  Tags
+                  {m['common.tags']()}
                 </FieldLabel>
 
                 <TagsInput value={field.value} onValueChange={field.onChange} addOnPaste editable>

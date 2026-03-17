@@ -1,12 +1,12 @@
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button.tsx';
 import type { ComponentProps, FC } from 'react';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger
-} from '@/components/ui/tooltip';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { useStoreSheet } from './provider';
+} from '@/components/ui/tooltip.tsx';
+import { useIsMobile } from '@/hooks/use-mobile.ts';
+import { useStoreSheet } from './provider.tsx';
 import { FilePlusIcon, type LucideIcon } from 'lucide-react';
 import { m } from '@/paraglide/messages';
 import type { VariantProps } from 'class-variance-authority';

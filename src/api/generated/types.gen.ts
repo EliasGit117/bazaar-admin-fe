@@ -796,6 +796,10 @@ export type StoreDto = {
      */
     descriptionRu?: string;
     /**
+     * Store tags
+     */
+    tags: Array<string>;
+    /**
      * Vendor identifier
      */
     vendorId: number;
@@ -917,6 +921,10 @@ export type CreateStoreDto = {
      */
     shortDescriptionRu: string;
     /**
+     * Store tags
+     */
+    tags: Array<string>;
+    /**
      * Vendor identifier
      */
     vendorId: number;
@@ -947,6 +955,10 @@ export type UpdateStoreDto = {
      * Short description (RU)
      */
     shortDescriptionRu?: string;
+    /**
+     * Store tags
+     */
+    tags?: Array<string>;
     /**
      * Vendor identifier
      */

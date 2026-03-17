@@ -8,8 +8,8 @@ import {
   EllipsisVerticalIcon,
   HashIcon,
   LinkIcon,
+  PenIcon,
   StoreIcon,
-  Trash2Icon,
   UserCircleIcon
 } from 'lucide-react';
 import { m } from '@/paraglide/messages';
@@ -25,9 +25,9 @@ import {
 } from '@/components/ui/dropdown-menu.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { Checkbox } from '@/components/ui/checkbox.tsx';
-import { Link } from '@tanstack/react-router';
 import type { ComponentPropsWithoutRef, FC } from 'react';
 import { getStoreStatusIcon, StoreStatusIcon } from '@/components/icons/store-status-icon.tsx';
+import { useStoreSheet, StoreSheetMode } from '@/routes/_protected/stores/(list)/-components/store-sheet/provider.tsx';
 
 
 const columnHelper = createColumnHelper<StoreBriefDto>();
@@ -35,13 +35,13 @@ const columnHelper = createColumnHelper<StoreBriefDto>();
 interface IOptions {
   disabled?: boolean;
   canGet?: boolean;
-  canDelete?: boolean;
+  canEdit?: boolean;
 }
 
 export const storeColumns = (options?: IOptions) => {
   'use no memo';
 
-  const { disabled, canDelete, canGet } = options ?? {};
+  const { disabled, canEdit } = options ?? {};
 
   const statusTitle: Record<StoreStatus, string> = {
     [StoreStatus.ACTIVE]: m['common.active'](),
@@ -241,14 +241,7 @@ export const storeColumns = (options?: IOptions) => {
 
               <DropdownMenuSeparator/>
 
-              {canGet && <DetailsMenuItem storeId={row.original.id} disabled={disabled}/>}
-
-              {canDelete && (
-                <DropdownMenuItem disabled={disabled} variant="destructive">
-                  <Trash2Icon className="mr-2 size-4"/>
-                  <span>{m['common.delete']()}</span>
-                </DropdownMenuItem>
-              )}
+              {canEdit && <EditMenuItem storeId={row.original.id} disabled={disabled}/>}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -257,15 +250,19 @@ export const storeColumns = (options?: IOptions) => {
   ];
 };
 
-interface IDetailsMenuItem extends ComponentPropsWithoutRef<typeof DropdownMenuItem> {
+
+
+interface IEditMenuItem extends ComponentPropsWithoutRef<typeof DropdownMenuItem> {
   storeId: number;
 }
 
-const DetailsMenuItem: FC<IDetailsMenuItem> = ({ storeId, ...props }) => (
-  <DropdownMenuItem {...props} asChild>
-    <Link to="/stores/$storeId" params={{ storeId: storeId }}>
-      <StoreIcon className="mr-2 size-4"/>
-      <span>{m['common.details']()}</span>
-    </Link>
-  </DropdownMenuItem>
-);
+const EditMenuItem: FC<IEditMenuItem> = ({ storeId, ...props }) => {
+  const { open } = useStoreSheet();
+
+  return (
+    <DropdownMenuItem {...props} onClick={() => open({ mode: StoreSheetMode.Update, storeId })}>
+      <PenIcon className="mr-2 size-4"/>
+      <span>{m['common.edit']()}</span>
+    </DropdownMenuItem>
+  );
+};

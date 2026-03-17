@@ -6,15 +6,15 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip.tsx';
 import { useIsMobile } from '@/hooks/use-mobile.ts';
-import { useStoreSheet } from './provider.tsx';
+import { useStoreSheet, type TStoreSheetOptions } from './provider.tsx';
 import { FilePlusIcon, type LucideIcon } from 'lucide-react';
 import { m } from '@/paraglide/messages';
 import type { VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 
-interface IProps
-  extends Omit<ComponentProps<typeof Button>, 'onClick'> {
+interface IProps extends Omit<ComponentProps<typeof Button>, 'onClick'> {
+  options: TStoreSheetOptions;
   text?: string;
   icon?: LucideIcon;
   tooltipAlign?: 'center' | 'end' | 'start';
@@ -33,7 +33,7 @@ const sizeClassNames: Record<NonNullable<VariantProps<typeof buttonVariants>['si
   dense: ''
 };
 
-export const CreateStoreSheetTrigger: FC<IProps> = (props) => {
+export const StoreSheetTrigger: FC<IProps> = (props) => {
   const {
     children,
     asChild,
@@ -43,6 +43,7 @@ export const CreateStoreSheetTrigger: FC<IProps> = (props) => {
     className,
     tooltipSide,
     tooltipAlign,
+    options,
     ...btnProps
   } = props;
 
@@ -52,7 +53,7 @@ export const CreateStoreSheetTrigger: FC<IProps> = (props) => {
   const button = (
     <Button
       size={size}
-      onClick={open}
+      onClick={() => open(options)}
       asChild={asChild}
       className={cn(sizeClassNames[size ?? 'default'], 'sm:w-fit', className)}
       {...btnProps}

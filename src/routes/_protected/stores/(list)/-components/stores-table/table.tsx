@@ -17,9 +17,10 @@ import { FileDownIcon, RefreshCwIcon } from 'lucide-react';
 import { m } from '@/paraglide/messages';
 import {
   CreateStoreSheetProvider,
-  CreateStoreSheetTrigger
-} from '@/routes/_protected/stores/(list)/-components/create-store-sheet';
-import { CreateStoreSheet } from '@/routes/_protected/stores/(list)/-components/create-store-sheet/sheet.tsx';
+  StoreSheetTrigger,
+  StoreSheetMode
+} from '@/routes/_protected/stores/(list)/-components/store-sheet';
+import { StoreSheet } from '@/routes/_protected/stores/(list)/-components/store-sheet/sheet.tsx';
 import { useHasPermissions } from '@/hooks/use-has-permissions.ts';
 import { ActionBarButton } from '@/components/data-table/action-bar.tsx';
 
@@ -33,8 +34,7 @@ export const StoresTable: FC<IProps> = ({ className, search = {}, ...divProps })
 
   const permissions = useHasPermissions({
     canCreate: { stores: 'create' },
-    canGet: { stores: 'get' },
-    canDelete: { stores: 'delete' }
+    canEdit: { stores: 'update' },
   });
 
   const { data, isPending, isFetching, refetch } = useQuery({
@@ -45,9 +45,8 @@ export const StoresTable: FC<IProps> = ({ className, search = {}, ...divProps })
 
   const columns = useMemo(() => storeColumns({
     disabled: isFetching,
-    canGet: permissions.canGet,
-    canDelete: permissions.canDelete
-  }), [isFetching, permissions.canDelete, permissions.canGet]);
+    canEdit: permissions.canEdit,
+  }), [isFetching, permissions.canEdit]);
 
   const { table, selectedItems, setRowSelection } = useDataTable({
     data: data?.items,
@@ -63,6 +62,7 @@ export const StoresTable: FC<IProps> = ({ className, search = {}, ...divProps })
         createdAt: false,
         updatedAt: false
       } satisfies Partial<Record<keyof StoreDto, boolean>>,
+
       columnPinning: {
         left: ['select'],
         right: ['actions']
@@ -85,7 +85,7 @@ export const StoresTable: FC<IProps> = ({ className, search = {}, ...divProps })
           <DataTableToolbar>
             <div className="ml-auto flex items-center gap-1">
               {permissions.canCreate && (
-                <CreateStoreSheetTrigger size="sm" variant="ghost" tooltipSide="bottom"/>
+                <StoreSheetTrigger size="sm" variant="ghost" tooltipSide="bottom" options={{ mode: StoreSheetMode.Create }}/>
               )}
 
               <AdaptiveButton
@@ -107,7 +107,7 @@ export const StoresTable: FC<IProps> = ({ className, search = {}, ...divProps })
         </DataTableProvider>
       </div>
 
-      <CreateStoreSheet/>
+      <StoreSheet onSuccess={() => refetch()}/>
     </CreateStoreSheetProvider>
   );
 };

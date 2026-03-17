@@ -182,8 +182,10 @@
       "list": {
         "sheet": {
           "slug": "Slug",
-          "create_store_tilte": "Create new store",
+          "create_store_title": "Create new store",
           "create_store_description": "Fill all fields to create new store in the system",
+          "edit_store_title": "Edit store",
+          "edit_store_description": "Fill all fields to edit existing store",
           "store_name": "Store name",
           "short_description": "Short description",
           "add_tag": "Add tag"

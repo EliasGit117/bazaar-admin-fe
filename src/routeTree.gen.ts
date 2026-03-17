@@ -41,7 +41,6 @@ import { Route as ProtectedDocsIntroductionRouteImport } from './routes/_protect
 import { Route as ProtectedDocsGetStartedRouteImport } from './routes/_protected/docs/get-started'
 import { Route as ProtectedDocsChangelogRouteImport } from './routes/_protected/docs/changelog'
 import { Route as ProtectedStoreslistIndexRouteImport } from './routes/_protected/stores/(list)/index'
-import { Route as ProtectedStoresdetailsStoreIdRouteImport } from './routes/_protected/stores/(details)/$storeId'
 
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/auth',
@@ -213,12 +212,6 @@ const ProtectedStoreslistIndexRoute =
     path: '/stores/',
     getParentRoute: () => ProtectedRouteRoute,
   } as any)
-const ProtectedStoresdetailsStoreIdRoute =
-  ProtectedStoresdetailsStoreIdRouteImport.update({
-    id: '/stores/(details)/$storeId',
-    path: '/stores/$storeId',
-    getParentRoute: () => ProtectedRouteRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof ProtectedIndexRoute
@@ -251,7 +244,6 @@ export interface FileRoutesByFullPath {
   '/users/': typeof ProtectedUsersIndexRoute
   '/vendors/': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
-  '/stores/$storeId': typeof ProtectedStoresdetailsStoreIdRoute
   '/stores/': typeof ProtectedStoreslistIndexRoute
 }
 export interface FileRoutesByTo {
@@ -282,7 +274,6 @@ export interface FileRoutesByTo {
   '/users': typeof ProtectedUsersIndexRoute
   '/vendors': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in': typeof AuthSignInIndexRoute
-  '/stores/$storeId': typeof ProtectedStoresdetailsStoreIdRoute
   '/stores': typeof ProtectedStoreslistIndexRoute
 }
 export interface FileRoutesById {
@@ -318,7 +309,6 @@ export interface FileRoutesById {
   '/_protected/users/': typeof ProtectedUsersIndexRoute
   '/_protected/vendors/': typeof ProtectedVendorsIndexRoute
   '/auth/sign-in/': typeof AuthSignInIndexRoute
-  '/_protected/stores/(details)/$storeId': typeof ProtectedStoresdetailsStoreIdRoute
   '/_protected/stores/(list)/': typeof ProtectedStoreslistIndexRoute
 }
 export interface FileRouteTypes {
@@ -354,7 +344,6 @@ export interface FileRouteTypes {
     | '/users/'
     | '/vendors/'
     | '/auth/sign-in/'
-    | '/stores/$storeId'
     | '/stores/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -385,7 +374,6 @@ export interface FileRouteTypes {
     | '/users'
     | '/vendors'
     | '/auth/sign-in'
-    | '/stores/$storeId'
     | '/stores'
   id:
     | '__root__'
@@ -420,7 +408,6 @@ export interface FileRouteTypes {
     | '/_protected/users/'
     | '/_protected/vendors/'
     | '/auth/sign-in/'
-    | '/_protected/stores/(details)/$storeId'
     | '/_protected/stores/(list)/'
   fileRoutesById: FileRoutesById
 }
@@ -655,13 +642,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedStoreslistIndexRouteImport
       parentRoute: typeof ProtectedRouteRoute
     }
-    '/_protected/stores/(details)/$storeId': {
-      id: '/_protected/stores/(details)/$storeId'
-      path: '/stores/$storeId'
-      fullPath: '/stores/$storeId'
-      preLoaderRoute: typeof ProtectedStoresdetailsStoreIdRouteImport
-      parentRoute: typeof ProtectedRouteRoute
-    }
   }
 }
 
@@ -742,7 +722,6 @@ interface ProtectedRouteRouteChildren {
   ProtectedSessionsIndexRoute: typeof ProtectedSessionsIndexRoute
   ProtectedUsersIndexRoute: typeof ProtectedUsersIndexRoute
   ProtectedVendorsIndexRoute: typeof ProtectedVendorsIndexRoute
-  ProtectedStoresdetailsStoreIdRoute: typeof ProtectedStoresdetailsStoreIdRoute
   ProtectedStoreslistIndexRoute: typeof ProtectedStoreslistIndexRoute
 }
 
@@ -758,7 +737,6 @@ const ProtectedRouteRouteChildren: ProtectedRouteRouteChildren = {
   ProtectedSessionsIndexRoute: ProtectedSessionsIndexRoute,
   ProtectedUsersIndexRoute: ProtectedUsersIndexRoute,
   ProtectedVendorsIndexRoute: ProtectedVendorsIndexRoute,
-  ProtectedStoresdetailsStoreIdRoute: ProtectedStoresdetailsStoreIdRoute,
   ProtectedStoreslistIndexRoute: ProtectedStoreslistIndexRoute,
 }
 

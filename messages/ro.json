@@ -185,6 +185,8 @@
           "slug": "Slug",
           "create_store_title": "Creează magazin nou",
           "create_store_description": "Completează toate câmpurile pentru a crea un magazin nou în sistem",
+          "edit_store_title": "Editează magazinul",
+          "edit_store_description": "Completează toate câmpurile pentru a edita magazinul existent",
           "store_name": "Denumirea magazinului",
           "short_description": "Descriere scurtă",
           "add_tag": "Adaugă tag"

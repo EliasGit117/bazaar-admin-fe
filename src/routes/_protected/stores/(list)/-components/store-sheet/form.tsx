@@ -2,6 +2,7 @@ import { type ComponentProps, type FC } from 'react';
 import { Controller, type UseFormReturn } from 'react-hook-form';
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field.tsx';
 import { Input } from '@/components/ui/input.tsx';
+import { Skeleton } from '@/components/ui/skeleton.tsx';
 import { type TCreateStore } from './schemas.tsx';
 import { m } from '@/paraglide/messages';
 import { Textarea } from '@/components/ui/textarea.tsx';
@@ -33,7 +34,14 @@ interface IProps extends Omit<ComponentProps<'form'>, 'onSubmit'> {
 }
 
 
-export const CreateStoreForm: FC<IProps> = ({ id = 'store-form', form, onSubmit, disabled, ...props }) => {
+export const StoreForm: FC<IProps> = ({ id = 'store-form', form, onSubmit, disabled, loading, ...props }) => {
+
+  if (loading)
+    return (
+      <form id={id} {...props}>
+        <LoadingSkeleton/>
+      </form>
+    );
 
   return (
     <form id={id} onSubmit={form.handleSubmit(onSubmit)} {...props}>
@@ -120,7 +128,7 @@ export const CreateStoreForm: FC<IProps> = ({ id = 'store-form', form, onSubmit,
                 <TagsInput value={field.value} onValueChange={field.onChange} addOnPaste editable>
                   <TagsInputList>
                     {field.value?.map((trick) => (
-                      <TagsInputItem key={trick} value={trick}>
+                      <TagsInputItem key={trick} value={trick} disabled={disabled}>
                         {trick}
                       </TagsInputItem>
                     ))}
@@ -173,3 +181,56 @@ export const CreateStoreForm: FC<IProps> = ({ id = 'store-form', form, onSubmit,
     </form>
   );
 };
+
+
+const LoadingSkeleton: FC = () => (
+  <div className="grid grid-cols-6 gap-4">
+    {/* name */}
+    <div className="col-span-full sm:col-span-3">
+      <Skeleton className="mb-2 h-4 w-24"/>
+      <Skeleton className="h-10 w-full"/>
+    </div>
+
+    {/* slug */}
+    <div className="col-span-full sm:col-span-3">
+      <Skeleton className="mb-2 h-4 w-24"/>
+      <Skeleton className="h-10 w-full"/>
+    </div>
+
+    {/* vendorId */}
+    <div className="col-span-full sm:col-span-3">
+      <Skeleton className="mb-2 h-4 w-24"/>
+      <Skeleton className="h-10 w-full"/>
+    </div>
+
+    {/* status */}
+    <div className="col-span-full sm:col-span-3">
+      <Skeleton className="mb-2 h-4 w-24"/>
+      <Skeleton className="h-10 w-full"/>
+    </div>
+
+    {/* tags */}
+    <div className="col-span-full">
+      <Skeleton className="mb-2 h-4 w-16"/>
+      <Skeleton className="h-11 w-full"/>
+    </div>
+
+    {/* shortDescriptionEn */}
+    <div className="col-span-full">
+      <Skeleton className="mb-2 h-4 w-40"/>
+      <Skeleton className="h-32 w-full"/>
+    </div>
+
+    {/* shortDescriptionRo */}
+    <div className="col-span-full">
+      <Skeleton className="mb-2 h-4 w-40"/>
+      <Skeleton className="h-32 w-full"/>
+    </div>
+
+    {/* shortDescriptionRu */}
+    <div className="col-span-full">
+      <Skeleton className="mb-2 h-4 w-40"/>
+      <Skeleton className="h-32 w-full"/>
+    </div>
+  </div>
+);

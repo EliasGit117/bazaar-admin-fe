@@ -27,7 +27,7 @@ export const AuthLayout: FC<PropsWithChildren<ComponentProps<'div'>>> = ({ class
 
           <div className="flex-1"/>
 
-          <LocaleDropdown variant="ghost" align="end"/>
+          <LocaleDropdown size='sm' variant='ghost' align="end"/>
           <ThemeDropdown size="icon-sm" variant="ghost" align="end"/>
         </div>
 

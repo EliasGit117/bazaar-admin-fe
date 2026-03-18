@@ -16,29 +16,48 @@ import { cn } from '@/lib/utils';
 import { ChevronsUpDownIcon, LanguagesIcon } from 'lucide-react';
 
 
+type TButtonSize = NonNullable<VariantProps<typeof buttonVariants>['size']>;
+type TButtonValidSize = Extract<TButtonSize, 'lg' | 'default' | 'sm' | 'xs'>
+
 interface IProps extends ComponentProps<typeof DropdownMenuTrigger> {
   variant?: VariantProps<typeof buttonVariants>['variant'];
+  size?: TButtonValidSize;
   align?: 'start' | 'center' | 'end';
-  mode?: 'adaptive' | 'icon';
+  mode?: 'icon' | 'adaptive';
 }
 
 const localeOptions: { value: Locale; title: string; }[] = [
   { value: 'en', title: 'English' },
   { value: 'ro', title: 'Romana' },
-  { value: 'ru', title: 'Русский' },
+  { value: 'ru', title: 'Русский' }
 ];
 
-export const LocaleDropdown: FC<IProps> = ({ mode = 'adaptive', variant, align, className, ...props }) => {
+const sizeClassNames: Record<TButtonValidSize, string> = {
+  default: 'w-9',
+  lg: 'w-10',
+  sm: 'w-8',
+  xs: 'w-6'
+};
+
+export const LocaleDropdown: FC<IProps> = (props) => {
+  const {
+    size = 'default',
+    mode = 'adaptive',
+    variant,
+    align,
+    className,
+    ...btnProps
+  } = props;
   const locale = getLocale();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
+          size={size}
           variant={variant}
-          size='sm'
-          className={cn(mode === 'icon' ? 'w-8' : 'w-8 sm:w-fit')}
-          {...props}
+          className={cn(mode === 'icon' ? sizeClassNames[size] : [sizeClassNames[size], 'sm:w-fit'])}
+          {...btnProps}
         >
           <span className={cn('uppercase', mode === 'adaptive' && 'sm:hidden')}>
             {locale}
